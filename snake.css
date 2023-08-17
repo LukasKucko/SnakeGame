@@ -121,13 +121,13 @@ body{
 
 
 #introduction{
-   position: absolute;
+   position: relative;
    display: flex;
    justify-content: center;
    align-items: center;
    font-size: 30px;
-   top: 9vh;
-   left: 6.3vw;
+   top: 15px;
+   margin: 0 auto;
    width: 320px;
    height: 320px;
    background-image: linear-gradient( 135deg, #3B2667 10%, #BC78EC 100%);
@@ -139,11 +139,11 @@ body{
 #snakeMenu{
    position: relative;
    display: block;
-   top: -8.9vh;
-   left: 0;
+   top: -63.5px;
+   margin: 0 auto;
    width: 320px;
    height: 100px;
-   z-index: 9999;
+   z-index: 9998;
 }
 
 #menu{
@@ -155,7 +155,7 @@ body{
    top: 18vh;
    left: 6.3vw;
    width: 320px;
-   height: 255.8px;
+   height: 256px;
    z-index: 9999;
    background-color: #d5dfff
    }
@@ -169,9 +169,10 @@ body{
     top: 20px;
     left: 10px;
     width: 300px;
-    height: 40px;
+    height: 102px;
     line-height: 2px;
-    font-size: 15px;
+    font-size: 12px;
+    z-index: 9998;
 }
 
 #highestScoreTable{
@@ -207,43 +208,46 @@ body{
 #playground{
     position: relative;
     display: block;
-    top: 2vh;      
-    margin: auto;
+    top: -307px;      
+    margin: 0 auto;
     background-color: #f1f1f1; 
     border: 1px solid #000;
+    z-index: 8888;
 }
 
 
 #controls{
-    position: relative;
+    position: absolute;
     display: block;
-    top: 8vh;
-    left: 2.5vw;
-    width: 90vw;   
-    height: 34vh;
+    top: 55vh;
+    left: 1vw;
+    width: 360px;   
+    height: 270px;
     background-color: transparent;
     z-index: 0;
 }
 
 #start{
-    position: absolute;
+    position: relative;
     display: flex; 
     justify-content: space-around; 
     width: 60px;
     height: 60px;
     left: 5%;
+    top: 3px;
     border: 4px solid #000;
     cursor: pointer;
     border-radius: 20px;
 }
 
 #pause{
-    position: absolute;
+    position: relative;
     display: flex; 
     justify-content: space-around; 
     width: 60px;
     height: 60px;
     left: 78%;
+    top: -65px;
     border: 4px solid #000;
     cursor: pointer;
     border-radius: 20px;
@@ -252,15 +256,15 @@ body{
 
 
 #control-up{
-    position: absolute;
+    position: relative;
     display: flex;
     justify-content: space-around;
-    top: 10.5%;
+    top: -133px;
     left: 36%;
-    width: 25%;
-    height: 28%;
+    width: 85px;
+    height: 85px;
     cursor: pointer;
-    background: url("/storage/emulated/0/Snake/up.png");
+    background: url("images/up.png");
     background-repeat: no-repeat;
     background-position: center;
     border: 2px solid #2d365a;
@@ -270,15 +274,15 @@ body{
 
 
 #control-down{
-    position: absolute;
+    position: relative;
     display: flex;
     justify-content: space-around;
-    top: 68.7%;
+    top: -45px;
     left: 36%;
-    width: 25%;
-    height: 28%;
+    width: 85px;
+    height: 85px;
     cursor: pointer;
-    background: url("/storage/emulated/0/Snake/down.png");
+    background: url("images/down.png");
     background-repeat: no-repeat;
     background-position: center;
     border: 2px solid #2d365a;
@@ -288,15 +292,15 @@ body{
 
 
 #control-left{
-    position: absolute;
+    position: relative;
     display: flex;
     justify-content: space-around;
-    top: 39%;
-    left: 11%;
-    width: 25%;
-    height: 28%;
+    top: -223px;
+    left: 44.5px;
+    width: 85px;
+    height: 85px;
     cursor: pointer;
-    background: url("/storage/emulated/0/Snake/left.png");
+    background: url("images/left.png");
     background-repeat: no-repeat;
     background-position: center;
     border: 2px solid #2d365a;
@@ -306,15 +310,15 @@ body{
 
 
 #control-right{
-    position: absolute;
+    position: relative;
     display: flex;
     justify-content: space-around;
-    top: 39%;
-    left: 62.2%;
-    width: 25%;
-    height: 28%;
+    top: -315.7px;
+    left: 218.5px;
+    width: 85px;
+    height: 85px;
     cursor: pointer;
-    background: url("/storage/emulated/0/Snake/right.png");
+    background: url("images/right.png");
     background-repeat: no-repeat;
     background-position: center;
     border: 2px solid #2d365a;
