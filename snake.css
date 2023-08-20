@@ -28,11 +28,13 @@ body{
 
 #header-layout{
     position: relative;
-    display: block;   
-    top: 0.5vh;
-    left: 10vw;
-    height: 7vh;
-    width: 80vw;
+    display: grid;
+    grid-template-columns: 40% 1fr 45%;
+    grid-template-rows: 1fr 1fr;
+    top: 1%;
+    left: 10%;
+    height: 7%;
+    width: 80%;
     color: #000;
     font-size: 30px;
     font-weight: 700;
@@ -41,46 +43,35 @@ body{
 #highScoreText{
     position: relative;
     display: block;
-    top: 0;
-    left: 5vw;
-    width: 35vw;
+    width: 100%;
     font-size: 16px;
 }
 
 #highScoreValue{
     position: relative;
     display: block;
-    top: -4.7vw;
-    left: 35vw;
-    width: 4vw;
+    width: 100%;
     font-size: 16px;
 }
 
 #gamerName{
     position: relative;
-    display: block;
-    top: -9.4vw;
-    left: 50vw;
-    width: 7vw;
+    display: block;    
+    width: 100%;
     font-size: 16px;
 }
 
 #scoreText{
     position: relative;
     display: block;
-    top: -9.4vw;
-    left: 12.5vw;
-    width: 15vw;
-    font-size: 16px;
-    text-align: center;
+    width: 100%;
+    font-size: 16px;    
 }
 
 #scoreValue{
     position: relative;
     display: block;
-    top: -7.6vh;
-    left: 35vw;
-    width: 7vw;
+    width: 100%;
     font-size: 16px;
 }
 
@@ -126,53 +117,55 @@ body{
    justify-content: center;
    align-items: center;
    font-size: 30px;
-   top: 15px;
+   top: 2%;
    margin: 0 auto;
-   width: 320px;
-   height: 320px;
+   width: 86.2%;
+   height: 45.7%;
    background-image: linear-gradient( 135deg, #3B2667 10%, #BC78EC 100%);
    color: #bab29b;
    border: 1px solid #000;
    z-index: 10000;   
 }
 
-#snakeMenu{
-   position: relative;
-   display: block;
-   top: -63.5px;
-   margin: 0 auto;
-   width: 320px;
-   height: 100px;
-   z-index: 9998;
-}
+
 
 #menu{
-   position: absolute;
+   position: relative;
    display: block;
    justify-content: center;
    align-items: center;
    font-size: 30px;
-   top: 18vh;
-   left: 6.3vw;
-   width: 320px;
-   height: 256px;
+   top: -44%; 
+   width: 86.7%;
+   margin: auto;
+   height: 45.8%;
    z-index: 9999;
-   background-color: #d5dfff
-   }
+   background-color: #d5dfff;
+   border: 1px solid black;
+}
 
+#snakeMenu{
+   position: relative;
+   display: block;
+   top: 0;
+   margin: 0 auto;
+   width: 100%;
+   height: 30%;
+   z-index: 9999;
+}
 
 #scoreTable{
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    top: 20px;
-    left: 10px;
-    width: 300px;
-    height: 102px;
+    top: 0;
+    width: 80%;
+    margin: 0 auto;
+    height: 60%;
     line-height: 2px;
     font-size: 12px;
-    z-index: 9998;
+    z-index: 9999;
 }
 
 #highestScoreTable{
@@ -207,22 +200,23 @@ body{
 
 #playground{
     position: relative;
-    display: block;
-    top: -307px;      
+    display: none;
+    top: -43.9%;
+    width: 87%;
     margin: 0 auto;
     background-color: #f1f1f1; 
-    border: 1px solid #000;
-    z-index: 8888;
+    border: 1px solid black;
+    z-index: 9999;
 }
 
 
 #controls{
-    position: absolute;
+    position: relative;
     display: block;
-    top: 55vh;
-    left: 1vw;
-    width: 360px;   
-    height: 270px;
+    top: -40%;
+    margin: 0 auto;
+    width: 90%;   
+    height: 40%;
     background-color: transparent;
     z-index: 0;
 }
@@ -259,10 +253,10 @@ body{
     position: relative;
     display: flex;
     justify-content: space-around;
-    top: -133px;
-    left: 36%;
-    width: 85px;
-    height: 85px;
+    top: -46%;
+    left: 34%;
+    width: 30%;
+    height: 30%;
     cursor: pointer;
     background: url("images/up.png");
     background-repeat: no-repeat;
@@ -277,10 +271,10 @@ body{
     position: relative;
     display: flex;
     justify-content: space-around;
-    top: -45px;
-    left: 36%;
-    width: 85px;
-    height: 85px;
+    top: -15.1%;
+    left: 34%;
+    width: 30%;
+    height: 30%;
     cursor: pointer;
     background: url("images/down.png");
     background-repeat: no-repeat;
@@ -295,10 +289,10 @@ body{
     position: relative;
     display: flex;
     justify-content: space-around;
-    top: -223px;
-    left: 44.5px;
-    width: 85px;
-    height: 85px;
+    top: -78%;
+    left: 4%;
+    width: 30%;
+    height: 30%;
     cursor: pointer;
     background: url("images/left.png");
     background-repeat: no-repeat;
@@ -313,10 +307,10 @@ body{
     position: relative;
     display: flex;
     justify-content: space-around;
-    top: -315.7px;
-    left: 218.5px;
-    width: 85px;
-    height: 85px;
+    top: -110.7%;
+    left: 65.2%;
+    width: 30%;
+    height: 30%;
     cursor: pointer;
     background: url("images/right.png");
     background-repeat: no-repeat;
