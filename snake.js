@@ -1,4 +1,6 @@
-// QUERY SELECTORS + VARIABLES
+ 
+ 
+ // QUERY SELECTORS + VARIABLES
 
 
   
@@ -6,27 +8,26 @@
  let pause = document.querySelector("#pause")
  let score = document.querySelector("#scoreValue")
  let highScore = document.querySelector("#highScoreValue")
- 
  let cherry = document.querySelector("#cherry")
  let snakeHeadRight = document.querySelector("#snakeHeadRight")
  let snakeHeadUp = document.querySelector("#snakeHeadUp")
  let snakeHeadLeft = document.querySelector("#snakeHeadLeft")
  let snakeHeadDown = document.querySelector("#snakeHeadDown")
-
  let goUp = document.querySelector("#control-up")
  let goRight = document.querySelector("#control-right")
  let goDown = document.querySelector("#control-down")
  let goLeft = document.querySelector("#control-left")
- const gameBoard = document.querySelector("#playground")
-  const ctx  = gameBoard.getContext("2d")
+ const canvas = document.querySelector("#playground")
+  const ctx  = canvas.getContext("2d")
  let introduction = document.querySelector("#introduction")
  let menu = document.querySelector("#menu")
-  
- let paused = false
+ let aspectRatio = 1
+ canvas.height = canvas.width * aspectRatio
  let snakeDirection 
  let block = 20
- let area = gameBoard.width/block
+ let area = canvas.width / block
  let position, velocity, food, snake
+ pause = false
  let scoreNumber = 0
  
  
@@ -36,8 +37,7 @@ highScore.textContent = localStorage.highScoreKey
  
  
 
- setTimeout("introduction.style.display= 'none';",5000)
- 
+ setTimeout("introduction.style.display= 'flex';",4000)
  
   
  
@@ -54,21 +54,27 @@ highScore.textContent = localStorage.highScoreKey
                {x: 9, y: 10},
                {x: 10, y: 10} ]  
      snakeDirection = snakeHeadRight
+     
      }
    
-     init()          
-          
+              
+   init()       
            
  function randomFood(){
      food = {
-       x: Math.floor(Math.random() * area),
-       y: Math.floor(Math.random() * area)
+       x: Math.floor(Math.random() * (area-1)),
+       y: Math.floor(Math.random() * (area-1))
        }
-         
+       if(food.x === 0 || food.y ===0){
+         return  randomFood()
+       }
+     
+     
+     
          
      for(let cell of snake){
-       if(cell.x == food.x && food.y == cell.y){
-           randomFood()
+       if(cell.x === food.x && food.y === cell.y){
+          return randomFood()
          }
        }
      }
@@ -101,13 +107,22 @@ highScore.textContent = localStorage.highScoreKey
   
  
  function startGame(){
+    init()
     gameLoop()
+    
     menu.style.display = "none"
-    velocity = {x: 1, y: 0}
+    canvas.style.display = "block"
+    
     snakeDirection = snakeHeadRight 
     }
  
- 
+ function pauseGame(){
+     if(!pause){
+         gameLoop()
+     } else {
+         
+     }
+ }
  
  
  
@@ -115,16 +130,19 @@ highScore.textContent = localStorage.highScoreKey
  
  
  
-  setInterval(()=>{
+let playGame = setInterval(()=>{
     requestAnimationFrame(gameLoop)
     },1000/4) 
-  
+   
    function gameLoop(){
+   
+   
+   
    
        
 //  GAMEBOARD     
     ctx.fillStyle = "#ffdfd5"
-ctx.fillRect(0,0,gameBoard.offsetWidth,gameBoard.offsetHeight)
+ctx.fillRect(0,0,canvas.offsetWidth,canvas.offsetHeight)
 
  
 //  SNAKE BODY  
@@ -154,15 +172,18 @@ ctx.drawImage(snakeDirection,snake[snake.length-1].x*block,snake[snake.length-1]
   
  function snakeOver(){
      if(snake[snake.length-1].x < 0 || snake[snake.length-1].x === area || snake[snake.length-1].y < 0 || snake[snake.length-1].y === area){
-     
+         
          if(scoreNumber > localStorage.getItem("highScoreKey",scoreNumber)){
                  localStorage.setItem("highScoreKey",scoreNumber)
 highScore.textContent = localStorage.highScoreKey
-         }         
+         } 
+               
          scoreNumber = 0
          score.textContent = scoreNumber         
-         init()
+         startGame()
+         canvas.style.display = "none"
          menu.style.display = "block"
+         
          }
        }
 
@@ -190,11 +211,13 @@ highScore.textContent = localStorage.highScoreKey
     }
       for(let cell of snake){
        if(cell.x === position.x && cell.y === position.y){ 
-        
+          
           scoreNumber = 0
           score.textContent = scoreNumber              
-          return init(),
+          
           menu.style.display = "block"
+          canvas.style.display = "none"
+          startGame()
           }
         }
      snake.push({...position})
@@ -208,9 +231,3 @@ highScore.textContent = localStorage.highScoreKey
      moveSnake()
      snakeOver()
   }
- 
- 
-
-
-
-
