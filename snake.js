@@ -1,6 +1,4 @@
- 
- 
- // QUERY SELECTORS + VARIABLES
+// QUERY SELECTORS + VARIABLES
 
 
   
@@ -22,12 +20,12 @@
  let introduction = document.querySelector("#introduction")
  let menu = document.querySelector("#menu")
  let aspectRatio = 1
- canvas.height = canvas.width * aspectRatio
- let snakeDirection 
+ canvas.height = canvas.width * aspectRatio 
  let block = 20
  let area = canvas.width / block
  let position, velocity, food, snake
- pause = false
+ let snakeTail, snakeDirection, playGame
+ let paused = false
  let scoreNumber = 0
  
  
@@ -52,7 +50,9 @@ highScore.textContent = localStorage.highScoreKey
      velocity = {x: 0, y:0}
      snake = [ {x: 8,  y: 10},
                {x: 9, y: 10},
-               {x: 10, y: 10} ]  
+               {x: 10, y: 10}
+               ]  
+     snakeTail = snake[0]
      snakeDirection = snakeHeadRight
      
      }
@@ -65,18 +65,20 @@ highScore.textContent = localStorage.highScoreKey
        x: Math.floor(Math.random() * (area-1)),
        y: Math.floor(Math.random() * (area-1))
        }
-       if(food.x === 0 || food.y ===0){
-         return  randomFood()
+       if(food.x === snake[snake.length-1].x && food.y === snake[snake.length-1].y){
+         return randomFood()
        }
-     
-     
-     
-         
-     for(let cell of snake){
-       if(cell.x === food.x && food.y === cell.y){
-          return randomFood()
+       
+       
+      
+ 
+ 
+ 
+       for(let cell of snake){
+          if(cell.x === food.x && food.y === cell.y){
+             return randomFood()
+            }
          }
-       }
      }
      randomFood() 
  
@@ -108,53 +110,49 @@ highScore.textContent = localStorage.highScoreKey
  
  function startGame(){
     init()
-    gameLoop()
-    
+    gameLoop()    
     menu.style.display = "none"
-    canvas.style.display = "block"
-    
+    canvas.style.display = "block"   
     snakeDirection = snakeHeadRight 
     }
  
- function pauseGame(){
-     if(!pause){
-         gameLoop()
-     } else {
-         
-     }
+//  FUNCTION GAME PAUSE 
+ 
+function pauseGame(){
+   if(paused == false){
+       paused = true
+     } else if(paused == true){
+                 paused = false       
+   }
  }
  
  
- 
  //  MAIN FUNCTION
- 
- 
- 
-let playGame = setInterval(()=>{
-    requestAnimationFrame(gameLoop)
+  
+ playGame = setInterval(()=>{
+   if(!paused) {
+      requestAnimationFrame(gameLoop)
+      }
     },1000/4) 
-   
+     
    function gameLoop(){
-   
-   
-   
-   
+      
        
 //  GAMEBOARD     
-    ctx.fillStyle = "#ffdfd5"
+    ctx.fillStyle = "#D3D3D3"
 ctx.fillRect(0,0,canvas.offsetWidth,canvas.offsetHeight)
 
  
 //  SNAKE BODY  
     
    for(let cell of snake){  
-         ctx.fillStyle =  "#5ca251"        
+         ctx.fillStyle =  "green"       
          ctx.fillRect(cell.x * block,cell.y * block,block,block)         
        }   
  
 // SNAKE HEAD
  
- ctx.fillStyle = "#ffdfd5"  
+ ctx.fillStyle = "#D3D3D3"  
 ctx.fillRect(snake[snake.length-1].x*block,snake[snake.length-1].y*block,block,block)
 
 ctx.drawImage(snakeDirection,snake[snake.length-1].x*block,snake[snake.length-1].y*block,block,block)
@@ -191,9 +189,8 @@ highScore.textContent = localStorage.highScoreKey
    
     function snakeEatFood(){
      if(food.x === position.x && food.y === position.y){
-       snake.push({... position})  
-       position.x += velocity.x
-       position.y += velocity.y
+       snake.unshift(snakeTail) 
+       
        randomFood()  
        scoreNumber++
        score.textContent = scoreNumber  
@@ -217,7 +214,7 @@ highScore.textContent = localStorage.highScoreKey
           
           menu.style.display = "block"
           canvas.style.display = "none"
-          startGame()
+          
           }
         }
      snake.push({...position})
@@ -231,3 +228,8 @@ highScore.textContent = localStorage.highScoreKey
      moveSnake()
      snakeOver()
   }
+  
+
+
+
+
