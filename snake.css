@@ -286,7 +286,7 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
     width: 30.1%;
     height: 30%;
     cursor: pointer;
-    background: url("/storage/emulated/0/Snake/up.png");
+    background: url("images/up.png");
     background-repeat: no-repeat;
     background-position: center;
     border: 2px solid #2d365a;
@@ -306,7 +306,7 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
     width: 30.1%;
     height: 30%;
     cursor: pointer;
-    background: url("/storage/emulated/0/Snake/down.png");
+    background: url("images/down.png");
     background-repeat: no-repeat;
     background-position: center;
     border: 2px solid #2d365a;
@@ -326,7 +326,7 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
     width: 30%;
     height: 30%;
     cursor: pointer;
-    background: url("/storage/emulated/0/Snake/left.png");
+    background: url("images/left.png");
     background-repeat: no-repeat;
     background-position: center;
     border: 2px solid #2d365a;
@@ -346,7 +346,7 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
     width: 30%;
     height: 30%;
     cursor: pointer;
-    background: url("/storage/emulated/0/Snake/right.png");
+    background: url("images/right.png");
     background-repeat: no-repeat;
     background-position: center;
     border: 2px solid #2d365a;
