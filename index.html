@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="snake.css" />
+    <link rel="stylesheet" type="text/css" href="/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/snake/snake.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
     <title>Snake</title>
    
@@ -19,22 +19,22 @@
       <span id="highScoreText">Best score:</span>
       <span id="highScoreValue">0</span>
       <span id="gamerName">meno</span>
-      <span id="scoreText">Score:</span>
+      <span id="scoreText">Your score:</span>
       <span id="scoreValue">0</span>      
      </div>
     
     <!--   HEADER LAYOUT END --> 
     <!--   INTRO -->
       
-       <span class="ml2" id="introduction" width="320px" height="320px">
-        <p>Snake by KUCKO</p>              
+       <span class="ml2" id="introduction" width="88%" height="86.7%">
+        <p>Snake &nbsp by &nbsp KUCKO</p>              
        </span>
        
     <!--   INTRO END -->
     
     <!--   GAME MENU -->
     <span id="menu">
-     <img  id="snakeMenu" src="images/snake.jpg" width="20" height="20" alt="snakeHeadDown"></img>
+     <img  id="snakeMenu" src="/storage/emulated/0/Snake/snake.jpg" width="20" height="20" alt="snakeHeadDown"></img>
      <div id="scoreTable">
      <p id="highestScoreTable">Highest score</p>
      <p >
@@ -57,34 +57,36 @@
          Press start to play
      </p>
      </div> 
-     </span>
+      </span>
     <!--   GAME MENU END -->
     
     <!--   GAME   -->
     
-     <canvas id="playground" width="320px" height="320px">   
-     <img id="cherry" src="images/cherry.png" width="20" height="20" alt="cherry"></img>         
+     <canvas id="playground" >   
+     <img id="cherry" src="/storage/emulated/0/Snake/cherry.png" width="20" height="20" alt="cherry"></img>         
      </canvas>
+    
      <div id="snake-head"></div>
      <div id="food"></div>            
-     <img id="snakeHeadRight" src="images/snakeHeadRight.png" width="20" height="20" alt="snakeHeadRight"></img>
-     <img  id="snakeHeadUp" src="images/snakeHeadUp.png" width="20" height="20" alt="snakeHeadUp"></img>
-     <img  id="snakeHeadLeft" src="images/snakeHeadLeft.png" width="20" height="20" alt="snakeHeadLeft"></img>
-     <img  id="snakeHeadDown" src="images/snakeHeadDown.png" width="20" height="20" alt="snakeHeadDown"></img>
+     <img id="snakeHeadRight" src="/storage/emulated/0/Snake/snakeHeadRight.png" width="20" height="20" alt="snakeHeadRight"></img>
+     <img  id="snakeHeadUp" src="/storage/emulated/0/Snake/snakeHeadUp.png" width="20" height="20" alt="snakeHeadUp"></img>
+     <img  id="snakeHeadLeft" src="/storage/emulated/0/Snake/snakeHeadLeft.png" width="20" height="20" alt="snakeHeadLeft"></img>
+     <img  id="snakeHeadDown" src="/storage/emulated/0/Snake/snakeHeadDown.png" width="20" height="20" alt="snakeHeadDown"></img>
       
     <!--   GAME END --> 
     <!--   CONTROLS -->  
      <div id="controls">
        <div onclick="startGame()" id="start">
-         <p style="font-weight: 900;">start</p>
+         <p>start</p>
        </div>
        <div onclick="pauseGame()" id="pause">
-         <p style="font-weight: 900;">pause</p>
+         <p>play<br>-<br>pause</p>
        </div>
        <div id="control-up" ></div>
        <div id="control-down"></div>
        <div id="control-left"></div>
        <div id="control-right"></div>
+       <div id="middle"></div>
     </div>
     
     <!--   CONTROLS END -->
@@ -94,7 +96,7 @@
  
   
   
-   <script src="snake.js"></script> 
+   <script src="/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/snake/snake.js"></script> 
    <script>
         var textWrapper = document.querySelector('.ml2'); textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>"); anime.timeline({loop: false}) .add({ targets: '.ml2 .letter', scale: [4,1], opacity: [0,1], translateZ: 0, easing: "easeOutExpo", duration: 950, delay: (el, i) => 70*i }).add({ targets: '.ml2', opacity: 0, duration: 1000, easing: "easeOutExpo", delay: 1000 });</script>
   
