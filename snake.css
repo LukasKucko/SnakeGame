@@ -1,4 +1,4 @@
-:root{
+root{
     --grey : #b2b2c2;
     }
 
@@ -19,8 +19,8 @@ body{
     width: 96vw;
     height: 97vh;
     background-color: #E4E4E1;
- background-image: radial-gradient(at top center, rgba(255,255,255,0.03) 0%, rgba(0,0,0,0.03) 100%), linear-gradient(to top, rgba(255,255,255,0.1) 0%, rgba(143,152,157,0.60) 100%);
- 	background-blend-mode: normal, multiply;
+    background: rgb(214,208,211);
+background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 100%);
     border-radius: 50px;
     border: 2px solid black;
     z-index: 0;   
@@ -123,7 +123,7 @@ body{
    height: 45.7%;
    background-image: linear-gradient( 135deg, #3B2667 10%, #BC78EC 100%);
    color: #bab29b;
-   border: 1px solid #000;
+   border: 3px solid #000;
    z-index: 10000;   
 }
 
@@ -135,13 +135,13 @@ body{
    justify-content: center;
    align-items: center;
    font-size: 30px;
-   top: -44%; 
-   width: 86.7%;
+   top: -44.3%; 
+   width: 86.2%;
    margin: auto;
-   height: 45.8%;
+   height: 45.5%;
    z-index: 9999;
    background-color: #d5dfff;
-   border: 1px solid black;
+   border: 3px solid black;
 }
 
 #snakeMenu{
@@ -194,18 +194,37 @@ body{
 }
 
 #pressStartToPlay{
-    display:inline-block;
-    margin: auto;    
+    display: inline-block;
+    text-align: center;
+    font-weight: 800;
+    margin: auto; 
+    animation-name: animPlay;
+    animation-duration: 3s;
+    animation-delay: 3s;
+    animation-iteration-count: infinite;
+    
+}
+
+@keyframes animPlay{
+    0%{
+       letter-spacing: 0px;
+    }
+    50%{
+        letter-spacing: 2px;
+    }
+    100%{
+        letter-spacing: 0px;
+    }
 }
 
 #playground{
     position: relative;
     display: none;
-    top: -43.9%;
-    width: 87%;
+    top: -44.3%;
+    width: 86.2%;
     margin: 0 auto;
-    background-color: #f1f1f1; 
-    border: 1px solid black;
+    background-color: #F0FFFF; 
+    border: 3px solid black;
     z-index: 9999;
 }
 
@@ -224,27 +243,36 @@ body{
 #start{
     position: relative;
     display: flex; 
-    justify-content: space-around; 
+    justify-content: center;         
     width: 60px;
     height: 60px;
     left: 5%;
     top: 3px;
-    border: 4px solid #000;
+    border: 4px solid #2d365a;
+    background-color: #696969;
+    color: white;
+    font-weight: 600;
+    font-size: 13px;
     cursor: pointer;
     border-radius: 20px;
 }
 
 #pause{
     position: relative;
-    display: flex; 
+    display: flex;     
     justify-content: space-around; 
     width: 60px;
     height: 60px;
-    left: 78%;
+    left: 76%;
     top: -65px;
-    border: 4px solid #000;
+    border: 4px solid #2d365a;
+    background-color: #696969;
+    color: white;
+    font-weight: 600;
+    font-size: 10px;
     cursor: pointer;
     border-radius: 20px;
+    text-align: center;
 }
 
 
@@ -253,17 +281,19 @@ body{
     position: relative;
     display: flex;
     justify-content: space-around;
-    top: -46%;
-    left: 34%;
-    width: 30%;
+    top: -45.2%;
+    left: 32.95%;
+    width: 30.1%;
     height: 30%;
     cursor: pointer;
-    background: url("images/up.png");
+    background: url("/storage/emulated/0/Snake/up.png");
     background-repeat: no-repeat;
     background-position: center;
     border: 2px solid #2d365a;
     border-width: 4px 4px 0px 4px;
     border-radius: 20px 20px 0px 0px;
+    background-color: #696969;
+    z-index: 1;
 }
 
 
@@ -271,17 +301,19 @@ body{
     position: relative;
     display: flex;
     justify-content: space-around;
-    top: -15.1%;
-    left: 34%;
-    width: 30%;
+    top: -15.2%;
+    left: 32.95%;
+    width: 30.1%;
     height: 30%;
     cursor: pointer;
-    background: url("images/down.png");
+    background: url("/storage/emulated/0/Snake/down.png");
     background-repeat: no-repeat;
     background-position: center;
     border: 2px solid #2d365a;
     border-width: 0px 4px 4px 4px;
     border-radius: 0px 0px 20px 20px;
+    background-color: #696969;
+    z-index: 1;
 }
 
 
@@ -290,16 +322,18 @@ body{
     display: flex;
     justify-content: space-around;
     top: -78%;
-    left: 4%;
+    left: 3%;
     width: 30%;
     height: 30%;
     cursor: pointer;
-    background: url("images/left.png");
+    background: url("/storage/emulated/0/Snake/left.png");
     background-repeat: no-repeat;
     background-position: center;
     border: 2px solid #2d365a;
     border-width: 4px 0px 4px 4px;
     border-radius: 20px 0px 0px 20px;
+    background-color: #696969;
+    z-index: 1;
 }
 
 
@@ -307,17 +341,28 @@ body{
     position: relative;
     display: flex;
     justify-content: space-around;
-    top: -110.7%;
-    left: 65.2%;
+    top: -110.8%;
+    left: 64.3%;
     width: 30%;
     height: 30%;
     cursor: pointer;
-    background: url("images/right.png");
+    background: url("/storage/emulated/0/Snake/right.png");
     background-repeat: no-repeat;
     background-position: center;
     border: 2px solid #2d365a;
     border-width: 4px 4px 4px 0px;
     border-radius: 0px 20px 20px 0px;
+    background-color: #696969;
+    z-index: 1;
 }
 
-
+#middle{
+    position: relative;
+    display: block;
+    top: -145.7%;
+    left: 33.6%;
+    width: 30.8%;
+    height: 40%;
+    background-color: #696969;
+    z-index: 0;
+}
