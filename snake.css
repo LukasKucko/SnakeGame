@@ -254,7 +254,7 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
 
 
 #controls{
-    position: fixed;
+    position: relative;
     display: block;   
     top: 57%;
     left: 10%;    
