@@ -1,4 +1,4 @@
-root{
+:root{
     --grey : #b2b2c2;
     --borderBold: 10px;
     }
@@ -118,10 +118,10 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
    justify-content: center;
    align-items: center;
    font-size: 30px;
-   top: 2%;
+   top: 2.5%;
    margin: 0 auto;
    width: 86.2%;
-   height: 45.5%;
+   height: 46%;
    background-image: linear-gradient( 135deg, #3B2667 10%, #BC78EC 100%);
    color: #bab29b;
    border: 3px solid #000;
@@ -143,10 +143,10 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
    justify-content: center;
    align-items: center;
    font-size: 30px;
-   top: -44.3%; 
+   top: -44.5%; 
    width: 86.2%;
    margin: auto;
-   height: 45.5%;
+   height: 46%;
    z-index: 9999;
    background-color: #d5dfff;
    border: 3px solid black;
@@ -302,8 +302,8 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
 
 @media(min-width: 900px){
     #controls{
-        width: 900px;
-        height: 900px;
+        width: 800px;
+        height: 800px;
     }
 }
 
@@ -311,8 +311,8 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
 @media(min-width: 1080px){
     #controls{
         top: -41%;
-        width: 900px;
-        height: 900px;
+        width: 800px;
+        height: 800px;
     }
 }
 
@@ -343,6 +343,12 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
     }
 }
 
+@media(min-width: 1080px){
+     #start{
+         font-size: 3vw;
+     }
+}
+     
 #pause{
     position: absolute;
     display: flex; 
@@ -368,6 +374,13 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
         border: var(--borderBold) solid #2d365a;
     }
 }
+
+@media(min-width: 1080px){
+     #pause{
+         font-size: 3vw;
+     }
+}
+
 
 #control-up{
     position: absolute;
