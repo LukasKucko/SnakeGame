@@ -1,5 +1,6 @@
 root{
     --grey : #b2b2c2;
+    --borderBold: 10px;
     }
 
 body{
@@ -14,10 +15,10 @@ body{
 #container{ 
     display: block;
     position: relative;
-    top: 1.5vh;
-    left: 2vw;
-    width: 96vw;
-    height: 97vh;
+    top: 2%;
+    left: 2%;
+    width: 96%;
+    height: 96%;
     background-color: #E4E4E1;
     background: rgb(214,208,211);
 background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 100%);
@@ -44,35 +45,35 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
     position: relative;
     display: block;
     width: 100%;
-    font-size: 16px;
+    font-size: 4vw;
 }
 
 #highScoreValue{
     position: relative;
     display: block;
     width: 100%;
-    font-size: 16px;
+    font-size: 4vw;
 }
 
 #gamerName{
     position: relative;
     display: block;    
     width: 100%;
-    font-size: 16px;
+    font-size: 4vw;
 }
 
 #scoreText{
     position: relative;
     display: block;
     width: 100%;
-    font-size: 16px;    
+    font-size: 4vw;    
 }
 
 #scoreValue{
     position: relative;
     display: block;
     width: 100%;
-    font-size: 16px;
+    font-size: 4vw;
 }
 
 
@@ -100,7 +101,7 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
 
 .ml2 { 
     font-weight: 900; 
-    font-size: 1em; 
+    font-size: 4vw; 
 } 
 
 .ml2 .letter { 
@@ -120,13 +121,20 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
    top: 2%;
    margin: 0 auto;
    width: 86.2%;
-   height: 45.7%;
+   height: 45.5%;
    background-image: linear-gradient( 135deg, #3B2667 10%, #BC78EC 100%);
    color: #bab29b;
    border: 3px solid #000;
    z-index: 10000;   
 }
 
+@media(min-width: 1080px){
+    #introduction{
+        top: 2%;
+        height: 45.5%;
+        border-width: var(--borderBold);
+    }
+}
 
 
 #menu{
@@ -144,6 +152,13 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
    border: 3px solid black;
 }
 
+@media(min-width: 1080px){
+    #menu{
+        
+        border-width: var(--borderBold);
+    }
+}
+
 #snakeMenu{
    position: relative;
    display: block;
@@ -158,13 +173,13 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     top: 0;
     width: 80%;
     margin: 0 auto;
-    height: 60%;
+    height: 70%;
     line-height: 2px;
-    font-size: 12px;
+    font-size: 4vw;
     z-index: 9999;
 }
 
@@ -196,14 +211,16 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
 #pressStartToPlay{
     display: inline-block;
     text-align: center;
+    font-size: 5vw;
     font-weight: 800;
     margin: auto; 
     animation-name: animPlay;
     animation-duration: 3s;
     animation-delay: 3s;
     animation-iteration-count: infinite;
-    
 }
+
+
 
 @keyframes animPlay{
     0%{
@@ -228,63 +245,138 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
     z-index: 9999;
 }
 
+@media(min-width: 1080px){
+    #playground{
+        height: 45.5%;
+        border-width: var(--borderBold);
+    }
+}
+
+
 
 #controls{
     position: relative;
-    display: block;
-    top: -40%;
+    display: block;   
+    top: -43.5%;
     margin: 0 auto;
-    width: 90%;   
-    height: 40%;
+    width: 300px;   
+    height: 230px;
     background-color: transparent;
     z-index: 0;
 }
 
+@media(min-width: 340px){
+    #controls{
+        top: -43%;
+        width: 290px;
+        height: 260px;
+    }
+}
+
+@media(min-width: 400px){
+    #controls{
+        top: -40%;
+        width: 330px;
+        height: 330px;
+    }
+}
+
+@media(min-width: 400px) and (min-height: 600px){
+    #controls{
+        top: -40%;
+        width: 330px;
+        height: 280px;
+    }
+}
+
+
+@media(min-width: 600px){
+    #controls{
+        width: 350px;
+        height: 350px;
+    }
+}
+
+
+
+
+@media(min-width: 900px){
+    #controls{
+        width: 900px;
+        height: 900px;
+    }
+}
+
+
+@media(min-width: 1080px){
+    #controls{
+        top: -41%;
+        width: 900px;
+        height: 900px;
+    }
+}
+
+
+
 #start{
-    position: relative;
+    position: absolute;
     display: flex; 
-    justify-content: center;         
-    width: 60px;
-    height: 60px;
-    left: 5%;
-    top: 3px;
+    flex-direction: column;
+    justify-content: space-around;     
+    text-align: center;    
+    width: 20%;
+    height: 20%;
+    left: 3%;
+    top: 0;
     border: 4px solid #2d365a;
     background-color: #696969;
     color: white;
     font-weight: 600;
-    font-size: 13px;
+    font-size: 2vw;
     cursor: pointer;
     border-radius: 20px;
 }
 
+@media(min-width: 600px){
+    #start{
+        border: var(--borderBold) solid #2d365a;
+    }
+}
+
 #pause{
-    position: relative;
-    display: flex;     
+    position: absolute;
+    display: flex; 
+    flex-direction: column;    
     justify-content: space-around; 
-    width: 60px;
-    height: 60px;
-    left: 76%;
-    top: -65px;
+    text-align: center;
+    width: 20%;
+    height: 20%;
+    left: 73%;
+    top: 0;
     border: 4px solid #2d365a;
     background-color: #696969;
     color: white;
     font-weight: 600;
-    font-size: 10px;
+    font-size: 2vw;
     cursor: pointer;
     border-radius: 20px;
     text-align: center;
 }
 
-
+@media(min-width: 600px){
+    #pause{
+        border: var(--borderBold) solid #2d365a;
+    }
+}
 
 #control-up{
-    position: relative;
+    position: absolute;
     display: flex;
     justify-content: space-around;
-    top: -45.2%;
-    left: 32.95%;
-    width: 30.1%;
-    height: 30%;
+    top: 0;
+    left: 32%;
+    width: 33%;
+    height: 32%;
     cursor: pointer;
     background: url("images/up.png");
     background-repeat: no-repeat;
@@ -296,15 +388,27 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
     z-index: 1;
 }
 
+@media(min-width: 1080px){
+    #control-up{
+        width: 35%;
+    }    
+}
+
+@media(min-width: 600px){
+    #control-up{
+        border-width: var(--borderBold) var(--borderBold) 0 var(--borderBold);
+    }
+}
+
 
 #control-down{
-    position: relative;
+    position: absolute;
     display: flex;
     justify-content: space-around;
-    top: -15.2%;
-    left: 32.95%;
-    width: 30.1%;
-    height: 30%;
+    top: 64%;
+    left: 32%;
+    width: 33%;
+    height: 33.3%;
     cursor: pointer;
     background: url("images/down.png");
     background-repeat: no-repeat;
@@ -316,15 +420,26 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
     z-index: 1;
 }
 
+@media(min-width: 1080px){
+    #control-down{
+        width: 35%;
+    }    
+}
+
+@media(min-width: 600px){
+     #control-down{
+        border-width: 0 var(--borderBold) var(--borderBold) var(--borderBold);
+    }
+}
 
 #control-left{
-    position: relative;
+    position: absolute;
     display: flex;
     justify-content: space-around;
-    top: -78%;
-    left: 3%;
-    width: 30%;
-    height: 30%;
+    top: 30%;
+    left: 0;
+    width: 32%;
+    height: 33.3%;
     cursor: pointer;
     background: url("images/left.png");
     background-repeat: no-repeat;
@@ -336,15 +451,21 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
     z-index: 1;
 }
 
+@media(min-width: 600px){
+     #control-left{
+        border-width: var(--borderBold) 0 var(--borderBold) var(--borderBold);
+    }
+}
+
 
 #control-right{
-    position: relative;
+    position: absolute;
     display: flex;
     justify-content: space-around;
-    top: -110.8%;
-    left: 64.3%;
-    width: 30%;
-    height: 30%;
+    top: 30%;
+    left: 66.6%;
+    width: 33.6%;
+    height: 33.3%;
     cursor: pointer;
     background: url("images/right.png");
     background-repeat: no-repeat;
@@ -356,13 +477,39 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
     z-index: 1;
 }
 
+@media(min-width: 1080px){
+    #control-right{
+        left: 67.43%;
+    }    
+}
+
+@media(min-width: 600px){
+    #control-right{
+        left: 68.1%;
+        border-width: var(--borderBold) var(--borderBold) var(--borderBold) 0;
+    }
+}
+
+
 #middle{
-    position: relative;
+    position: absolute;
     display: block;
-    top: -145.7%;
-    left: 33.6%;
-    width: 30.8%;
-    height: 40%;
+    top: 31.62%;
+    left: 31%;
+    width: 36.7%;
+    height: 32.7%;
     background-color: #696969;
-    z-index: 0;
+    z-index: 1000;
+}
+
+
+
+
+@media(min-width: 1080px){
+    #middle{
+        top: 31.3%;
+        left: 32.41%;
+        height: 32.9%;
+        width: 37%;
+    }
 }
