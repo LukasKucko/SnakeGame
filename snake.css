@@ -1,6 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Proza+Libre:wght@600&display=swap');
+ 
+ 
+ 
+ 
+ 
 :root{
     --grey : #b2b2c2;
     --borderBold: 10px;
+    font-family: 'Proza Libre', sans-serif;
+    --menuLine: #fff4aa;
     }
 
 body{
@@ -9,7 +17,7 @@ body{
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    background-color: black;
+    background-color: #000;
 }
 
 #container{ 
@@ -23,7 +31,7 @@ body{
     background: rgb(214,208,211);
 background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 100%);
     border-radius: 50px;
-    border: 2px solid black;
+    border: 2px solid #fff;
     z-index: 0;   
 }
 
@@ -39,6 +47,11 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
     color: #000;
     font-size: 30px;
     font-weight: 700;
+}
+
+#scoreTable{
+    display: flex;
+    justify-content: center;
 }
 
 #highScoreText{
@@ -118,7 +131,7 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
    justify-content: center;
    align-items: center;
    font-size: 30px;
-   top: 1.5%;
+   top: 2.3%;
    margin: 0 auto;
    width: 86.2%;
    height: 46%;
@@ -143,12 +156,13 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
    justify-content: center;
    align-items: center;
    font-size: 30px;
+   color: #84410b;
    top: -44.5%; 
    width: 86.2%;
    margin: auto;
    height: 46%;
    z-index: 9999;
-   background-color: #d5dfff;
+   background-color: #fff;
    border: 3px solid black;
 }
 
@@ -175,45 +189,49 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
     flex-direction: column;
     justify-content: space-around;
     top: 0;
+    left: 10%;
     width: 80%;
-    margin: 0 auto;
     height: 70%;
-    line-height: 2px;
-    font-size: 4vw;
+    line-height: 20px;
+    font-size: 5vw;
+    text-align: center;
+    
+    font-weight: 700;
     z-index: 9999;
 }
 
-#highestScoreTable{
-    display:inline-block;
-    margin: auto;
-}  
-
-#score1{
-    
+#speed{
+    display: flex;    
+    justify-content: space-around;  
+    color: #000;  
 }
 
-#score2{
-    
+
+
+
+
+
+
+#backGroundPlayground{
+    display: flex;    
+    justify-content: space-around; 
+    color: #000;  
 }
 
-#score3{
-    
+#snakeColorLine{
+    display: flex;    
+    justify-content: space-around; 
+        
 }
 
-#score4{
-    
+
+#snakeColor{
+    color: #000;
 }
 
-#score5{
-    
-}
 
 #pressStartToPlay{
-    display: inline-block;
-    text-align: center;
-    font-size: 5vw;
-    font-weight: 800;
-    margin: auto; 
+    
     animation-name: animPlay;
     animation-duration: 3s;
     animation-delay: 3s;
@@ -239,11 +257,15 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
     display: none;
     top: -44.3%;
     width: 86.2%;
+    
     margin: 0 auto;
     background-color: #F0FFFF; 
     border: 3px solid black;
     z-index: 9999;
+    
 }
+
+
 
 @media(min-width: 1080px){
     #playground{
@@ -251,6 +273,8 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
         border-width: var(--borderBold);
     }
 }
+
+
 
 
 #controls{
@@ -266,7 +290,7 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
 }
 
 #start{
-    position: absolute;
+    position: relative;
     display: flex;  
     justify-content: space-around; 
     flex-direction: column;     
@@ -280,15 +304,15 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
     font-size: 3vw;
     border: 3px solid black;
     border-radius: 27px;
-    background: #c6e0b7;
-    background: -webkit-gradient(linear, left top, left bottom, from(#c6e0b7), to(#8b9d80));
-    background: -moz-linear-gradient(top, #c6e0b7, #8b9d80);
-    background: linear-gradient(to bottom, #c6e0b7, #8b9d80);
-    -webkit-box-shadow: #eeffdc 0px 0px 40px 0px;
-    -moz-box-shadow: #eeffdc 0px 0px 40px 0px;
-    box-shadow: #eeffdc 0px 0px 40px 0px;
-    text-shadow: #ffffee 1px 1px 1px;
-    color: #111111;
+    background-image: linear-gradient(
+  315deg,
+  hsl(240deg 33% 74%) 0%,
+  hsl(240deg 17% 61%) 33%,
+  hsl(242deg 9% 44%) 67%,
+  hsl(55deg 28% 15%) 100%
+);
+    text-shadow: #000 1px 1px 1px;
+    color: #fff;
     text-decoration: none;       
 }
 
@@ -307,15 +331,15 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
     font-size: 3vw;
     border: 3px solid black;
     border-radius: 27px;
-    background: #c6e0b7;
-    background: -webkit-gradient(linear, left top, left bottom, from(#c6e0b7), to(#8b9d80));
-    background: -moz-linear-gradient(top, #c6e0b7, #8b9d80);
-    background: linear-gradient(to bottom, #c6e0b7, #8b9d80);
-    -webkit-box-shadow: #eeffdc 0px 0px 40px 0px;
-    -moz-box-shadow: #eeffdc 0px 0px 40px 0px;
-    box-shadow: #eeffdc 0px 0px 40px 0px;
-    text-shadow: #ffffee 1px 1px 1px;    
-    color: #111111;
+    background-image: linear-gradient(
+  35deg,
+  hsl(240deg 33% 74%) 0%,
+  hsl(240deg 17% 61%) 33%,
+  hsl(242deg 9% 44%) 67%,
+  hsl(55deg 28% 15%) 100%
+);
+    text-shadow: #000 1px 1px 1px;
+    color: #fff;
     text-decoration: none;       
 }
 
@@ -334,15 +358,25 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
     border: 3px solid black;
     border-radius: 27px;
     font-size: 5vw;
-    background: #c6e0b7;
-    background: -webkit-gradient(linear, left top, left bottom, from(#c6e0b7), to(#8b9d80));
-    background: -moz-linear-gradient(top, #c6e0b7, #8b9d80);
-    background: linear-gradient(to bottom, #c6e0b7, #8b9d80);
-    -webkit-box-shadow: #eeffdc 0px 0px 40px 0px;
-    -moz-box-shadow: #eeffdc 0px 0px 40px 0px;
-    box-shadow: #eeffdc 0px 0px 40px 0px;
-    text-shadow: #ffffee 1px 1px 1px;    
-    color: #111111;
+    background-image: linear-gradient(
+  0deg,
+  hsl(240deg 33% 74%) 0%,
+  hsl(240deg 29% 71%) 8%,
+  hsl(240deg 25% 68%) 15%,
+  hsl(240deg 21% 65%) 23%,
+  hsl(240deg 18% 62%) 31%,
+  hsl(241deg 16% 59%) 38%,
+  hsl(241deg 13% 55%) 46%,
+  hsl(241deg 11% 51%) 54%,
+  hsl(241deg 10% 47%) 62%,
+  hsl(242deg 9% 43%) 69%,
+  hsl(244deg 7% 38%) 77%,
+  hsl(248deg 5% 32%) 85%,
+  hsl(22deg 2% 26%) 92%,
+  hsl(55deg 28% 15%) 100%
+);
+    text-shadow: #000 1px 1px 1px;
+    color: #fff;
     text-decoration: none;
 }
 
@@ -362,15 +396,25 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
     border: 3px solid black;
     border-radius: 27px;
     font-size: 5vw;
-    background: #c6e0b7;
-    background: -webkit-gradient(linear, left top, left bottom, from(#c6e0b7), to(#8b9d80));
-    background: -moz-linear-gradient(top, #c6e0b7, #8b9d80);
-    background: linear-gradient(to bottom, #c6e0b7, #8b9d80);
-    -webkit-box-shadow: #eeffdc 0px 0px 40px 0px;
-    -moz-box-shadow: #eeffdc 0px 0px 40px 0px;
-    box-shadow: #eeffdc 0px 0px 40px 0px;
-    text-shadow: #ffffee 1px 1px 1px;    
-    color: #111111;
+    background-image: linear-gradient(
+  180deg,
+  hsl(240deg 33% 74%) 0%,
+  hsl(240deg 29% 71%) 8%,
+  hsl(240deg 25% 68%) 15%,
+  hsl(240deg 21% 65%) 23%,
+  hsl(240deg 18% 62%) 31%,
+  hsl(241deg 16% 59%) 38%,
+  hsl(241deg 13% 55%) 46%,
+  hsl(241deg 11% 51%) 54%,
+  hsl(241deg 10% 47%) 62%,
+  hsl(242deg 9% 43%) 69%,
+  hsl(244deg 7% 38%) 77%,
+  hsl(248deg 5% 32%) 85%,
+  hsl(22deg 2% 26%) 92%,
+  hsl(55deg 28% 15%) 100%
+);
+    text-shadow: #000 1px 1px 1px;
+    color: #fff;
     text-decoration: none;
 }
 
@@ -390,15 +434,25 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
     border: 3px solid black;
     border-radius: 27px;
     font-size: 5vw;
-    background: #c6e0b7;
-    background: -webkit-gradient(linear, left top, left bottom, from(#c6e0b7), to(#8b9d80));
-    background: -moz-linear-gradient(top, #c6e0b7, #8b9d80);
-    background: linear-gradient(to bottom, #c6e0b7, #8b9d80);
-    -webkit-box-shadow: #eeffdc 0px 0px 40px 0px;
-    -moz-box-shadow: #eeffdc 0px 0px 40px 0px;
-    box-shadow: #eeffdc 0px 0px 40px 0px;
-    text-shadow: #ffffee 1px 1px 1px;    
-    color: #111111;
+    background-image: linear-gradient(
+  270deg,
+  hsl(240deg 33% 74%) 0%,
+  hsl(240deg 29% 71%) 8%,
+  hsl(240deg 25% 68%) 15%,
+  hsl(240deg 21% 65%) 23%,
+  hsl(240deg 18% 62%) 31%,
+  hsl(241deg 16% 59%) 38%,
+  hsl(241deg 13% 55%) 46%,
+  hsl(241deg 11% 51%) 54%,
+  hsl(241deg 10% 47%) 62%,
+  hsl(242deg 9% 43%) 69%,
+  hsl(244deg 7% 38%) 77%,
+  hsl(248deg 5% 32%) 85%,
+  hsl(22deg 2% 26%) 92%,
+  hsl(55deg 28% 15%) 100%
+);
+    text-shadow: #000 1px 1px 1px;
+    color: #fff;
     text-decoration: none;
 }
 
@@ -417,17 +471,26 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
     cursor: pointer;    
     border: 3px solid black;
     border-radius: 27px;
-    font-size: 5vw;
-    background: #c6e0b7;
-    background: -webkit-gradient(linear, left top, left bottom, from(#c6e0b7), to(#8b9d80));
-    background: -moz-linear-gradient(top, #c6e0b7, #8b9d80);
-    background: linear-gradient(to bottom, #c6e0b7, #8b9d80);
-    -webkit-box-shadow: #eeffdc 0px 0px 40px 0px;
-    -moz-box-shadow: #eeffdc 0px 0px 40px 0px;
-    box-shadow: #eeffdc 0px 0px 40px 0px;
-    text-shadow: #ffffee 1px 1px 1px;
-    
-    color: #111111;
+    font-size: 5vw;    
+    background-image: linear-gradient(
+  90deg,
+  hsl(240deg 33% 74%) 0%,
+  hsl(240deg 29% 71%) 8%,
+  hsl(240deg 25% 68%) 15%,
+  hsl(240deg 21% 65%) 23%,
+  hsl(240deg 18% 62%) 31%,
+  hsl(241deg 16% 59%) 38%,
+  hsl(241deg 13% 55%) 46%,
+  hsl(241deg 11% 51%) 54%,
+  hsl(241deg 10% 47%) 62%,
+  hsl(242deg 9% 43%) 69%,
+  hsl(244deg 7% 38%) 77%,
+  hsl(248deg 5% 32%) 85%,
+  hsl(22deg 2% 26%) 92%,
+  hsl(55deg 28% 15%) 100%
+);
+    text-shadow: #000 1px 1px 1px;
+    color: #fff;
     text-decoration: none;
 }
 
