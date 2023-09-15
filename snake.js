@@ -19,12 +19,26 @@
   const ctx  = canvas.getContext("2d")
  let introduction = document.querySelector("#introduction")
  let menu = document.querySelector("#menu")
- let aspectRatio = 1
- canvas.height = canvas.width * aspectRatio 
+ let speed = document.querySelector("#speed")
+ speed.style.backgroundColor = "var(--menuLine)"
+ let speedWord = document.querySelector("#speedWord")
+ let speedNumber = document.querySelector("#speedNumber")
+ let speedNumberValue = 1
+ speedNumber.textContent = speedNumberValue
+ let backGroundPlayground = document.querySelector("#backGroundPlayground")
+let snakeColorLine = document.querySelector("#snakeColorLine")
+ let snakeColor= document.querySelector("#snakeColor")
+ 
+ 
+ 
+ 
+ canvas.height = canvas.width  
  let block = 20
  let area = canvas.width / block
  let position, velocity, food, snake
  let snakeTail, snakeDirection, playGame
+ let countColor = 0
+ let snakeColorInGame = "#000"
  let paused = false
  let scoreNumber = 0
  
@@ -37,15 +51,212 @@ highScore.textContent = localStorage.highScoreKey
 
  setTimeout("introduction.style.display= 'flex';",4000)
  
-  
- 
- 
- 
- 
  
  
 
+  
+
+    
+document.addEventListener("click", funcColor)
+
+
+ function funcColor (event){        
+    if(speed.style.backgroundColor == "var(--menuLine)"){
+       if(event.target === goUp){
+           speed.style.backgroundColor = "transparent"
+           snakeColorLine.style.backgroundColor = "var(--menuLine)"  
+           }
+       else if(event.target === goDown){
+           speed.style.backgroundColor = "transparent"
+           backGroundPlayground.style.backgroundColor = "var(--menuLine)"  
+           }            
+       else if(event.target === goRight){                  
+             if(speedNumberValue < 10){ 
+              speedNumberValue++
+              speedNumber.textContent = speedNumberValue
+           }  
+             else if(speedNumberValue == 10){
+             speedNumber.textContent = speedNumberValue   
+            }                              
+           }             
+       else if(event.target === goLeft){
+             if(speedNumberValue > 1){ 
+              speedNumberValue--
+              speedNumber.textContent = speedNumberValue
+           } else if(speedNumberValue == 1){
+             speedNumber.textContent = speedNumberValue  
+           }                                                                                    
+         } 
+        }                                                                                
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            else if(snakeColorLine.style.backgroundColor == "var(--menuLine)"){   
+   
+ if(event.target === goUp){     
+ snakeColorLine.style.backgroundColor = "transparent"                       
+ backGroundPlayground.style.backgroundColor = "var(--menuLine)"             
+         }     
+     else if(event.target === goDown){           
+     snakeColorLine.style.backgroundColor = "transparent" 
+     speed.style.backgroundColor = "var(--menuLine)"             
+        }
+                                        
+ else if(event.target === goLeft){
+      countColor-- 
+       if(countColor == -1){
+           countColor = 10
+       } 
+        switch(countColor){
+             case 0:
+             snakeColor.style.color = "#000000"                                                   
+             snakeColorInGame = "#000000"  
+             break  
+             
+             case 1:  
+             snakeColor.style.color = "#474747"                                                   
+             snakeColorInGame = "#474747"  
+             break  
+             
+             case 2:  
+             snakeColor.style.color = "#6523d1"                                                   
+             snakeColorInGame = "#6523d1"  
+             break  
+             
+             case 3:  
+             snakeColor.style.color = "#3473d1"                                                   
+             snakeColorInGame = "#3473d1"  
+             break  
+             
+             case 4:  
+             snakeColor.style.color = "#00d1af"                                                   
+             snakeColorInGame = "#00d1af"  
+             break  
+             
+             case 5:  
+             snakeColor.style.color = "#439826"                                                   
+             snakeColorInGame = "#439826"  
+             break  
+             
+             case 6:  
+             snakeColor.style.color = "#a8b40f"                                                   
+             snakeColorInGame = "#a8b40f"  
+             break  
+             
+             case 7:  
+             snakeColor.style.color = "#b48d1e"                                                   
+             snakeColorInGame = "#b48d1e"  
+             break  
+             
+             case 8:  
+             snakeColor.style.color = "#b4341e"                                                   
+             snakeColorInGame = "#b4341e"  
+             break  
+             
+             case 9:  
+             snakeColor.style.color = "#b43c8d"                                                   
+             snakeColorInGame = "#b43c8d"  
+             break  
+             
+             case 10:  
+             snakeColor.style.color = "#ad78b4"                                                   
+             snakeColorInGame = "#ad78b4"  
+             break                                                                                
+        }                                             
+      return snakeColor
+     }
+                                                                                                 
+ else if(event.target === goRight){
+        countColor++ 
+        if(countColor == 11){
+            countColor = 0
+        }
+        switch(countColor){
+             case 0:
+             snakeColor.style.color = "#000000"                                                   
+             snakeColorInGame = "#000000"  
+             break  
+             
+             case 1:  
+             snakeColor.style.color = "#474747"                                                   
+             snakeColorInGame = "#474747"  
+             break  
+             
+             case 2:  
+             snakeColor.style.color = "#6523d1"                                                   
+             snakeColorInGame = "#6523d1"  
+             break  
+             
+             case 3:  
+             snakeColor.style.color = "#3473d1"                                                   
+             snakeColorInGame = "#3473d1"  
+             break  
+             
+             case 4:  
+             snakeColor.style.color = "#00d1af"                                                   
+             snakeColorInGame = "#00d1af"  
+             break  
+             
+             case 5:  
+             snakeColor.style.color = "#439826"                                                   
+             snakeColorInGame = "#439826"  
+             break  
+             
+             case 6:  
+             snakeColor.style.color = "#a8b40f"                                                   
+             snakeColorInGame = "#a8b40f"  
+             break  
+             
+             case 7:  
+             snakeColor.style.color = "#b48d1e"                                                   
+             snakeColorInGame = "#b48d1e"  
+             break  
+             
+             case 8:  
+             snakeColor.style.color = "#b4341e"                                                   
+             snakeColorInGame = "#b4341e"  
+             break  
+             
+             case 9:  
+             snakeColor.style.color = "#b43c8d"                                                   
+             snakeColorInGame = "#b43c8d"  
+             break  
+             
+             case 10:  
+             snakeColor.style.color = "#ad78b4"                                                   
+             snakeColorInGame = "#ad78b4"  
+             break                                                                                
+        }                                             
+      return snakeColor
+     }
+  }
+
+else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
+        if(event.target === goUp){            backGroundPlayground.style.backgroundColor = "transparent" 
+             speed.style.backgroundColor = "var(--menuLine)"             
+           } 
+      else if(event.target === goDown){            backGroundPlayground.style.backgroundColor = "transparent" 
+             snakeColorLine.style.backgroundColor = "var(--menuLine)"             
+           }
+         }                                                                                        
+       }    
+                        
+   
+ 
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
  function init(){
+  
      position = {x: 10, y: 10}
      velocity = {x: 0, y:0}
      snake = [ {x: 8,  y: 10},
@@ -87,8 +298,10 @@ highScore.textContent = localStorage.highScoreKey
 //  MOVE THE SNAKE 
  
     function moveSnake(){
+     
      document.addEventListener("click", 
       function(event){
+      
           if(event.target === goUp){
           velocity = {x: 0, y: -1}
           snakeDirection = snakeHeadUp          
@@ -107,12 +320,12 @@ highScore.textContent = localStorage.highScoreKey
    } 
 
   
- 
  function startGame(){
+    document.removeEventListener("click",funcColor,false) 
     init()
     gameLoop()    
     menu.style.display = "none"
-    canvas.style.display = "block"   
+    canvas.style.display = "block"     
     snakeDirection = snakeHeadRight 
     }
  
@@ -128,12 +341,12 @@ function pauseGame(){
  
  
  //  MAIN FUNCTION
-  
+ 
  playGame = setInterval(()=>{
    if(!paused) {
       requestAnimationFrame(gameLoop)
       }
-    },1000/4) 
+    },400) 
      
    function gameLoop(){
       
@@ -144,9 +357,9 @@ ctx.fillRect(0,0,canvas.offsetWidth,canvas.offsetHeight)
 
  
 //  SNAKE BODY  
-    
+    snakeColorInGame = snakeColor.style.color
    for(let cell of snake){  
-         ctx.fillStyle =  "green"       
+         ctx.fillStyle = snakeColorInGame       
          ctx.fillRect(cell.x * block,cell.y * block,block,block)         
        }   
  
@@ -174,14 +387,13 @@ ctx.drawImage(snakeDirection,snake[snake.length-1].x*block,snake[snake.length-1]
          if(scoreNumber > localStorage.getItem("highScoreKey",scoreNumber)){
                  localStorage.setItem("highScoreKey",scoreNumber)
 highScore.textContent = localStorage.highScoreKey
-         } 
-               
+         }                
          scoreNumber = 0
          score.textContent = scoreNumber         
          startGame()
          canvas.style.display = "none"
-         menu.style.display = "block"
-         
+         menu.style.display = "block" 
+                document.addEventListener("click",funcColor) 
          }
        }
 
@@ -189,8 +401,7 @@ highScore.textContent = localStorage.highScoreKey
    
     function snakeEatFood(){
      if(food.x === position.x && food.y === position.y){
-       snake.unshift(snakeTail) 
-       
+       snake.unshift(snakeTail)       
        randomFood()  
        scoreNumber++
        score.textContent = scoreNumber  
@@ -210,11 +421,10 @@ highScore.textContent = localStorage.highScoreKey
        if(cell.x === position.x && cell.y === position.y){ 
           
           scoreNumber = 0
-          score.textContent = scoreNumber              
-          
+          score.textContent = scoreNumber                       
           menu.style.display = "block"
-          canvas.style.display = "none"
-          
+          canvas.style.display = "none"  
+               document.addEventListener("click",funcColor) 
           }
         }
      snake.push({...position})
@@ -227,9 +437,9 @@ highScore.textContent = localStorage.highScoreKey
      snakeInSnake()     
      moveSnake()
      snakeOver()
+     
   }
   
-
 
 
 
