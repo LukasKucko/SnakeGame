@@ -357,7 +357,7 @@ ctx.fillRect(0,0,canvas.offsetWidth,canvas.offsetHeight)
 
  
 //  SNAKE BODY  
-    snakeColorInGame = snakeColor.style.color
+    
    for(let cell of snake){  
          ctx.fillStyle = snakeColorInGame       
          ctx.fillRect(cell.x * block,cell.y * block,block,block)         
