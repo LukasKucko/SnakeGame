@@ -23,8 +23,9 @@
  speed.style.backgroundColor = "var(--menuLine)"
  let speedWord = document.querySelector("#speedWord")
  let speedNumber = document.querySelector("#speedNumber")
- let speedNumberValue = 1
+ let speedNumberValue = 5
  speedNumber.textContent = speedNumberValue
+ let speedNumberValueToInterval
  let backGroundPlayground = document.querySelector("#backGroundPlayground")
 let snakeColorLine = document.querySelector("#snakeColorLine")
  let snakeColor= document.querySelector("#snakeColor")
@@ -58,9 +59,10 @@ highScore.textContent = localStorage.highScoreKey
 
     
 document.addEventListener("click", funcColor)
+  
 
-
- function funcColor (event){        
+ function funcColor (event){ 
+        
     if(speed.style.backgroundColor == "var(--menuLine)"){
        if(event.target === goUp){
            speed.style.backgroundColor = "transparent"
@@ -74,19 +76,27 @@ document.addEventListener("click", funcColor)
              if(speedNumberValue < 10){ 
               speedNumberValue++
               speedNumber.textContent = speedNumberValue
+              
            }  
              else if(speedNumberValue == 10){
-             speedNumber.textContent = speedNumberValue   
-            }                              
+             speedNumber.textContent = speedNumberValue 
+                
+            }  
+                                     
            }             
        else if(event.target === goLeft){
              if(speedNumberValue > 1){ 
               speedNumberValue--
               speedNumber.textContent = speedNumberValue
+               
+              
            } else if(speedNumberValue == 1){
-             speedNumber.textContent = speedNumberValue  
-           }                                                                                    
-         } 
+             speedNumber.textContent = speedNumberValue 
+              
+           }  
+                                                                                             
+         }
+         
         }                                                                                
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             else if(snakeColorLine.style.backgroundColor == "var(--menuLine)"){   
    
@@ -107,7 +117,7 @@ document.addEventListener("click", funcColor)
         switch(countColor){
              case 0:
              snakeColor.style.color = "#000000"                                                   
-             snakeColorInGame = "#000000"  
+             snakeColorInGame = "#000"  
              break  
              
              case 1:  
@@ -235,10 +245,11 @@ else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
       else if(event.target === goDown){            backGroundPlayground.style.backgroundColor = "transparent" 
              snakeColorLine.style.backgroundColor = "var(--menuLine)"             
            }
-         }                                                                                        
+         }  
+                                                                                  
        }    
                         
-   
+  
  
 
 
@@ -270,6 +281,9 @@ else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
    
               
    init()       
+ 
+ 
+ // function set random food in game
            
  function randomFood(){
      food = {
@@ -279,12 +293,7 @@ else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
        if(food.x === snake[snake.length-1].x && food.y === snake[snake.length-1].y){
          return randomFood()
        }
-       
-       
-      
- 
- 
- 
+               
        for(let cell of snake){
           if(cell.x === food.x && food.y === cell.y){
              return randomFood()
@@ -294,14 +303,15 @@ else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
      randomFood() 
  
  
-  
-//  MOVE THE SNAKE 
  
-    function moveSnake(){
-     
+ 
+ 
+  
+//  MOVE THE SNAKE IN GAME
+ 
+  function moveSnake(){   
      document.addEventListener("click", 
-      function(event){
-      
+      function(event){    
           if(event.target === goUp){
           velocity = {x: 0, y: -1}
           snakeDirection = snakeHeadUp          
@@ -319,9 +329,18 @@ else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
      )
    } 
 
-  
- function startGame(){
-    document.removeEventListener("click",funcColor,false) 
+
+
+
+function startGame(){
+ clearInterval(playGame)
+ playGame =setInterval(()=>{
+   if(!paused) {
+      requestAnimationFrame(gameLoop)
+      }
+    },speedNumberValue*70);    
+    document.removeEventListener("click",funcColor,false)
+     
     init()
     gameLoop()    
     menu.style.display = "none"
@@ -340,28 +359,34 @@ function pauseGame(){
  }
  
  
+ 
+ 
+ 
+ 
+ 
+
  //  MAIN FUNCTION
  
- playGame = setInterval(()=>{
-   if(!paused) {
-      requestAnimationFrame(gameLoop)
-      }
-    },400) 
-     
+ 
+
+
+   
    function gameLoop(){
-      
-       
+             
 //  GAMEBOARD     
     ctx.fillStyle = "#D3D3D3"
 ctx.fillRect(0,0,canvas.offsetWidth,canvas.offsetHeight)
 
  
 //  SNAKE BODY  
+   
     
    for(let cell of snake){  
          ctx.fillStyle = snakeColorInGame       
          ctx.fillRect(cell.x * block,cell.y * block,block,block)         
        }   
+ 
+ 
  
 // SNAKE HEAD
  
@@ -371,11 +396,14 @@ ctx.fillRect(snake[snake.length-1].x*block,snake[snake.length-1].y*block,block,b
 ctx.drawImage(snakeDirection,snake[snake.length-1].x*block,snake[snake.length-1].y*block,block,block)
    
   
+ 
+  
+ 
+ 
   
      
 //   CHERRY
-     ctx.drawImage(cherry,food.x * block,food.y * block,block,block)
-          
+     ctx.drawImage(cherry,food.x * block,food.y * block,block,block)          
      position.x += velocity.x
      position.y += velocity.y
 
