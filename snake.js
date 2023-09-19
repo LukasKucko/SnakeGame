@@ -23,10 +23,12 @@
  speed.style.backgroundColor = "var(--menuLine)"
  let speedWord = document.querySelector("#speedWord")
  let speedNumber = document.querySelector("#speedNumber")
- let speedNumberValue = 5
- speedNumber.textContent = speedNumberValue
+ let speedNumberValue = 3
+ speedNumber.textContent = "normal"
  let speedNumberValueToInterval
  let backGroundPlayground = document.querySelector("#backGroundPlayground")
+ let backColorMenu = document.querySelector("#backColorMenu")
+ backColorMenu.style.color = "#D3D3D3"                        
 let snakeColorLine = document.querySelector("#snakeColorLine")
  let snakeColor= document.querySelector("#snakeColor")
  
@@ -39,7 +41,9 @@ let snakeColorLine = document.querySelector("#snakeColorLine")
  let position, velocity, food, snake
  let snakeTail, snakeDirection, playGame
  let countColor = 0
+ let countColorBackground = 0
  let snakeColorInGame = "#000"
+ let backgroundColorInGame = "#D3D3D3"
  let paused = false
  let scoreNumber = 0
  
@@ -73,48 +77,85 @@ document.addEventListener("click", funcColor)
            backGroundPlayground.style.backgroundColor = "var(--menuLine)"  
            }            
        else if(event.target === goRight){                  
-             if(speedNumberValue < 10){ 
+             if( speedNumberValue == 1){ 
               speedNumberValue++
-              speedNumber.textContent = speedNumberValue
+              speedNumber.textContent = "slow"
               
            }  
-             else if(speedNumberValue == 10){
-             speedNumber.textContent = speedNumberValue 
+             else if( speedNumberValue == 2){
+             speedNumberValue++
+             speedNumber.textContent = "normal" 
                 
             }  
-                                     
+            
+             else if( speedNumberValue == 3){
+             speedNumberValue++
+             speedNumber.textContent = "fast" 
+                
+            } 
+            
+             else if( speedNumberValue == 4){
+             speedNumberValue++
+             speedNumber.textContent = "faster" 
+                
+            }  
+            
+                    
            }             
        else if(event.target === goLeft){
-             if(speedNumberValue > 1){ 
+              if( speedNumberValue == 5){ 
               speedNumberValue--
-              speedNumber.textContent = speedNumberValue
-               
-              
-           } else if(speedNumberValue == 1){
-             speedNumber.textContent = speedNumberValue 
+              speedNumber.textContent = "fast"
               
            }  
-                                                                                             
+             else if( speedNumberValue == 4){
+             speedNumberValue--
+             speedNumber.textContent = "normal" 
+                
+            }  
+            
+             else if( speedNumberValue == 3){
+             speedNumberValue--
+             speedNumber.textContent = "slow" 
+                
+            } 
+            
+             else if( speedNumberValue == 2){
+             speedNumberValue--
+             speedNumber.textContent = "slowly" 
+                
+            }  
+            
+            
+                                                                                                   
          }
          
         }                                                                                
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            else if(snakeColorLine.style.backgroundColor == "var(--menuLine)"){   
-   
- if(event.target === goUp){     
+
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            else if(snakeColorLine.style.backgroundColor == "var(--menuLine)"){      
+    
+     if(event.target === goUp){     
  snakeColorLine.style.backgroundColor = "transparent"                       
  backGroundPlayground.style.backgroundColor = "var(--menuLine)"             
          }     
+    
      else if(event.target === goDown){           
      snakeColorLine.style.backgroundColor = "transparent" 
      speed.style.backgroundColor = "var(--menuLine)"             
         }
                                         
- else if(event.target === goLeft){
+     else if(event.target === goLeft){
       countColor-- 
        if(countColor == -1){
            countColor = 10
        } 
+      
         switch(countColor){
+           
              case 0:
              snakeColor.style.color = "#000000"                                                   
              snakeColorInGame = "#000"  
@@ -173,11 +214,14 @@ document.addEventListener("click", funcColor)
       return snakeColor
      }
                                                                                                  
- else if(event.target === goRight){
+   
+    else if(event.target === goRight){
         countColor++ 
+      
         if(countColor == 11){
             countColor = 0
         }
+       
         switch(countColor){
              case 0:
              snakeColor.style.color = "#000000"                                                   
@@ -238,13 +282,111 @@ document.addEventListener("click", funcColor)
      }
   }
 
+
+
 else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
-        if(event.target === goUp){            backGroundPlayground.style.backgroundColor = "transparent" 
+        if(event.target === goUp){            backGroundPlayground.style.color = "transparent" 
              speed.style.backgroundColor = "var(--menuLine)"             
            } 
-      else if(event.target === goDown){            backGroundPlayground.style.backgroundColor = "transparent" 
+     
+        else if(event.target === goDown){            
+      backGroundPlayground.style.backgroundColor = "transparent" 
              snakeColorLine.style.backgroundColor = "var(--menuLine)"             
            }
+      
+      
+       else if(event.target === goRight){
+        countColorBackground++ 
+        if(countColorBackground == 7){
+            countColorBackground = 1
+        }
+        switch(countColorBackground){
+          case 1:
+             backColorMenu.style.color = "#D3D3D3"                        
+             backgroundColorInGame = "#D3D3D3"   
+             break  
+             
+             case 2:  
+            backColorMenu.style.color = "#97a955"                        
+             backgroundColorInGame = "#97a955"   
+             break  
+             
+             case 3:  
+             backColorMenu.style.color = "#71a994"                        
+             backgroundColorInGame = "#71a994"   
+             break  
+             
+             case 4:  
+             backColorMenu.style.color = "#6379a9"                        
+             backgroundColorInGame = "#6379a9"   
+             break  
+             
+             case 5:  
+             backColorMenu.style.color = "#8c8c8c"                        
+             backgroundColorInGame = "#8c8c8c"   
+             break  
+             
+             case 6:  
+             backColorMenu.style.color = "#dddddd"                        
+             backgroundColorInGame = "#dddddd"   
+             break  
+             
+                                          
+             
+                                                                        
+        }                                             
+      return backgroundColorInGame
+     }
+       
+       else if(event.target === goLeft){
+        countColorBackground--
+        if(countColorBackground == 0){
+            countColorBackground = 6
+        }
+        switch(countColorBackground){
+             case 1:
+             backColorMenu.style.color = "#D3D3D3"                        
+             backgroundColorInGame = "#D3D3D3"   
+             break  
+             
+             case 2:  
+            backColorMenu.style.color = "#97a955"                        
+             backgroundColorInGame = "#97a955"   
+             break  
+             
+             case 3:  
+             backColorMenu.style.color = "#71a994"                        
+             backgroundColorInGame = "#71a994"   
+             break  
+             
+             case 4:  
+             backColorMenu.style.color = "#6379a9"                        
+             backgroundColorInGame = "#6379a9"   
+             break  
+             
+             case 5:  
+             backColorMenu.style.color = "#8c8c8c"                        
+             backgroundColorInGame = "#8c8c8c"   
+             break  
+             
+             case 6:  
+             backColorMenu.style.color = "#dddddd"                        
+             backgroundColorInGame = "#dddddd"   
+             break  
+             
+                                                                        
+        }                                             
+      return backgroundColorInGame
+     } 
+         
+       
+       
+       
+       
+       
+       
+       
+       
          }  
                                                                                   
        }    
@@ -331,14 +473,57 @@ else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
 
 
 
-
-function startGame(){
- clearInterval(playGame)
+function setNumberToInterval(){
+    if(speedNumberValue == 1){
+        clearInterval(playGame)
  playGame =setInterval(()=>{
    if(!paused) {
       requestAnimationFrame(gameLoop)
       }
-    },speedNumberValue*70);    
+    },800);    
+    }
+    else if(speedNumberValue == 2){
+        clearInterval(playGame)
+ playGame =setInterval(()=>{
+   if(!paused) {
+      requestAnimationFrame(gameLoop)
+      }
+    },600);    
+    }
+    else if(speedNumberValue == 3){
+        clearInterval(playGame)
+ playGame =setInterval(()=>{
+   if(!paused) {
+      requestAnimationFrame(gameLoop)
+      }
+    },400);    
+    }
+    else if(speedNumberValue == 4){
+        clearInterval(playGame)
+ playGame =setInterval(()=>{
+   if(!paused) {
+      requestAnimationFrame(gameLoop)
+      }
+    },200);    
+    }
+    else if(speedNumberValue == 5){
+        clearInterval(playGame)
+ playGame =setInterval(()=>{
+   if(!paused) {
+      requestAnimationFrame(gameLoop)
+      }
+    },80);    
+    }
+}
+
+
+
+
+
+
+
+function startGame(){
+ setNumberToInterval()
     document.removeEventListener("click",funcColor,false)
      
     init()
@@ -374,7 +559,7 @@ function pauseGame(){
    function gameLoop(){
              
 //  GAMEBOARD     
-    ctx.fillStyle = "#D3D3D3"
+    ctx.fillStyle = backgroundColorInGame
 ctx.fillRect(0,0,canvas.offsetWidth,canvas.offsetHeight)
 
  
@@ -390,7 +575,7 @@ ctx.fillRect(0,0,canvas.offsetWidth,canvas.offsetHeight)
  
 // SNAKE HEAD
  
- ctx.fillStyle = "#D3D3D3"  
+ ctx.fillStyle =  backgroundColorInGame
 ctx.fillRect(snake[snake.length-1].x*block,snake[snake.length-1].y*block,block,block)
 
 ctx.drawImage(snakeDirection,snake[snake.length-1].x*block,snake[snake.length-1].y*block,block,block)
@@ -468,6 +653,3 @@ highScore.textContent = localStorage.highScoreKey
      
   }
   
-
-
-
