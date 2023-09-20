@@ -31,12 +31,13 @@
  backColorMenu.style.color = "#D3D3D3"                        
 let snakeColorLine = document.querySelector("#snakeColorLine")
  let snakeColor= document.querySelector("#snakeColor")
+ let scoreTable = document.querySelector("#scoreTable")
  
  
  
  
  canvas.height = canvas.width  
- let block = 20
+ let block = 200
  let area = canvas.width / block
  let position, velocity, food, snake
  let snakeTail, snakeDirection, playGame
@@ -46,7 +47,8 @@ let snakeColorLine = document.querySelector("#snakeColorLine")
  let backgroundColorInGame = "#D3D3D3"
  let paused = false
  let scoreNumber = 0
- 
+ let tl, tr, br, bl
+ let intervalTime
  
  localStorage.getItem("highScoreKey",scoreNumber)
 highScore.textContent = localStorage.highScoreKey
@@ -70,7 +72,7 @@ document.addEventListener("click", funcColor)
     if(speed.style.backgroundColor == "var(--menuLine)"){
        if(event.target === goUp){
            speed.style.backgroundColor = "transparent"
-           snakeColorLine.style.backgroundColor = "var(--menuLine)"  
+           scoreTable.style.backgroundColor = "var(--menuLine)"  
            }
        else if(event.target === goDown){
            speed.style.backgroundColor = "transparent"
@@ -145,7 +147,7 @@ document.addEventListener("click", funcColor)
     
      else if(event.target === goDown){           
      snakeColorLine.style.backgroundColor = "transparent" 
-     speed.style.backgroundColor = "var(--menuLine)"             
+     scoreTable.style.backgroundColor = "var(--menuLine)"             
         }
                                         
      else if(event.target === goLeft){
@@ -285,7 +287,8 @@ document.addEventListener("click", funcColor)
 
 
 else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
-        if(event.target === goUp){            backGroundPlayground.style.color = "transparent" 
+        if(event.target === goUp){            
+        backGroundPlayground.style.backgroundColor = "transparent" 
              speed.style.backgroundColor = "var(--menuLine)"             
            } 
      
@@ -377,35 +380,22 @@ else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
                                                                         
         }                                             
       return backgroundColorInGame
-     } 
-         
-       
-       
-       
-       
-       
-       
-       
-       
-         }  
-                                                                                  
-       }    
-                        
-  
- 
-
-
-
-
-
-
-
-
-
-
- 
-
-
+     }         
+   }
+   
+   else if(scoreTable.style.backgroundColor == "var(--menuLine)"){      
+    
+     if(event.target === goUp){     
+ snakeColorLine.style.backgroundColor = "var(--menuLine)"                       
+ scoreTable.style.backgroundColor = "transparent"             
+         }     
+    
+     else if(event.target === goDown){           
+     scoreTable.style.backgroundColor = "transparent" 
+     speed.style.backgroundColor = "var(--menuLine)"             
+        }  
+ }    
+}                        
 
 
  function init(){
@@ -417,8 +407,11 @@ else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
                {x: 10, y: 10}
                ]  
      snakeTail = snake[0]
-     snakeDirection = snakeHeadRight
-     
+     snakeDirection = snakeHeadRight   
+     tl = 0
+     tr = 0
+     br = 0
+     bl = 0  
      }
    
               
@@ -456,16 +449,85 @@ else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
       function(event){    
           if(event.target === goUp){
           velocity = {x: 0, y: -1}
-          snakeDirection = snakeHeadUp          
+          snakeDirection = snakeHeadUp
+           if(snake[snake.length-1].x > snake[snake.length-2].x){
+           tl = 0
+           tr = 0
+           br = 60
+           bl = 0
+           } else{
+           tl = 0
+           tr = 0
+           br = 0
+           bl = 60 
+           }
+          setTimeout(()=>{ 
+           tl = 60
+           tr = 60
+           br = 0
+           bl = 0 
+           },intervalTime*2)        
          } else if(event.target === goRight){
           velocity = {x: 1, y: 0}
-          snakeDirection = snakeHeadRight          
+          snakeDirection = snakeHeadRight
+           if(snake[snake.length-1].y > snake[snake.length-2].y){
+           tl = 0
+           tr = 0
+           br = 0
+           bl = 60
+           } else{
+           tl = 60
+           tr = 0
+           br = 0
+           bl = 0 
+           }
+           setTimeout(()=>{ 
+           tl = 0
+           tr = 60
+           br = 60
+           bl = 0 
+           },intervalTime*2)         
          } else if(event.target === goDown){
           velocity = {x: 0, y: 1}
-          snakeDirection = snakeHeadDown          
+          snakeDirection = snakeHeadDown 
+          if(snake[snake.length-1].x > snake[snake.length-2].x){
+           tl = 0
+           tr = 60
+           br = 0
+           bl = 0
+           } else{
+           tl = 60
+           tr = 0
+           br = 0
+           bl = 0 
+           }
+          setTimeout(()=>{ 
+           tl = 0
+           tr = 0
+           br = 60
+           bl = 60 
+           },intervalTime*2)          
          } else if(event.target === goLeft){
           velocity = {x: -1, y: 0}
-          snakeDirection = snakeHeadLeft                                          
+          snakeDirection = snakeHeadLeft 
+          if(snake[snake.length-1].y < snake[snake.length-2].y){
+           tl = 0
+           tr = 60
+           br = 0
+           bl = 0
+           } else{
+           tl = 0
+           tr = 0
+           br = 60
+           bl = 0 
+           } 
+          setTimeout(()=>{ 
+           tl = 60
+           tr = 0
+           br = 0
+           bl = 60 
+           },intervalTime*2)       
+                                                
          }
        }
      )
@@ -476,47 +538,50 @@ else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
 function setNumberToInterval(){
     if(speedNumberValue == 1){
         clearInterval(playGame)
+        intervalTime = 700
  playGame =setInterval(()=>{
    if(!paused) {
       requestAnimationFrame(gameLoop)
       }
-    },800);    
+    },intervalTime);    
     }
     else if(speedNumberValue == 2){
         clearInterval(playGame)
+        intervalTime = 600
  playGame =setInterval(()=>{
    if(!paused) {
       requestAnimationFrame(gameLoop)
       }
-    },600);    
+    },intervalTime);    
     }
     else if(speedNumberValue == 3){
         clearInterval(playGame)
+        intervalTime = 400
  playGame =setInterval(()=>{
    if(!paused) {
       requestAnimationFrame(gameLoop)
       }
-    },400);    
+    },intervalTime);    
     }
     else if(speedNumberValue == 4){
         clearInterval(playGame)
+        intervalTime = 250
  playGame =setInterval(()=>{
    if(!paused) {
       requestAnimationFrame(gameLoop)
       }
-    },200);    
+    },intervalTime);    
     }
     else if(speedNumberValue == 5){
         clearInterval(playGame)
+        intervalTime = 150
  playGame =setInterval(()=>{
    if(!paused) {
       requestAnimationFrame(gameLoop)
       }
-    },80);    
+    },intervalTime);    
     }
 }
-
-
 
 
 
@@ -540,7 +605,7 @@ function pauseGame(){
        paused = true
      } else if(paused == true){
                  paused = false       
-   }
+    }
  }
  
  
@@ -560,16 +625,26 @@ function pauseGame(){
              
 //  GAMEBOARD     
     ctx.fillStyle = backgroundColorInGame
-ctx.fillRect(0,0,canvas.offsetWidth,canvas.offsetHeight)
+ctx.fillRect(0,0,canvas.width,canvas.height)
 
  
 //  SNAKE BODY  
    
     
    for(let cell of snake){  
-         ctx.fillStyle = snakeColorInGame       
-         ctx.fillRect(cell.x * block,cell.y * block,block,block)         
+         ctx.fillStyle = snakeColorInGame    
+         ctx.fillRect(cell.x * block,cell.y * block,block,block)      
+          
        }   
+ 
+// BLOCK OF SNAKE AFTER HEAD
+ctx.fillStyle =  backgroundColorInGame
+ctx.fillRect(snake[snake.length-2].x*block,snake[snake.length-2].y*block,block,block)
+ ctx.fillStyle = snakeColorInGame 
+ ctx.beginPath()    
+          ctx.roundRect(snake[snake.length-2].x*block,snake[snake.length-2].y*block,block,block,[tl,tr,br,bl])      
+         ctx.fill()  
+
  
  
  
@@ -617,6 +692,7 @@ highScore.textContent = localStorage.highScoreKey
        snake.unshift(snakeTail)       
        randomFood()  
        scoreNumber++
+       
        score.textContent = scoreNumber  
        }
      } 
