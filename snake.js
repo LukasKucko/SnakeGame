@@ -48,6 +48,7 @@ let snakeColorLine = document.querySelector("#snakeColorLine")
  let paused = false
  let scoreNumber = 0
  let tl, tr, br, bl
+ 
  let intervalTime
  
  localStorage.getItem("highScoreKey",scoreNumber)
@@ -409,12 +410,11 @@ else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
      snakeTail = snake[0]
      snakeDirection = snakeHeadRight   
      tl = 0
-     tr = 0
-     br = 0
-     bl = 0  
+     tr = 60
+     br = 60
+     bl = 0                 
      }
-   
-              
+     
    init()       
  
  
@@ -450,17 +450,7 @@ else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
           if(event.target === goUp){
           velocity = {x: 0, y: -1}
           snakeDirection = snakeHeadUp
-           if(snake[snake.length-1].x > snake[snake.length-2].x){
-           tl = 0
-           tr = 0
-           br = 60
-           bl = 0
-           } else{
-           tl = 0
-           tr = 0
-           br = 0
-           bl = 60 
-           }
+           
           setTimeout(()=>{ 
            tl = 60
            tr = 60
@@ -470,17 +460,7 @@ else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
          } else if(event.target === goRight){
           velocity = {x: 1, y: 0}
           snakeDirection = snakeHeadRight
-           if(snake[snake.length-1].y > snake[snake.length-2].y){
-           tl = 0
-           tr = 0
-           br = 0
-           bl = 60
-           } else{
-           tl = 60
-           tr = 0
-           br = 0
-           bl = 0 
-           }
+           
            setTimeout(()=>{ 
            tl = 0
            tr = 60
@@ -490,17 +470,7 @@ else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
          } else if(event.target === goDown){
           velocity = {x: 0, y: 1}
           snakeDirection = snakeHeadDown 
-          if(snake[snake.length-1].x > snake[snake.length-2].x){
-           tl = 0
-           tr = 60
-           br = 0
-           bl = 0
-           } else{
-           tl = 60
-           tr = 0
-           br = 0
-           bl = 0 
-           }
+          
           setTimeout(()=>{ 
            tl = 0
            tr = 0
@@ -510,17 +480,7 @@ else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
          } else if(event.target === goLeft){
           velocity = {x: -1, y: 0}
           snakeDirection = snakeHeadLeft 
-          if(snake[snake.length-1].y < snake[snake.length-2].y){
-           tl = 0
-           tr = 60
-           br = 0
-           bl = 0
-           } else{
-           tl = 0
-           tr = 0
-           br = 60
-           bl = 0 
-           } 
+          
           setTimeout(()=>{ 
            tl = 60
            tr = 0
@@ -656,6 +616,8 @@ ctx.fillRect(snake[snake.length-1].x*block,snake[snake.length-1].y*block,block,b
 ctx.drawImage(snakeDirection,snake[snake.length-1].x*block,snake[snake.length-1].y*block,block,block)
    
   
+// SNAKE TAIL 
+ 
  
   
  
@@ -720,6 +682,50 @@ highScore.textContent = localStorage.highScoreKey
      snake.shift()
      }
    }  
+  
+  
+   
+ function moveTail(){
+     if(snake[0].x < snake[1].x){
+       ctx.fillStyle =  backgroundColorInGame
+ctx.fillRect(snake[0].x*block,snake[0].y*block,block,block)
+ ctx.fillStyle = snakeColorInGame 
+ ctx.beginPath()    
+          ctx.roundRect(snake[0].x*block,snake[0].y*block,block,block,[60,0,0,60])      
+         ctx.fill()    
+     }
+     
+    else if(snake[0].x > snake[1].x){
+       ctx.fillStyle =  backgroundColorInGame
+ctx.fillRect(snake[0].x*block,snake[0].y*block,block,block)
+ ctx.fillStyle = snakeColorInGame 
+ ctx.beginPath()    
+          ctx.roundRect(snake[0].x*block,snake[0].y*block,block,block,[0,60,60,0])      
+         ctx.fill()    
+     } 
+     
+     else if(snake[0].y < snake[1].y){
+       ctx.fillStyle =  backgroundColorInGame
+ctx.fillRect(snake[0].x*block,snake[0].y*block,block,block)
+ ctx.fillStyle = snakeColorInGame 
+ ctx.beginPath()    
+          ctx.roundRect(snake[0].x*block,snake[0].y*block,block,block,[60,60,0,0])      
+         ctx.fill()    
+     }
+     
+     else if(snake[0].y > snake[1].y){
+       ctx.fillStyle =  backgroundColorInGame
+ctx.fillRect(snake[0].x*block,snake[0].y*block,block,block)
+ ctx.fillStyle = snakeColorInGame 
+ ctx.beginPath()    
+          ctx.roundRect(snake[0].x*block,snake[0].y*block,block,block,[0,0,60,60])      
+         ctx.fill()    
+     }
+ }  
+   
+   moveTail()
+   
+   
    
      
      snakeEatFood()
