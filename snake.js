@@ -1,12 +1,31 @@
 // QUERY SELECTORS + VARIABLES
 
 
-  
+//  SOUNDS
+
+ let forestSound = document.querySelector("#soundForest")
+let appleSound = document.querySelector("#soundApple") 
+let music = document.querySelector("#music") 
+let chooseMenu = document.querySelector("#chooseMenu") 
+let hitWall = document.querySelector("#hitWall") 
+
+forestSound.pause()
+appleSound.pause()
+music.pause()
+chooseMenu.pause()
+hitWall.pause()
+
+
+
+
+ 
  let start = document.querySelector("#start")
+ let pStart = document.querySelector("#pStart") 
  let pause = document.querySelector("#pause")
  let score = document.querySelector("#scoreValue")
  let highScore = document.querySelector("#highScoreValue")
  let cherry = document.querySelector("#cherry")
+ let appleFruit = document.querySelector("#appleFruit")
  let snakeHeadRight = document.querySelector("#snakeHeadRight")
  let snakeHeadUp = document.querySelector("#snakeHeadUp")
  let snakeHeadLeft = document.querySelector("#snakeHeadLeft")
@@ -15,8 +34,9 @@
  let goRight = document.querySelector("#control-right")
  let goDown = document.querySelector("#control-down")
  let goLeft = document.querySelector("#control-left")
- const canvas = document.querySelector("#playground")
-  const ctx  = canvas.getContext("2d")
+ let canvas = document.querySelector("#playground")
+ let ctx  = canvas.getContext("2d")
+  let gameOver = document.querySelector("#gameOver") 
  let introduction = document.querySelector("#introduction")
  let menu = document.querySelector("#menu")
  let speed = document.querySelector("#speed")
@@ -31,12 +51,13 @@
  backColorMenu.style.color = "#D3D3D3"                        
 let snakeColorLine = document.querySelector("#snakeColorLine")
  let snakeColor= document.querySelector("#snakeColor")
- let scoreTable = document.querySelector("#scoreTable")
  
+ let musicOnOff = document.querySelector("#musicOnOff")
+ let soundOnOff = document.querySelector("#soundOnOff")
+ let exit = document.querySelector("#exit")
  
+ canvas.height = canvas.width
  
- 
- canvas.height = canvas.width  
  let block = 200
  let area = canvas.width / block
  let position, velocity, food, snake
@@ -48,115 +69,280 @@ let snakeColorLine = document.querySelector("#snakeColorLine")
  let paused = false
  let scoreNumber = 0
  let tl, tr, br, bl
- 
  let intervalTime
  
- localStorage.getItem("highScoreKey",scoreNumber)
+ let endGame 
+ localStorage.setItem("startGame",endGame)
+   
+localStorage.getItem("highScoreKey",scoreNumber)
+
 highScore.textContent = localStorage.highScoreKey
 
  
+ //  INTRODUCTION
  
-
  setTimeout("introduction.style.display= 'flex';",4000)
  
- 
- 
-
   
-
-    
+       
+//  MOVE IN THE MENU    
+        
 document.addEventListener("click", funcColor)
   
-
  function funcColor (event){ 
-        
+         
     if(speed.style.backgroundColor == "var(--menuLine)"){
-       if(event.target === goUp){
+       if(event.target == goUp || event.target == triangleUp){
            speed.style.backgroundColor = "transparent"
-           scoreTable.style.backgroundColor = "var(--menuLine)"  
+           soundFx.style.backgroundColor = "var(--menuLine)"  
+           
+          if(soundOnOff.textContent == "Sound FX on"){
+       chooseMenu.play()
+       chooseMenu.volume = 0.2
+        }
+        else{
+         soundOnOff.textContent = "Sound FX off"
+         chooseMenu.pause()
+         } 
            }
-       else if(event.target === goDown){
+       else if(event.target == goDown || event.target == triangleDown){
            speed.style.backgroundColor = "transparent"
            backGroundPlayground.style.backgroundColor = "var(--menuLine)"  
-           }            
-       else if(event.target === goRight){                  
-             if( speedNumberValue == 1){ 
+            if(soundOnOff.textContent == "Sound FX on"){
+        chooseMenu.play()
+        chooseMenu.volume = 0.2
+        }
+        else{
+        soundOnOff.textContent = "Sound FX off"
+        chooseMenu.pause()
+        } 
+       }            
+       else if(event.target == goRight || event.target == triangleRight){     
+            if(soundOnOff.textContent == "Sound FX on"){
+       chooseMenu.pause()
+       chooseMenu.play()
+       chooseMenu.volume = 0.2
+        }
+        else{
+        soundOnOff.textContent = "Sound FX off"
+        chooseMenu.pause()
+         }          
+          if( speedNumberValue == 1){ 
               speedNumberValue++
-              speedNumber.textContent = "slow"
-              
-           }  
-             else if( speedNumberValue == 2){
+              speedNumber.textContent = "slow"                
+             }  
+            else if( speedNumberValue == 2){
              speedNumberValue++
-             speedNumber.textContent = "normal" 
-                
-            }  
-            
-             else if( speedNumberValue == 3){
+             speedNumber.textContent = "normal"                 
+             }              
+             else if( speedNumberValue == 3)   
+             {
              speedNumberValue++
-             speedNumber.textContent = "fast" 
-                
-            } 
-            
-             else if( speedNumberValue == 4){
+             speedNumber.textContent = "fast"                 
+             }             
+             else if( speedNumberValue == 4)
+             {
              speedNumberValue++
-             speedNumber.textContent = "faster" 
-                
-            }  
-            
-                    
+             speedNumber.textContent = "faster"                 
+             }                                  
            }             
-       else if(event.target === goLeft){
-              if( speedNumberValue == 5){ 
+       else if(event.target == goLeft || event.target == triangleLeft){       
+             if(soundOnOff.textContent == "Sound FX on"){
+       chooseMenu.pause()
+       chooseMenu.play()
+       chooseMenu.volume = 0.2
+        }
+        else{
+         soundOnOff.textContent = "Sound FX off"
+         chooseMenu.pause()
+         }  
+         if( speedNumberValue == 5){ 
               speedNumberValue--
-              speedNumber.textContent = "fast"
-              
+              speedNumber.textContent = "fast"              
            }  
-             else if( speedNumberValue == 4){
+           else if( speedNumberValue == 4){
              speedNumberValue--
-             speedNumber.textContent = "normal" 
-                
-            }  
-            
-             else if( speedNumberValue == 3){
+             speedNumber.textContent = "normal"                 
+            }              
+            else if( speedNumberValue == 3){
              speedNumberValue--
-             speedNumber.textContent = "slow" 
-                
-            } 
-            
-             else if( speedNumberValue == 2){
+             speedNumber.textContent = "slow"                 
+            }             
+            else if( speedNumberValue == 2){
              speedNumberValue--
-             speedNumber.textContent = "slowly" 
-                
-            }  
-            
-            
-                                                                                                   
-         }
-         
+             speedNumber.textContent = "slowly"                 
+            }                                                                                                                             
+          }         
         }                                                                                
 
-
-
-
-
+ 
+else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
+        if(event.target == goUp || event.target == triangleUp){  
+         if(soundOnOff.textContent == "Sound FX on"){
+       chooseMenu.play()
+       chooseMenu.volume = 0.2
+        }
+        else{
+         soundOnOff.textContent = "Sound FX off"
+         chooseMenu.pause()
+         }           
+        backGroundPlayground.style.backgroundColor = "transparent" 
+             speed.style.backgroundColor = "var(--menuLine)"             
+           } 
+     
+        else if(event.target == goDown || event.target == triangleDown){  
+          if(soundOnOff.textContent == "Sound FX on"){
+       chooseMenu.play()
+       chooseMenu.volume = 0.2
+        }
+        else{
+         soundOnOff.textContent = "Sound FX off"
+         chooseMenu.pause()
+         }          
+      backGroundPlayground.style.backgroundColor = "transparent" 
+             snakeColorLine.style.backgroundColor = "var(--menuLine)"             
+           }
+            
+       else if(event.target == goRight || event.target == triangleRight){
+       
+        if(soundOnOff.textContent == "Sound FX on"){
+       chooseMenu.play()
+       chooseMenu.volume = 0.2
+        }
+        else if(soundOnOff.textContent == "Sound FX off"){
+        
+         chooseMenu.pause()
+         } 
+        countColorBackground++ 
+        if(countColorBackground == 7){
+            countColorBackground = 1
+        }
+        switch(countColorBackground){
+          case 1:
+             backColorMenu.style.color = "#D3D3D3"                        
+             backgroundColorInGame = "#D3D3D3"   
+             break  
+             
+             case 2:  
+            backColorMenu.style.color = "#97a955"                        
+             backgroundColorInGame = "#97a955"   
+             break  
+             
+             case 3:  
+             backColorMenu.style.color = "#71a994"                        
+             backgroundColorInGame = "#71a994"   
+             break  
+             
+             case 4:  
+             backColorMenu.style.color = "#6379a9"                        
+             backgroundColorInGame = "#6379a9"   
+             break  
+             
+             case 5:  
+             backColorMenu.style.color = "#8c8c8c"                        
+             backgroundColorInGame = "#8c8c8c"   
+             break  
+             
+             case 6:  
+             backColorMenu.style.color = "#dddddd"                        
+             backgroundColorInGame = "#dddddd"   
+             break  
+            }                                             
+      return backgroundColorInGame
+     }
+       
+       else if(event.target == goLeft || event.target == triangleLeft){
+       
+        if(soundOnOff.textContent == "Sound FX on"){
+       chooseMenu.play()
+       chooseMenu.volume = 0.2
+        }
+        else{
+         soundOnOff.textContent = "Sound FX off"
+         chooseMenu.pause()
+         } 
+        countColorBackground--
+        if(countColorBackground == 0){
+            countColorBackground = 6
+        }
+        switch(countColorBackground){
+             case 1:
+             backColorMenu.style.color = "#D3D3D3"                        
+             backgroundColorInGame = "#D3D3D3"   
+             break  
+             
+             case 2:  
+            backColorMenu.style.color = "#97a955"                        
+             backgroundColorInGame = "#97a955"   
+             break  
+             
+             case 3:  
+             backColorMenu.style.color = "#71a994"                        
+             backgroundColorInGame = "#71a994"   
+             break  
+             
+             case 4:  
+             backColorMenu.style.color = "#6379a9"                        
+             backgroundColorInGame = "#6379a9"   
+             break  
+             
+             case 5:  
+             backColorMenu.style.color = "#8c8c8c"                        
+             backgroundColorInGame = "#8c8c8c"   
+             break  
+             
+             case 6:  
+             backColorMenu.style.color = "#dddddd"                        
+             backgroundColorInGame = "#dddddd"   
+             break  
+             
+                                                                        
+        }                                             
+      return backgroundColorInGame
+     }         
+   }
+            
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             else if(snakeColorLine.style.backgroundColor == "var(--menuLine)"){      
     
-     if(event.target === goUp){     
+     if(event.target == goUp || event.target == triangleUp){     
  snakeColorLine.style.backgroundColor = "transparent"                       
- backGroundPlayground.style.backgroundColor = "var(--menuLine)"             
-         }     
+ backGroundPlayground.style.backgroundColor = "var(--menuLine)"   
+    if(soundOnOff.textContent == "Sound FX on"){
+       chooseMenu.play()
+       chooseMenu.volume = 0.2
+        }
+        else{
+         soundOnOff.textContent = "Sound FX off"
+         chooseMenu.pause()
+         }         
+        }     
     
-     else if(event.target === goDown){           
+     else if(event.target == goDown || event.target == triangleDown){           
      snakeColorLine.style.backgroundColor = "transparent" 
-     scoreTable.style.backgroundColor = "var(--menuLine)"             
+     musicMenu.style.backgroundColor = "var(--menuLine)"
+        if(soundOnOff.textContent == "Sound FX on"){
+       chooseMenu.play()
+       chooseMenu.volume = 0.2
+        }
+        else{
+         soundOnOff.textContent = "Sound FX off"
+         chooseMenu.pause()
+         }            
         }
                                         
-     else if(event.target === goLeft){
+     else if(event.target == goLeft || event.target == triangleLeft){
+      if(soundOnOff.textContent == "Sound FX on"){
+       chooseMenu.play()
+       chooseMenu.volume = 0.2
+        }
+        else{
+         soundOnOff.textContent = "Sound FX off"
+         chooseMenu.pause()
+         } 
       countColor-- 
        if(countColor == -1){
            countColor = 10
-       } 
-      
+       }       
         switch(countColor){
            
              case 0:
@@ -216,15 +402,21 @@ document.addEventListener("click", funcColor)
         }                                             
       return snakeColor
      }
-                                                                                                 
-   
-    else if(event.target === goRight){
-        countColor++ 
+                                                                                                    
+    else if(event.target == goRight || event.target == triangleRight){
+     if(soundOnOff.textContent == "Sound FX on"){
+       chooseMenu.play()
+       chooseMenu.volume = 0.2
+        }
+        else{
+         soundOnOff.textContent = "Sound FX off"
+         chooseMenu.pause()
+         } 
+         countColor++ 
       
         if(countColor == 11){
             countColor = 0
-        }
-       
+        }       
         switch(countColor){
              case 0:
              snakeColor.style.color = "#000000"                                                   
@@ -287,120 +479,145 @@ document.addEventListener("click", funcColor)
 
 
 
-else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
-        if(event.target === goUp){            
-        backGroundPlayground.style.backgroundColor = "transparent" 
-             speed.style.backgroundColor = "var(--menuLine)"             
-           } 
-     
-        else if(event.target === goDown){            
-      backGroundPlayground.style.backgroundColor = "transparent" 
-             snakeColorLine.style.backgroundColor = "var(--menuLine)"             
-           }
-      
-      
-       else if(event.target === goRight){
-        countColorBackground++ 
-        if(countColorBackground == 7){
-            countColorBackground = 1
-        }
-        switch(countColorBackground){
-          case 1:
-             backColorMenu.style.color = "#D3D3D3"                        
-             backgroundColorInGame = "#D3D3D3"   
-             break  
-             
-             case 2:  
-            backColorMenu.style.color = "#97a955"                        
-             backgroundColorInGame = "#97a955"   
-             break  
-             
-             case 3:  
-             backColorMenu.style.color = "#71a994"                        
-             backgroundColorInGame = "#71a994"   
-             break  
-             
-             case 4:  
-             backColorMenu.style.color = "#6379a9"                        
-             backgroundColorInGame = "#6379a9"   
-             break  
-             
-             case 5:  
-             backColorMenu.style.color = "#8c8c8c"                        
-             backgroundColorInGame = "#8c8c8c"   
-             break  
-             
-             case 6:  
-             backColorMenu.style.color = "#dddddd"                        
-             backgroundColorInGame = "#dddddd"   
-             break  
-             
-                                          
-             
-                                                                        
-        }                                             
-      return backgroundColorInGame
-     }
-       
-       else if(event.target === goLeft){
-        countColorBackground--
-        if(countColorBackground == 0){
-            countColorBackground = 6
-        }
-        switch(countColorBackground){
-             case 1:
-             backColorMenu.style.color = "#D3D3D3"                        
-             backgroundColorInGame = "#D3D3D3"   
-             break  
-             
-             case 2:  
-            backColorMenu.style.color = "#97a955"                        
-             backgroundColorInGame = "#97a955"   
-             break  
-             
-             case 3:  
-             backColorMenu.style.color = "#71a994"                        
-             backgroundColorInGame = "#71a994"   
-             break  
-             
-             case 4:  
-             backColorMenu.style.color = "#6379a9"                        
-             backgroundColorInGame = "#6379a9"   
-             break  
-             
-             case 5:  
-             backColorMenu.style.color = "#8c8c8c"                        
-             backgroundColorInGame = "#8c8c8c"   
-             break  
-             
-             case 6:  
-             backColorMenu.style.color = "#dddddd"                        
-             backgroundColorInGame = "#dddddd"   
-             break  
-             
-                                                                        
-        }                                             
-      return backgroundColorInGame
-     }         
-   }
-   
-   else if(scoreTable.style.backgroundColor == "var(--menuLine)"){      
+
+
+
+   else if(musicMenu.style.backgroundColor == "var(--menuLine)"){      
     
-     if(event.target === goUp){     
+     if(event.target == goUp || event.target == triangleUp){  
+       if(soundOnOff.textContent == "Sound FX on"){
+       chooseMenu.play()
+       chooseMenu.volume = 0.2
+        }
+        else{
+         soundOnOff.textContent = "Sound FX off"
+         chooseMenu.pause()
+         }   
  snakeColorLine.style.backgroundColor = "var(--menuLine)"                       
- scoreTable.style.backgroundColor = "transparent"             
+ musicMenu.style.backgroundColor = "transparent"             
          }     
     
-     else if(event.target === goDown){           
-     scoreTable.style.backgroundColor = "transparent" 
+     else if(event.target == goDown || event.target == triangleDown){  
+      if(soundOnOff.textContent == "Sound FX on"){
+       chooseMenu.play()
+       chooseMenu.volume = 0.2
+        }
+        else if(soundOnOff.textContent == "Sound FX off"){
+         soundOnOff.textContent = "Sound FX off"
+         chooseMenu.pause()
+         }          
+     musicMenu.style.backgroundColor = "transparent" 
+     soundFx.style.backgroundColor = "var(--menuLine)"             
+        }  
+     
+     else if(event.target == goRight || event.target == triangleRight){
+      if(soundOnOff.textContent == "Sound FX on"){
+       chooseMenu.play()
+       chooseMenu.volume = 0.2
+        }
+        else{
+         soundOnOff.textContent = "Sound FX off"
+         chooseMenu.pause()
+         } 
+        if(musicOnOff.textContent == "Music on"){
+       musicOnOff.textContent = "Music off"
+       music.pause()
+       soundForest.pause()     
+        }
+        else if(musicOnOff.textContent == "Music off"){
+         musicOnOff.textContent = "Music off"
+         music.pause()
+         soundForest.pause()
+         }
+     }
+     
+     else if(event.target == goLeft || event.target == triangleLeft){
+      if(soundOnOff.textContent == "Sound FX on"){
+       chooseMenu.play()
+       chooseMenu.volume = 0.2
+        }
+        else{
+         soundOnOff.textContent = "Sound FX off"
+         chooseMenu.pause()
+         } 
+     if(musicOnOff.textContent == "Music off"){
+       musicOnOff.textContent = "Music on"
+         music.play()
+         music.volume = 0.1
+         forestSound.pause()
+     }
+     else if(musicOnOff.textContent == "Music on"){
+         musicOnOff.textContent = "Music on"
+         music.play()
+         music.volume = 0.5  
+         forestSound.pause()        
+     }
+   }
+ } 
+  
+  else if(soundFx.style.backgroundColor == "var(--menuLine)"){      
+    
+     if(event.target == goUp || event.target == triangleUp){  
+       if(soundOnOff.textContent == "Sound FX on"){
+       chooseMenu.play()
+       chooseMenu.volume = 0.2
+        }
+        else{
+         soundOnOff.textContent = "Sound FX off"
+         chooseMenu.pause()
+         }   
+ musicMenu.style.backgroundColor = "var(--menuLine)"                       
+ soundFx.style.backgroundColor = "transparent"             
+         }     
+    
+    else if(event.target == goRight || event.target == triangleRight){
+        if(soundOnOff.textContent == "Sound FX on"){
+       soundOnOff.textContent = "Sound FX off"
+       chooseMenu.pause()    
+        }
+        else{
+         soundOnOff.textContent = "Sound FX off"
+         chooseMenu.pause()
+         }
+     }
+     
+     else if(event.target == goLeft || event.target == triangleLeft){
+     if(soundOnOff.textContent == "Sound FX off"){
+       soundOnOff.textContent = "Sound FX on"
+        chooseMenu.play()
+        chooseMenu.volume = 0.2         
+     }
+     else if(soundOnOff.textContent == "Sound FX on"){
+         soundOnOff.textContent = "Sound FX on"
+         chooseMenu.play()
+         chooseMenu.volume = 0.2             
+     }
+   }
+        
+     else if(event.target == goDown || event.target == triangleDown){ 
+      if(soundOnOff.textContent == "Sound FX on"){
+       chooseMenu.play()
+       chooseMenu.volume = 0.2
+        }
+        else{
+         soundOnOff.textContent = "Sound FX off"
+         chooseMenu.pause()
+         }           
+     soundFx.style.backgroundColor = "transparent" 
      speed.style.backgroundColor = "var(--menuLine)"             
         }  
- }    
-}                        
-
-
- function init(){
+      }           
+    }                        
   
+// END FUNCTION  funcColor 
+
+
+
+
+//  REENDERING GAME
+
+ function init(){ 
+    
      position = {x: 10, y: 10}
      velocity = {x: 0, y:0}
      snake = [ {x: 8,  y: 10},
@@ -412,152 +629,170 @@ else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
      tl = 0
      tr = 60
      br = 60
-     bl = 0                 
+     bl = 0                     
      }
      
-   init()       
+//END FUNCTION init        
  
  
- // function set random food in game
+ // FUNCTION RANDOM FOOD IN GAME
            
  function randomFood(){
      food = {
        x: Math.floor(Math.random() * (area-1)),
        y: Math.floor(Math.random() * (area-1))
        }
-       if(food.x === snake[snake.length-1].x && food.y === snake[snake.length-1].y){
+       if(food.x == snake[snake.length-1].x && food.y == snake[snake.length-1].y){
          return randomFood()
        }
                
        for(let cell of snake){
-          if(cell.x === food.x && food.y === cell.y){
+          if(cell.x == food.x && food.y == cell.y){
              return randomFood()
             }
          }
      }
-     randomFood() 
+ 
+// END FUNCTION  randomFood   
  
  
  
- 
- 
+
+ //  MOVE THE SNAKE IN GAME
   
-//  MOVE THE SNAKE IN GAME
- 
-  function moveSnake(){   
-     document.addEventListener("click", 
-      function(event){    
-          if(event.target === goUp){
+  document.addEventListener("click",moveSnake)
+      function moveSnake(event){  
+                         
+          if(event.target === goUp || event.target === triangleUp){
+          
           velocity = {x: 0, y: -1}
-          snakeDirection = snakeHeadUp
-           
+          snakeDirection = snakeHeadUp           
           setTimeout(()=>{ 
            tl = 60
            tr = 60
            br = 0
            bl = 0 
            },intervalTime*2)        
-         } else if(event.target === goRight){
+         }
+         
+         else if(event.target === goRight || event.target === triangleRight){
           velocity = {x: 1, y: 0}
-          snakeDirection = snakeHeadRight
-           
+          snakeDirection = snakeHeadRight           
            setTimeout(()=>{ 
            tl = 0
            tr = 60
            br = 60
            bl = 0 
            },intervalTime*2)         
-         } else if(event.target === goDown){
+         } 
+         
+         else if(event.target === goDown || event.target === triangleDown){
           velocity = {x: 0, y: 1}
-          snakeDirection = snakeHeadDown 
-          
+          snakeDirection = snakeHeadDown           
           setTimeout(()=>{ 
            tl = 0
            tr = 0
            br = 60
            bl = 60 
            },intervalTime*2)          
-         } else if(event.target === goLeft){
+         } 
+         
+         else if(event.target === goLeft || event.target === triangleLeft){
           velocity = {x: -1, y: 0}
-          snakeDirection = snakeHeadLeft 
-          
+          snakeDirection = snakeHeadLeft           
           setTimeout(()=>{ 
            tl = 60
            tr = 0
            br = 0
            bl = 60 
-           },intervalTime*2)       
-                                                
+           },intervalTime*2)                                                       
          }
-       }
-     )
-   } 
+        }  
+      
+    
+// END FUNCTION  moveTheSnake  
 
 
+  
 
+
+ 
+ 
+ 
+//  FUNCTION TO SET SPEED OF SNAKE   
+     
 function setNumberToInterval(){
     if(speedNumberValue == 1){
         clearInterval(playGame)
         intervalTime = 700
- playGame =setInterval(()=>{
-   if(!paused) {
-      requestAnimationFrame(gameLoop)
-      }
-    },intervalTime);    
-    }
+        playGame =setInterval(()=>{
+           if(!paused) {
+             requestAnimationFrame(gameLoop)
+             }
+            },intervalTime);    
+           }
     else if(speedNumberValue == 2){
-        clearInterval(playGame)
-        intervalTime = 600
- playGame =setInterval(()=>{
-   if(!paused) {
-      requestAnimationFrame(gameLoop)
+            clearInterval(playGame)
+            intervalTime = 600
+            playGame =setInterval(()=>{
+             if(!paused) {
+             requestAnimationFrame(gameLoop)
+             }
+            },intervalTime);    
+           }
+   else if(speedNumberValue == 3){
+           clearInterval(playGame)
+           intervalTime = 400
+           playGame =setInterval(()=>{
+            if(!paused) {
+             requestAnimationFrame(gameLoop)
+             }
+            },intervalTime);    
+           }
+   else if(speedNumberValue == 4){
+           clearInterval(playGame)
+           intervalTime = 250
+           playGame =setInterval(()=>{
+            if(!paused) {
+             requestAnimationFrame(gameLoop)
+             }
+            },intervalTime);    
+           }
+   else if(speedNumberValue == 5){
+            clearInterval(playGame)
+            intervalTime = 150
+            playGame =setInterval(()=>{
+            if(!paused) {
+             requestAnimationFrame(gameLoop)
+             }
+            },intervalTime);    
+           }
+          }
+
+//END FUNCTION setNumberToInterval
+
+
+//  FUNCTION TO SET MUSIC IN GAME
+
+ function setMusicInGame(){
+     music.pause()
+  if(musicOnOff.textContent == "Music off"){
+      forestSound.pause()
       }
-    },intervalTime);    
-    }
-    else if(speedNumberValue == 3){
-        clearInterval(playGame)
-        intervalTime = 400
- playGame =setInterval(()=>{
-   if(!paused) {
-      requestAnimationFrame(gameLoop)
-      }
-    },intervalTime);    
-    }
-    else if(speedNumberValue == 4){
-        clearInterval(playGame)
-        intervalTime = 250
- playGame =setInterval(()=>{
-   if(!paused) {
-      requestAnimationFrame(gameLoop)
-      }
-    },intervalTime);    
-    }
-    else if(speedNumberValue == 5){
-        clearInterval(playGame)
-        intervalTime = 150
- playGame =setInterval(()=>{
-   if(!paused) {
-      requestAnimationFrame(gameLoop)
-      }
-    },intervalTime);    
-    }
-}
-
-
-
-
-
-function startGame(){
- setNumberToInterval()
-    document.removeEventListener("click",funcColor,false)
-     
-    init()
-    gameLoop()    
-    menu.style.display = "none"
-    canvas.style.display = "block"     
-    snakeDirection = snakeHeadRight 
-    }
+  else if(musicOnOff.textContent == "Music on"){
+     forestSound.play()
+     forestSound.volume = 0.2
+     }
+   }
  
+// END FUNCTION setMusicInGame
+ 
+ 
+ 
+
+
+        
+        
 //  FUNCTION GAME PAUSE 
  
 function pauseGame(){
@@ -567,22 +802,77 @@ function pauseGame(){
                  paused = false       
     }
  }
+
+// END FUNCTION pauseGame
+
+
+
+
+//  FUNCTION START GAME 
+
+
+  
+
+
+function startGame(){
+  
+  document.addEventListener("click",startExit)
+  
+  function startExit(event){
+      if(event.target === start || event.target === pStart){
+       
+       endGame = false
+         
+       if(endGame == false){  
+          endGame = true        
+          menu.style.display = "none"
+          canvas.style.display = "block" 
+   document.removeEventListener("click",funcColor)
  
+document.addEventListener("click",moveSnake) 
+     
+    init()  
+    randomFood()     
+    setMusicInGame()  
+    setNumberToInterval()               
+    gameLoop()   
+    return                   
+    }   
+         
+    else if(endGame == true){        
+      menu.style.display = "block"
+      canvas.style.display = "none"      
+      endGame = false             
+     document.addEventListener("click",funcColor) 
+     
+document.removeEventListener("click",moveSnake)     
+     return
+         } 
+       }
+     }  
+  }
+
+ // END FUNCTION startGame   
  
- 
- 
- 
- 
- 
+
+
+
+
+
+
+
+
+
+  
 
  //  MAIN FUNCTION
- 
- 
-
-
-   
+    
    function gameLoop(){
-             
+        
+      position.x += velocity.x
+      position.y += velocity.y  
+           
+                
 //  GAMEBOARD     
     ctx.fillStyle = backgroundColorInGame
 ctx.fillRect(0,0,canvas.width,canvas.height)
@@ -614,77 +904,161 @@ ctx.fillRect(snake[snake.length-2].x*block,snake[snake.length-2].y*block,block,b
 ctx.fillRect(snake[snake.length-1].x*block,snake[snake.length-1].y*block,block,block)
 
 ctx.drawImage(snakeDirection,snake[snake.length-1].x*block,snake[snake.length-1].y*block,block,block)
-   
-  
-// SNAKE TAIL 
- 
- 
-  
- 
- 
-  
+            
      
 //   CHERRY
+
+
+
      ctx.drawImage(cherry,food.x * block,food.y * block,block,block)          
-     position.x += velocity.x
-     position.y += velocity.y
+     
+
+
+
+
+//  APPLE
+
+  
+
+    
+    ctx.drawImage(appleFruit,food.x * block,food.y * block,block,block)          
+
+
+    
+
 
 //  SNAKE IS OVER GAME AREA
   
  function snakeOver(){
-     if(snake[snake.length-1].x < 0 || snake[snake.length-1].x === area || snake[snake.length-1].y < 0 || snake[snake.length-1].y === area){
+     if(snake[snake.length-1].x == -1 || snake[snake.length-1].x == area || snake[snake.length-1].y == -1 || snake[snake.length-1].y == area){
          
          if(scoreNumber > localStorage.getItem("highScoreKey",scoreNumber)){
                  localStorage.setItem("highScoreKey",scoreNumber)
 highScore.textContent = localStorage.highScoreKey
          }                
+         
+         if(musicOnOff.textContent == "Music off"){
+             music.pause()
+             forestSound.pause() 
+         } 
+         else if(musicOnOff.textContent == "Music on"){             
+             forestSound.pause() 
+             music.play()
+            } 
+     if(soundOnOff.textContent == "Sound FX on"){     
+       hitWall.play()
+       hitWall.volume = 0.05      
+                    
+       }
+       else if(soundOnOff.textContent == "Sound FX off"){
+           hitWall.pause()
+      }           
+                                             
          scoreNumber = 0
-         score.textContent = scoreNumber         
-         startGame()
-         canvas.style.display = "none"
-         menu.style.display = "block" 
-                document.addEventListener("click",funcColor) 
+         score.textContent = scoreNumber                                                                                                                                                                    
+         menu.style.display = "block"  
+         canvas.style.display = "none"                     
+         init()
+         
+document.removeEventListener("click",moveSnake)     
+          
+ document.addEventListener("click",funcColor)           
+    
+     endGame = true
+           
+                 
          }
        }
+
+//END METHOD snakeOver
+
 
 //  SNAKE EAT FOOD    
    
     function snakeEatFood(){
-     if(food.x === position.x && food.y === position.y){
+     if(food.x == position.x && food.y == position.y){
        snake.unshift(snakeTail)       
        randomFood()  
-       scoreNumber++
-       
+       scoreNumber++       
        score.textContent = scoreNumber  
+       if(soundOnOff.textContent == "Sound FX on"){
+       appleSound.play()
+       appleSound.volume = 0.05
        }
-     } 
+       else if(soundOnOff.textContent == "Sound FX off"){
+           appleSound.pause()
+           }      
+         }
+       } 
+
+// END METHOD snakeEatFood
+
+
 
 
 //  SNAKE EAT SNAKE
+ function snakeInSnake(){
  
-    function snakeInSnake(){
-     if(velocity.x || velocity.y){
-      if(scoreNumber > localStorage.getItem("highScoreKey",scoreNumber)){
+   if(velocity.x || velocity.y){     
+      
+     for(let cell of snake){
+     
+       if(cell.x == position.x && cell.y == position.y){           
+        
+                          
+      if(musicOnOff.textContent == "Music off"){
+          music.pause()
+          forestSound.pause() 
+         } 
+         else if(musicOnOff.textContent == "Music on"){
+          music.play()
+          forestSound.pause() 
+         }               
+         
+     if(scoreNumber > localStorage.getItem("highScoreKey",scoreNumber)){
         localStorage.setItem("highScoreKey",scoreNumber)
-highScore.textContent = localStorage.highScoreKey
-    }
-      for(let cell of snake){
-       if(cell.x === position.x && cell.y === position.y){ 
+highScore.textContent = localStorage.highScoreKey    
+      }   
+         scoreNumber = 0
+         score.textContent = scoreNumber                                                                                                                                                                    
+         menu.style.display = "block"  
+         canvas.style.display = "none"                     
+         init()
+         
+document.removeEventListener("click",moveSnake)     
           
-          scoreNumber = 0
-          score.textContent = scoreNumber                       
-          menu.style.display = "block"
-          canvas.style.display = "none"  
-               document.addEventListener("click",funcColor) 
-          }
+ document.addEventListener("click",funcColor)           
+    
+     endGame = true
+                 
+             }                                                                            
+           }                                         
+          snake.push({...position})
+          snake.shift()                    
         }
-     snake.push({...position})
-     snake.shift()
-     }
-   }  
-  
-  
+        return
+      }   
+        
+        
+    
+       
+       
+       
+       
+       
+      
    
+
+// END METHOD snakeInSnake     
+     
+                    
+
+       
+        
+                            
+        
+//  FUNCTION TO RIGHT REENDERING TAIL  
+       
  function moveTail(){
      if(snake[0].x < snake[1].x){
        ctx.fillStyle =  backgroundColorInGame
@@ -723,15 +1097,17 @@ ctx.fillRect(snake[0].x*block,snake[0].y*block,block,block)
      }
  }  
    
-   moveTail()
+ //  END METHOD MOVE TAIL  
    
    
    
-     
-     snakeEatFood()
-     snakeInSnake()     
-     moveSnake()
+     moveTail()     
+     snakeEatFood()          
      snakeOver()
-     
+     snakeInSnake()
+   
   }
   
+
+    startGame()              
+           
