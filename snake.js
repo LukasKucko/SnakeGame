@@ -26,6 +26,11 @@ hitWall.pause()
  let highScore = document.querySelector("#highScoreValue")
  let cherry = document.querySelector("#cherry")
  let appleFruit = document.querySelector("#appleFruit")
+ 
+ 
+
+ 
+ 
  let snakeHeadRight = document.querySelector("#snakeHeadRight")
  let snakeHeadUp = document.querySelector("#snakeHeadUp")
  let snakeHeadLeft = document.querySelector("#snakeHeadLeft")
@@ -48,13 +53,21 @@ hitWall.pause()
  let speedNumberValueToInterval
  let backGroundPlayground = document.querySelector("#backGroundPlayground")
  let backColorMenu = document.querySelector("#backColorMenu")
- backColorMenu.style.color = "#D3D3D3"                        
+ let squareColorBackground = document.querySelector("#squareColorBackground")
+                      
 let snakeColorLine = document.querySelector("#snakeColorLine")
- let snakeColor= document.querySelector("#snakeColor")
+ let snakeColor = document.querySelector("#snakeColor")
+ let squareColorSnake = document.querySelector("#squareColorSnake")
  
  let musicOnOff = document.querySelector("#musicOnOff")
  let soundOnOff = document.querySelector("#soundOnOff")
  let exit = document.querySelector("#exit")
+ 
+ 
+ 
+
+ 
+ 
  
  canvas.height = canvas.width
  
@@ -65,13 +78,14 @@ let snakeColorLine = document.querySelector("#snakeColorLine")
  let countColor = 0
  let countColorBackground = 0
  let snakeColorInGame = "#000"
- let backgroundColorInGame = "#D3D3D3"
+ let backgroundColorInGame = "#FFFFFF"
  let paused = false
  let scoreNumber = 0
  let tl, tr, br, bl
  let intervalTime
  
  let endGame 
+ 
  localStorage.setItem("startGame",endGame)
    
 localStorage.getItem("highScoreKey",scoreNumber)
@@ -95,7 +109,26 @@ document.addEventListener("click", funcColor)
        if(event.target == goUp || event.target == triangleUp){
            speed.style.backgroundColor = "transparent"
            soundFx.style.backgroundColor = "var(--menuLine)"  
-           
+           soundFx.animate([
+	{
+		offset: 0,
+		letterSpacing: "-.5em",
+		filter: "blur(12px)",
+		opacity: 0
+	},
+	{
+		offset: 1,
+		filter: "blur(0)",
+		opacity: 1
+	}
+],{				 
+	duration: 300,
+	easing: 'linear',
+	delay: 0,
+	iterations: 1,
+	direction: 'normal',
+	fill: 'none'
+})
           if(soundOnOff.textContent == "Sound FX on"){
        chooseMenu.play()
        chooseMenu.volume = 0.2
@@ -107,7 +140,27 @@ document.addEventListener("click", funcColor)
            }
        else if(event.target == goDown || event.target == triangleDown){
            speed.style.backgroundColor = "transparent"
-           backGroundPlayground.style.backgroundColor = "var(--menuLine)"  
+          backGroundPlayground.style.backgroundColor = "var(--menuLine)"  
+          backGroundPlayground.animate([
+	{
+		offset: 0,
+		letterSpacing: "-.5em",
+		filter: "blur(12px)",
+		opacity: 0
+	},
+	{
+		offset: 1,
+		filter: "blur(0)",
+		opacity: 1
+	}
+],{				 
+	duration: 300,
+	easing: 'linear',
+	delay: 0,
+	iterations: 1,
+	direction: 'normal',
+	fill: 'none'
+})
             if(soundOnOff.textContent == "Sound FX on"){
         chooseMenu.play()
         chooseMenu.volume = 0.2
@@ -177,6 +230,7 @@ document.addEventListener("click", funcColor)
 
  
 else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
+ 
         if(event.target == goUp || event.target == triangleUp){  
          if(soundOnOff.textContent == "Sound FX on"){
        chooseMenu.play()
@@ -187,7 +241,27 @@ else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
          chooseMenu.pause()
          }           
         backGroundPlayground.style.backgroundColor = "transparent" 
-             speed.style.backgroundColor = "var(--menuLine)"             
+             speed.style.backgroundColor = "var(--menuLine)"
+             speed.animate([
+	{
+		offset: 0,
+		letterSpacing: "-.5em",
+		filter: "blur(12px)",
+		opacity: 0
+	},
+	{
+		offset: 1,
+		filter: "blur(0)",
+		opacity: 1
+	}
+],{				 
+	duration: 300,
+	easing: 'linear',
+	delay: 0,
+	iterations: 1,
+	direction: 'normal',
+	fill: 'none'
+});            
            } 
      
         else if(event.target == goDown || event.target == triangleDown){  
@@ -200,7 +274,27 @@ else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
          chooseMenu.pause()
          }          
       backGroundPlayground.style.backgroundColor = "transparent" 
-             snakeColorLine.style.backgroundColor = "var(--menuLine)"             
+             snakeColorLine.style.backgroundColor = "var(--menuLine)" 
+             snakeColorLine.animate([
+	{
+		offset: 0,
+		letterSpacing: "-.5em",
+		filter: "blur(12px)",
+		opacity: 0
+	},
+	{
+		offset: 1,
+		filter: "blur(0)",
+		opacity: 1
+	}
+],{				 
+	duration: 300,
+	easing: 'linear',
+	delay: 0,
+	iterations: 1,
+	direction: 'normal',
+	fill: 'none'
+});           
            }
             
        else if(event.target == goRight || event.target == triangleRight){
@@ -214,38 +308,59 @@ else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
          chooseMenu.pause()
          } 
         countColorBackground++ 
-        if(countColorBackground == 7){
+        if(countColorBackground == 9){
             countColorBackground = 1
         }
         switch(countColorBackground){
-          case 1:
-             backColorMenu.style.color = "#D3D3D3"                        
-             backgroundColorInGame = "#D3D3D3"   
+          
+         case 1:
+             backColorMenu.textContent = "Background - azure"
+             squareColorBackground.style.backgroundColor = "#F0FFFF"                        
+             backgroundColorInGame = "#F0FFFF" 
+                   
+             break   
+          
+          case 2:
+             backColorMenu.textContent = "Background - beige"
+             squareColorBackground.style.backgroundColor = "#F5F5DC"                        
+             backgroundColorInGame =  "#F5F5DC"    
+             break  
+                                      
+          case 3:  
+            backColorMenu.textContent = "Background - grey"  
+             squareColorBackground.style.backgroundColor = "#A9A9A9"                        
+             backgroundColorInGame = "#A9A9A9"   
              break  
              
-             case 2:  
-            backColorMenu.style.color = "#97a955"                        
-             backgroundColorInGame = "#97a955"   
+          case 4:  
+            backColorMenu.textContent = "Background - lavender"  
+            
+             squareColorBackground.style.backgroundColor = "#E6E6FA"                        
+             backgroundColorInGame = "#E6E6FA"   
              break  
              
-             case 3:  
-             backColorMenu.style.color = "#71a994"                        
-             backgroundColorInGame = "#71a994"   
+          case 5:  
+             backColorMenu.textContent = "Background - brown"  
+             squareColorBackground.style.backgroundColor = "#C4A484"                        
+             backgroundColorInGame = "#C4A484"   
              break  
              
-             case 4:  
-             backColorMenu.style.color = "#6379a9"                        
-             backgroundColorInGame = "#6379a9"   
+          case 6:  
+             backColorMenu.textContent = "Background - peach"  
+             squareColorBackground.style.backgroundColor = "#FFE5B4"                        
+             backgroundColorInGame = "#FFE5B4"   
+             break  
+          
+           case 7:  
+             backColorMenu.textContent = "Background - pearl"  
+             squareColorBackground.style.backgroundColor = "#E2DFD2"                        
+             backgroundColorInGame = "#E2DFD2"   
              break  
              
-             case 5:  
-             backColorMenu.style.color = "#8c8c8c"                        
-             backgroundColorInGame = "#8c8c8c"   
-             break  
-             
-             case 6:  
-             backColorMenu.style.color = "#dddddd"                        
-             backgroundColorInGame = "#dddddd"   
+            case 8:  
+             backColorMenu.textContent = "Background - white"  
+             squareColorBackground.style.backgroundColor = "#FFFFFF"                        
+             backgroundColorInGame = "#FFFFFF"   
              break  
             }                                             
       return backgroundColorInGame
@@ -263,40 +378,64 @@ else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
          } 
         countColorBackground--
         if(countColorBackground == 0){
-            countColorBackground = 6
+            countColorBackground = 8
         }
         switch(countColorBackground){
              case 1:
-             backColorMenu.style.color = "#D3D3D3"                        
-             backgroundColorInGame = "#D3D3D3"   
+             backColorMenu.textContent = "Background - azure"
+             squareColorBackground.style.backgroundColor = "#F0FFFF"                        
+             backgroundColorInGame = "#F0FFFF" 
+                   
+             break   
+          
+          case 2:
+             backColorMenu.textContent = "Background - beige"
+             squareColorBackground.style.backgroundColor = "#F5F5DC"                        
+             backgroundColorInGame =  "#F5F5DC"    
+             break  
+                                      
+          case 3:  
+            backColorMenu.textContent = "Background - grey"  
+             squareColorBackground.style.backgroundColor = "#A9A9A9"                        
+             backgroundColorInGame = "#A9A9A9" 
+               
              break  
              
-             case 2:  
-            backColorMenu.style.color = "#97a955"                        
-             backgroundColorInGame = "#97a955"   
+          case 4:  
+            backColorMenu.textContent = "Background - lavender"  
+            
+             squareColorBackground.style.backgroundColor = "#E6E6FA"                        
+             backgroundColorInGame = "#E6E6FA"  
+              
              break  
              
-             case 3:  
-             backColorMenu.style.color = "#71a994"                        
-             backgroundColorInGame = "#71a994"   
+          case 5:  
+             backColorMenu.textContent = "Background - brown"  
+             squareColorBackground.style.backgroundColor = "#C4A484"                        
+             backgroundColorInGame = "#C4A484"
+                
              break  
              
-             case 4:  
-             backColorMenu.style.color = "#6379a9"                        
-             backgroundColorInGame = "#6379a9"   
+          case 6:  
+             backColorMenu.textContent = "Background - peach"  
+             squareColorBackground.style.backgroundColor = "#FFE5B4"                        
+             backgroundColorInGame = "#FFE5B4"   
+            
+             break  
+          
+           case 7:  
+             backColorMenu.textContent = "Background - pearl"  
+             squareColorBackground.style.backgroundColor = "#E2DFD2"                        
+             backgroundColorInGame = "#E2DFD2"   
+             
              break  
              
-             case 5:  
-             backColorMenu.style.color = "#8c8c8c"                        
-             backgroundColorInGame = "#8c8c8c"   
-             break  
-             
-             case 6:  
-             backColorMenu.style.color = "#dddddd"                        
-             backgroundColorInGame = "#dddddd"   
-             break  
-             
-                                                                        
+            case 8:  
+             backColorMenu.textContent = "Background - white"  
+             squareColorBackground.style.backgroundColor = "#FFFFFF"                        
+             backgroundColorInGame = "#FFFFFF"   
+            
+             break                                         
         }                                             
       return backgroundColorInGame
      }         
@@ -307,6 +446,26 @@ else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
      if(event.target == goUp || event.target == triangleUp){     
  snakeColorLine.style.backgroundColor = "transparent"                       
  backGroundPlayground.style.backgroundColor = "var(--menuLine)"   
+ backGroundPlayground.animate([
+	{
+		offset: 0,
+		letterSpacing: "-.5em",
+		filter: "blur(12px)",
+		opacity: 0
+	},
+	{
+		offset: 1,
+		filter: "blur(0)",
+		opacity: 1
+	}
+],{				 
+	duration: 300,
+	easing: 'linear',
+	delay: 0,
+	iterations: 1,
+	direction: 'normal',
+	fill: 'none'
+});
     if(soundOnOff.textContent == "Sound FX on"){
        chooseMenu.play()
        chooseMenu.volume = 0.2
@@ -320,6 +479,26 @@ else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
      else if(event.target == goDown || event.target == triangleDown){           
      snakeColorLine.style.backgroundColor = "transparent" 
      musicMenu.style.backgroundColor = "var(--menuLine)"
+     musicMenu.animate([
+	{
+		offset: 0,
+		letterSpacing: "-.5em",
+		filter: "blur(12px)",
+		opacity: 0
+	},
+	{
+		offset: 1,
+		filter: "blur(0)",
+		opacity: 1
+	}
+],{				 
+	duration: 300,
+	easing: 'linear',
+	delay: 0,
+	iterations: 1,
+	direction: 'normal',
+	fill: 'none'
+});
         if(soundOnOff.textContent == "Sound FX on"){
        chooseMenu.play()
        chooseMenu.volume = 0.2
@@ -346,57 +525,57 @@ else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
         switch(countColor){
            
              case 0:
-             snakeColor.style.color = "#000000"                                                   
+             squareColorSnake.style.backgroundColor = "#000000"                                                   
              snakeColorInGame = "#000"  
              break  
              
              case 1:  
-             snakeColor.style.color = "#474747"                                                   
+             squareColorSnake.style.backgroundColor = "#474747"                                                   
              snakeColorInGame = "#474747"  
              break  
              
              case 2:  
-             snakeColor.style.color = "#6523d1"                                                   
+             squareColorSnake.style.backgroundColor = "#6523d1"                                                   
              snakeColorInGame = "#6523d1"  
              break  
              
              case 3:  
-             snakeColor.style.color = "#3473d1"                                                   
+             squareColorSnake.style.backgroundColor = "#3473d1"                                                   
              snakeColorInGame = "#3473d1"  
              break  
              
              case 4:  
-             snakeColor.style.color = "#00d1af"                                                   
+             squareColorSnake.style.backgroundColor = "#00d1af"                                                   
              snakeColorInGame = "#00d1af"  
              break  
              
              case 5:  
-             snakeColor.style.color = "#439826"                                                   
+             squareColorSnake.style.backgroundColor = "#439826"                                                   
              snakeColorInGame = "#439826"  
              break  
              
              case 6:  
-             snakeColor.style.color = "#a8b40f"                                                   
+             squareColorSnake.style.backgroundColor = "#a8b40f"                                                   
              snakeColorInGame = "#a8b40f"  
              break  
              
              case 7:  
-             snakeColor.style.color = "#b48d1e"                                                   
+             squareColorSnake.style.backgroundColor = "#b48d1e"                                                   
              snakeColorInGame = "#b48d1e"  
              break  
              
              case 8:  
-             snakeColor.style.color = "#b4341e"                                                   
+             squareColorSnake.style.backgroundColor = "#b4341e"                                                   
              snakeColorInGame = "#b4341e"  
              break  
              
              case 9:  
-             snakeColor.style.color = "#b43c8d"                                                   
+             squareColorSnake.style.backgroundColor = "#b43c8d"                                                   
              snakeColorInGame = "#b43c8d"  
              break  
              
              case 10:  
-             snakeColor.style.color = "#ad78b4"                                                   
+             squareColorSnake.style.backgroundColor = "#ad78b4"                                                   
              snakeColorInGame = "#ad78b4"  
              break                                                                                
         }                                             
@@ -419,57 +598,57 @@ else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
         }       
         switch(countColor){
              case 0:
-             snakeColor.style.color = "#000000"                                                   
+             squareColorSnake.style.backgroundColor = "#000000"                                                   
              snakeColorInGame = "#000000"  
              break  
              
              case 1:  
-             snakeColor.style.color = "#474747"                                                   
+             squareColorSnake.style.backgroundColor = "#474747"                                                   
              snakeColorInGame = "#474747"  
              break  
              
              case 2:  
-             snakeColor.style.color = "#6523d1"                                                   
+             squareColorSnake.style.backgroundColor = "#6523d1"                                                   
              snakeColorInGame = "#6523d1"  
              break  
              
              case 3:  
-             snakeColor.style.color = "#3473d1"                                                   
+             squareColorSnake.style.backgroundColor = "#3473d1"                                                   
              snakeColorInGame = "#3473d1"  
              break  
              
              case 4:  
-             snakeColor.style.color = "#00d1af"                                                   
+             squareColorSnake.style.backgroundColor = "#00d1af"                                                   
              snakeColorInGame = "#00d1af"  
              break  
              
              case 5:  
-             snakeColor.style.color = "#439826"                                                   
+             squareColorSnake.style.backgroundColor = "#439826"                                                   
              snakeColorInGame = "#439826"  
              break  
              
              case 6:  
-             snakeColor.style.color = "#a8b40f"                                                   
+             squareColorSnake.style.backgroundColor = "#a8b40f"                                                   
              snakeColorInGame = "#a8b40f"  
              break  
              
              case 7:  
-             snakeColor.style.color = "#b48d1e"                                                   
+             squareColorSnake.style.backgroundColor = "#b48d1e"                                                   
              snakeColorInGame = "#b48d1e"  
              break  
              
              case 8:  
-             snakeColor.style.color = "#b4341e"                                                   
+             squareColorSnake.style.backgroundColor = "#b4341e"                                                   
              snakeColorInGame = "#b4341e"  
              break  
              
              case 9:  
-             snakeColor.style.color = "#b43c8d"                                                   
+             squareColorSnake.style.backgroundColor = "#b43c8d"                                                   
              snakeColorInGame = "#b43c8d"  
              break  
              
              case 10:  
-             snakeColor.style.color = "#ad78b4"                                                   
+             squareColorSnake.style.backgroundColor = "#ad78b4"                                                   
              snakeColorInGame = "#ad78b4"  
              break                                                                                
         }                                             
@@ -493,7 +672,27 @@ else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
          soundOnOff.textContent = "Sound FX off"
          chooseMenu.pause()
          }   
- snakeColorLine.style.backgroundColor = "var(--menuLine)"                       
+ snakeColorLine.style.backgroundColor = "var(--menuLine)" 
+ snakeColorLine.animate([
+	{
+		offset: 0,
+		letterSpacing: "-.5em",
+		filter: "blur(12px)",
+		opacity: 0
+	},
+	{
+		offset: 1,
+		filter: "blur(0)",
+		opacity: 1
+	}
+],{				 
+	duration: 300,
+	easing: 'linear',
+	delay: 0,
+	iterations: 1,
+	direction: 'normal',
+	fill: 'none'
+});                      
  musicMenu.style.backgroundColor = "transparent"             
          }     
     
@@ -507,7 +706,27 @@ else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
          chooseMenu.pause()
          }          
      musicMenu.style.backgroundColor = "transparent" 
-     soundFx.style.backgroundColor = "var(--menuLine)"             
+     soundFx.style.backgroundColor = "var(--menuLine)" 
+     soundFx.animate([
+	{
+		offset: 0,
+		letterSpacing: "-.5em",
+		filter: "blur(12px)",
+		opacity: 0
+	},
+	{
+		offset: 1,
+		filter: "blur(0)",
+		opacity: 1
+	}
+],{				 
+	duration: 300,
+	easing: 'linear',
+	delay: 0,
+	iterations: 1,
+	direction: 'normal',
+	fill: 'none'
+});            
         }  
      
      else if(event.target == goRight || event.target == triangleRight){
@@ -566,7 +785,27 @@ else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
          soundOnOff.textContent = "Sound FX off"
          chooseMenu.pause()
          }   
- musicMenu.style.backgroundColor = "var(--menuLine)"                       
+ musicMenu.style.backgroundColor = "var(--menuLine)"
+ musicMenu.animate([
+	{
+		offset: 0,
+		letterSpacing: "-.5em",
+		filter: "blur(12px)",
+		opacity: 0
+	},
+	{
+		offset: 1,
+		filter: "blur(0)",
+		opacity: 1
+	}
+],{				 
+	duration: 300,
+	easing: 'linear',
+	delay: 0,
+	iterations: 1,
+	direction: 'normal',
+	fill: 'none'
+});                       
  soundFx.style.backgroundColor = "transparent"             
          }     
     
@@ -604,7 +843,27 @@ else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
          chooseMenu.pause()
          }           
      soundFx.style.backgroundColor = "transparent" 
-     speed.style.backgroundColor = "var(--menuLine)"             
+     speed.style.backgroundColor = "var(--menuLine)"     
+     speed.animate([
+	{
+		offset: 0,
+		letterSpacing: "-.5em",
+		filter: "blur(12px)",
+		opacity: 0
+	},
+	{
+		offset: 1,
+		filter: "blur(0)",
+		opacity: 1
+	}
+],{				 
+	duration: 300,
+	easing: 'linear',
+	delay: 0,
+	iterations: 1,
+	direction: 'normal',
+	fill: 'none'
+});        
         }  
       }           
     }                        
@@ -642,7 +901,7 @@ else if (backGroundPlayground.style.backgroundColor == "var(--menuLine)"){
        x: Math.floor(Math.random() * (area-1)),
        y: Math.floor(Math.random() * (area-1))
        }
-       if(food.x == snake[snake.length-1].x && food.y == snake[snake.length-1].y){
+       if(food.x-1 == snake[snake.length-1].x-1 && food.y == snake[snake.length-1].y || food.x == snake[snake.length-1].x && food.y == snake[snake.length-1].y || food.x+1 == snake[snake.length-1].x+1 && food.y == snake[snake.length-1].y || food.x == snake[snake.length-1].x && food.y-1 == snake[snake.length-1].y-1 || food.x == snake[snake.length-1].x && food.y+1 == snake[snake.length-1].y+1){
          return randomFood()
        }
                
@@ -836,6 +1095,7 @@ document.addEventListener("click",moveSnake)
     setMusicInGame()  
     setNumberToInterval()               
     gameLoop()   
+    
     return                   
     }   
          
@@ -874,9 +1134,18 @@ document.removeEventListener("click",moveSnake)
            
                 
 //  GAMEBOARD     
-    ctx.fillStyle = backgroundColorInGame
-ctx.fillRect(0,0,canvas.width,canvas.height)
+    
+ctx.fillStyle = backgroundColorInGame
 
+ctx.fillRect(0,0,canvas.width,canvas.height)
+ 
+ctx.fill()
+  
+ 
+ 
+ 
+ 
+ 
  
 //  SNAKE BODY  
    
@@ -888,9 +1157,9 @@ ctx.fillRect(0,0,canvas.width,canvas.height)
        }   
  
 // BLOCK OF SNAKE AFTER HEAD
-ctx.fillStyle =  backgroundColorInGame
+ctx.fillStyle = backgroundColorInGame
 ctx.fillRect(snake[snake.length-2].x*block,snake[snake.length-2].y*block,block,block)
- ctx.fillStyle = snakeColorInGame 
+ ctx.fillStyle = snakeColorInGame
  ctx.beginPath()    
           ctx.roundRect(snake[snake.length-2].x*block,snake[snake.length-2].y*block,block,block,[tl,tr,br,bl])      
          ctx.fill()  
@@ -1109,5 +1378,4 @@ ctx.fillRect(snake[0].x*block,snake[0].y*block,block,block)
   }
   
 
-    startGame()              
-           
+    startGame()          
