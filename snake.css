@@ -190,7 +190,7 @@ background: radial-gradient(circle, rgba(214,208,211,1) 57%, rgba(76,77,77,1) 10
    margin: auto;
    height: 46%;
    z-index: 9999;
-   background-image: url("/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/images/jungleMenu.jpg");
+   background-image: url("assets/jungleMenu.jpg");
    background-repeat: no-repeat;
    background-size: cover;
    background-position: center;
