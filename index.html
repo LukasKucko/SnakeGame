@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">   
+<html lang="en">
 <head>
     <meta http-equiv="ScreenOrientation" content="autoRotate:disabled">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
+     <link rel="preload" href="snake.css" as="style" /> 
     
     <link rel="stylesheet" type="text/css" href="snake.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
@@ -13,7 +14,9 @@
 </head>
 <body>
    
-    
+ <div id="preload">
+    <span class="loader"></span> 
+ </div>  
     
     
 <audio id="soundForest" autoplay  src="assets/forest.mp3" type="audio/mpeg">  
@@ -26,6 +29,8 @@
 </audio>
 <audio id="hitWall" autoplay src="assets/hitWall.mp3" type="audio/mpeg">  
 </audio>
+<audio id="hitSnake" autoplay src="assets/hitSnake.mp3" type="audio/mpeg">  
+</audio>
     
     
     
@@ -37,23 +42,28 @@
    <div id="container">
        
     <!-- HEADER LAYOUT -->
-     <span id="line"></span>
+    
      <div id="header-layout">
-     
+     <span id="centerScore">
       <span id="highScoreText">Best score:</span>
+      
       <span id="highScoreValue">0</span>
+      
       <span id="gamerName"></span>
       <span id="scoreText">Your score:</span>
-      <span id="scoreValue">0</span>      
+      <span id="scoreValue">0</span>   
+      </span>   
      </div>
-    
+    <div id="exit">
+        <p>Exit</p>
+    </div>
     <!--   HEADER LAYOUT END --> 
     <!--   INTRO -->
-      
+      <span id="woodBorder">
        <span class="ml2" id="introduction" width="88%" height="86.7%">
         <p>Snake &nbsp by &nbsp KUCKO</p>              
        </span>
-       
+       </span>
     <!--   INTRO END -->
     
     <!--   GAME MENU -->
@@ -85,7 +95,7 @@
      <span id="soundOnOff">Sound FX off</span> 
      </p>
      
-      
+     
      
      <p id="pressStartToPlay">
          Press start to play
@@ -96,8 +106,9 @@
     <!--   GAME MENU END -->
     
     <!--   GAME   -->
-  
+     <span id="boardBorder"></span>
      <canvas id="playground" width="3000" height="3000" >     </canvas>
+     
        <span id="gameOver">
         <p>GAME OVER</p>
         </span>
@@ -118,22 +129,21 @@
      <div id="controls">
        <div  id="start">
            
-         <p  id="pStart">start<br>-<br>exit</p>
+         <p  id="pStart">start</p>
        </div>
-       <div onclick="pauseGame()" id="pause">
-         <p>play<br>-<br>pause</p>
+       <div onclick="pauseGame()" id="pause">pause
        </div>
        <div id="control-up" >
-         <span id="triangleUp"></span>
+       
        </div>
        <div id="control-down">
-         <span id="triangleDown"></span> 
+         
        </div>
        <div id="control-left">
-         <span id="triangleLeft"></span>
+         
        </div>
        <div id="control-right">
-         <span id="triangleRight"></span> 
+         
        </div>
     </div>
     
@@ -146,7 +156,8 @@
   
    <script src="snake.js"></script> 
    <script>
-        var textWrapper = document.querySelector('.ml2'); textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>"); anime.timeline({loop: false}) .add({ targets: '.ml2 .letter', scale: [4,1], opacity: [0,1], translateZ: 0, easing: "easeOutExpo", duration: 950, delay: (el, i) => 70*i }).add({ targets: '.ml2', opacity: 0, duration: 1000, easing: "easeOutExpo", delay: 1000 });</script>
+      var textWrapper = document.querySelector('.ml2'); textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>"); anime.timeline({loop: false}) .add({ targets: '.ml2 .letter', scale: [4,1], opacity: [0,1], translateZ: 0, easing: "easeInExpo", duration: 750, delay: (el, i) => 100*i }).add({ targets: '.ml2', opacity: 0, duration: 500, easing: "easeInExpo", delay: 500 }); 
+        </script>
   
 </body>
 </html>
