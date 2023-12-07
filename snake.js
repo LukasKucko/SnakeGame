@@ -1,3 +1,12 @@
+
+
+
+
+
+
+
+
+
 // QUERY SELECTORS + VARIABLES
 
 
@@ -17,7 +26,22 @@ chooseMenu.pause()
 hitWall.pause()
 hitSnake.pause()
 
+document.getElementById('exit','pExit').addEventListener('click', exitButton);
 
+ // FUNCTION TO EXIT GAME
+ 
+function exitButton() {
+    forestSound.pause()
+    appleSound.pause()
+    music.pause()
+    chooseMenu.pause()
+    hitWall.pause()
+    hitSnake.pause()
+    window.close();
+}
+
+//  EXIT GAME END
+//  SOUNDS END
 
 
  
@@ -27,10 +51,11 @@ hitSnake.pause()
  let score = document.querySelector("#scoreValue")
  let highScore = document.querySelector("#highScoreValue")
  let cherry = document.querySelector("#cherry")
- let appleFruit = document.querySelector("#appleFruit")
- 
- 
-
+ let apple = document.querySelector("#apple")
+ let watterMelon = document.querySelector("#watterMelon")
+ let strawberry= document.querySelector("#strawberry") 
+ let randomFruit = null
+  
  
  
  let snakeHeadRight = document.querySelector("#snakeHeadRight")
@@ -45,6 +70,8 @@ hitSnake.pause()
  let ctx  = canvas.getContext("2d")
   let gameOver = document.querySelector("#gameOver") 
  let introduction = document.querySelector("#introduction")
+ let highScoreValue = document.querySelector("#highScoreValue")
+ let scoreValue = document.querySelector("#scoreValue")
  let menu = document.querySelector("#menu")
  let menuTable = document.querySelector("#menuTable")
  let speed = document.querySelector("#speed")
@@ -65,36 +92,40 @@ let snakeColorLine = document.querySelector("#snakeColorLine")
  let musicOnOff = document.querySelector("#musicOnOff")
  let soundOnOff = document.querySelector("#soundOnOff")
  let exit = document.querySelector("#exit")
- let preload = document.querySelector("#preload")
+ let pExit = document.querySelector("#pExit")
+ let preload = 
+ document.querySelector("#preload")
  
+
+// PRELOAD GAME 
+
  window.addEventListener("load",function(){
      preload.style.display = "none"
  })
  
- 
- 
- // FUNCTION TO EXIT GAME
- 
-function exitButton() {
-    
-    window.close();
-}
-
-document.getElementById('exit').addEventListener('click', exitButton);
-
-//  EXIT GAME END
- 
+// PRELOAD GAME END
 
  
  
+ //  VARIABLES
+  let snakeSize = 150
+ let block = snakeSize
+
+
  
- canvas.height = canvas.width
  
- let block = 200
- let area = canvas.width / block
- let position, velocity, food, snake
- let snakeTail, snakeDirection, playGame
- let snakeBodyDirectionRadius
+ let moveBodyRightUp 
+ let moveBodyLeftUp
+ let moveBodyRightDown
+ let moveBodyLeftDown
+ let moveBodyUpRight
+ let moveBodyUpLeft
+ let moveBodyDownRight
+ let moveBodyDownLeft                                
+ let position, positionHead
+ let velocity, velocityHead, snake
+ let food
+ let snakeTai, snakeDirection, playGame
  let countColor = 0
  let countColorBackground = 0
  let snakeColorInGame = "#000"
@@ -102,11 +133,22 @@ document.getElementById('exit').addEventListener('click', exitButton);
  let paused = false
  let scoreNumber = 0
  let tl, tr, br, bl
- let topLeftRadius,topRightRadius
- let bottomRightRadius,bottomLeftRadius
- let intervalTime
- 
+ let htl, htr, hbr, hbl
+ let trueDrawFruit = true
+ let intervalTime 
+ let drawFruit
  let endGame 
+ let moveHeadInRightTimeUp 
+ let moveHeadInRightTimeDown 
+ let moveHeadInRightTimeLeft 
+ let moveHeadInRightTimeRight 
+ let xPositionFruit,yPositionFruit
+ let addNewBlockToSnake = false
+ let timer 
+//  VARIABLES END
+ 
+ 
+//  LOADING BEST SCORE FROM LOCAL STORAGE 
  
  localStorage.setItem("startGame",endGame)
    
@@ -114,15 +156,17 @@ localStorage.getItem("highScoreKey",scoreNumber)
 
 highScore.textContent = localStorage.highScoreKey
 
+//  LOADING BEST SCORE FROM LOCAL STORAGE END
  
- //  INTRODUCTION
+//  INTRODUCTION
  
  setTimeout("menuTable.style.display = 'block';",3000);
- 
+
+//  INTRODUCTION END 
 
  
        
-//  MOVE IN THE MENU    
+//  MOVE IN THE MENU     
         
 document.addEventListener("click", funcColor)
   
@@ -193,6 +237,7 @@ document.addEventListener("click", funcColor)
         chooseMenu.pause()
         } 
        }            
+       
        else if(event.target == goRight){     
             if(soundOnOff.textContent == "Sound FX on"){
        chooseMenu.pause()
@@ -202,26 +247,37 @@ document.addEventListener("click", funcColor)
         else{
         soundOnOff.textContent = "Sound FX off"
         chooseMenu.pause()
-         }          
-          if( speedNumberValue == 1){ 
-              speedNumberValue++
-              speedNumber.textContent = "slow"                
-             }  
-            else if( speedNumberValue == 2){
-             speedNumberValue++
-             speedNumber.textContent = "normal"                 
-             }              
-             else if( speedNumberValue == 3)   
-             {
-             speedNumberValue++
-             speedNumber.textContent = "fast"                 
-             }             
-             else if( speedNumberValue == 4)
-             {
-             speedNumberValue++
-             speedNumber.textContent = "faster"                 
-             }                                  
-           }             
+         } 
+         
+         
+        speedNumberValue++ 
+        
+        if(speedNumberValue == 6){
+            speedNumberValue = 1
+         }
+                  
+     if(speedNumberValue == 1){ 
+        speedNumber.textContent = "slowly" 
+        } 
+
+else if(speedNumberValue == 2){
+        speedNumber.textContent = "slow" 
+        } 
+
+else if(speedNumberValue == 3) {
+        speedNumber.textContent = "normal" 
+        } 
+
+else if(speedNumberValue == 4){
+        speedNumber.textContent = "fast" 
+        } 
+
+else if(speedNumberValue == 5){
+        speedNumber.textContent = "faster" 
+        } 
+      }
+
+
        else if(event.target == goLeft){       
              if(soundOnOff.textContent == "Sound FX on"){
        chooseMenu.pause()
@@ -232,24 +288,36 @@ document.addEventListener("click", funcColor)
          soundOnOff.textContent = "Sound FX off"
          chooseMenu.pause()
          }  
-         if( speedNumberValue == 5){ 
-              speedNumberValue--
-              speedNumber.textContent = "fast"              
-           }  
-           else if( speedNumberValue == 4){
-             speedNumberValue--
-             speedNumber.textContent = "normal"                 
-            }              
-            else if( speedNumberValue == 3){
-             speedNumberValue--
-             speedNumber.textContent = "slow"                 
-            }             
-            else if( speedNumberValue == 2){
-             speedNumberValue--
-             speedNumber.textContent = "slowly"                 
-            }                                                                                                                             
-          }         
-        }                                                                                
+         
+         speedNumberValue--
+         
+         if(speedNumberValue == 0){
+             speedNumberValue = 5
+         }
+         
+     if( speedNumberValue == 5){ 
+         speedNumber.textContent = "faster" 
+        } 
+
+else if( speedNumberValue == 4){
+         speedNumber.textContent = "fast" 
+        } 
+
+else if( speedNumberValue == 3){
+         speedNumber.textContent = "normal" 
+        } 
+
+else if( speedNumberValue == 2){
+         speedNumber.textContent = "slow" 
+        } 
+
+else if( speedNumberValue == 1){
+         speedNumber.textContent = "slowly" 
+       } 
+     } 
+   } 
+
+
 
  
 else if (backGroundPlayground.style.backgroundImage == "var(--menuLine)"){
@@ -896,7 +964,8 @@ else if (backGroundPlayground.style.backgroundImage == "var(--menuLine)"){
 	fill: 'none'
 });        
         }  
-      }             
+      }                   
+              
     }                       
   
 // END FUNCTION  funcColor 
@@ -906,19 +975,68 @@ else if (backGroundPlayground.style.backgroundImage == "var(--menuLine)"){
 
  function init(){ 
     
-     position = {x: 10, y: 10}
-     velocity = {x: 0, y:0}
-     snake = [ {x: 8,  y: 10},
-               {x: 9, y: 10},
-               {x: 10, y: 10}
-               ]  
-               
-     snakeBodyDirectionRadius  = {
-         x: null,
-         y: null
-     }       
-               
-     snakeTail = snake[0]
+     
+     velocity = {x: 10 , y: 0}
+     
+     
+     
+     snake = [                                                                                        
+                                                                                                                                                                  
+               {x: 1200,  y: 1200},   
+               {x: 1210,  y: 1200},  
+               {x: 1220,  y: 1200},  
+               {x: 1230,  y: 1200},  
+               {x: 1240,  y: 1200},  
+               {x: 1250,  y: 1200},  
+               {x: 1260,  y: 1200},  
+               {x: 1270,  y: 1200},  
+               {x: 1280,  y: 1200},  
+               {x: 1290,  y: 1200},  
+               {x: 1300,  y: 1200},  
+               {x: 1310,  y: 1200},  
+               {x: 1320,  y: 1200},  
+               {x: 1330,  y: 1200},  
+               {x: 1340,  y: 1200},  
+               {x: 1350,  y: 1200},  
+               {x: 1360,  y: 1200},  
+               {x: 1370,  y: 1200},  
+               {x: 1380,  y: 1200},  
+               {x: 1390,  y: 1200},  
+               {x: 1400,  y: 1200},  
+               {x: 1410,  y: 1200},  
+               {x: 1420,  y: 1200},  
+               {x: 1430,  y: 1200},  
+               {x: 1440,  y: 1200},  
+               {x: 1450,  y: 1200},  
+               {x: 1460,  y: 1200},   
+               {x: 1470,  y: 1200},                  
+               {x: 1480,  y: 1200},      
+               {x: 1490,  y: 1200},  
+               {x: 1500,  y: 1200},  
+               {x: 1510,  y: 1200},  
+               {x: 1520,  y: 1200},  
+               {x: 1530,  y: 1200},  
+               {x: 1540,  y: 1200},  
+               {x: 1550,  y: 1200},  
+               {x: 1560,  y: 1200},  
+               {x: 1570,  y: 1200},  
+               {x: 1580,  y: 1200},  
+               {x: 1590,  y: 1200},  
+               {x: 1600,  y: 1200},  
+               {x: 1610,  y: 1200},
+               {x: 1620,  y: 1200},  
+               {x: 1630,  y: 1200}, 
+               {x: 1640,  y: 1200}, 
+               {x: 1650,  y: 1200}               
+               ] 
+      
+      
+      
+                 
+     position = {x: 1650, y: 1200}   
+                                                           
+     snake[0] = snake[0]
+   
      snakeDirection = snakeHeadRight   
      tl = 0
      tr = 60
@@ -929,20 +1047,51 @@ else if (backGroundPlayground.style.backgroundImage == "var(--menuLine)"){
 //END FUNCTION init        
  
  
+/* FUNCTION RANDOM FRUIT EVERY SNAKESIZE X AND Y POSITION
+*/
+ 
+ function randomXOneHoundredFifthy(){
+   xPositionFruit = Math.floor(Math.random() * ((canvas.width-snakeSize)/10)*10)/150
+     if(Number.isInteger(xPositionFruit) == true){
+     xPositionFruit = xPositionFruit*150
+         return xPositionFruit
+     }
+     else{
+         return randomXOneHoundredFifthy()
+     }
+ }
+ 
+ 
+ function randomYOneHoundredFifthy(){
+   yPositionFruit = Math.floor(Math.random() * ((canvas.height-snakeSize)/10)*10)/150
+     if(Number.isInteger(yPositionFruit) == true){
+     yPositionFruit = yPositionFruit*150
+         return yPositionFruit
+     }
+     else{
+         return randomYOneHoundredFifthy()
+     }
+ }
+ 
+ /* END FUNCTION RANDOM FRUIT EVERY SNAKESIZE X AND Y POSITION
+*/
+ 
+ 
  // FUNCTION RANDOM FOOD IN GAME
            
  function randomFood(){
-     food = {
-       x: Math.floor(Math.random() * (area-1)),
-       y: Math.floor(Math.random() * (area-1))
-       }
-       
-       if(food.x-1 == snake[snake.length-1].x-1 && food.y == snake[snake.length-1].y || food.x == snake[snake.length-1].x && food.y == snake[snake.length-1].y || food.x+1 == snake[snake.length-1].x+1 && food.y == snake[snake.length-1].y || food.x == snake[snake.length-1].x && food.y-1 == snake[snake.length-1].y-1 || food.x == snake[snake.length-1].x && food.y+1 == snake[snake.length-1].y+1){
+   
+     food= {
+       x: randomXOneHoundredFifthy(),
+       y: randomYOneHoundredFifthy()
+       }                                       
+                            
+       if(food.x == snake[snake.length-1].x && food.y == snake[snake.length-1].y){
          return randomFood()
        }
                
        for(let cell of snake){
-          if(cell.x == food.x && food.y == cell.y){
+          if(cell.x == food.x && cell.y == food.y){
              return randomFood()
             }
          }
@@ -954,140 +1103,352 @@ else if (backGroundPlayground.style.backgroundImage == "var(--menuLine)"){
 
 
  //  MOVE THE SNAKE IN GAME
-  
-  document.addEventListener("click",moveSnake)
-      function moveSnake(event){  
-                         
-          if(event.target === goUp){
-     
-     
-  /*  
-     
-        snakeBodyDirectionRadius.x = snake[snake.length-1].x 
-        snakeBodyDirectionRadius.y = snake[snake.length-1].y 
-        for(let cell in snake){
-            if(cell.x == snakeBodyDirectionRadius.x && cell.y == snakeBodyDirectionRadius.y && snake[snake.length-1].x > snake[snake.length-2].x ){
-           topLeftRadius = 0
-           topRightRadius = 0
-           bottomRightRadius = 60
-           bottomLeftRadius = 0     
-        
-            }
-        }
-        
-        
-        
-   */     
-        
-        
-        
-          velocity = {x: 0, y: -1}
-          snakeDirection = snakeHeadUp           
-          setTimeout(()=>{ 
-          
-           tl = 60
-           tr = 60
-           br = 0
-           bl = 0
-            
-           },intervalTime*2)        
-         }
-         
-         else if(event.target === goRight){
-          velocity = {x: 1, y: 0}
-          snakeDirection = snakeHeadRight           
-           setTimeout(()=>{ 
-           tl = 0
-           tr = 60
-           br = 60
-           bl = 0 
-           },intervalTime*2)         
-         } 
-         
-         else if(event.target === goDown){
-          velocity = {x: 0, y: 1}
-          snakeDirection = snakeHeadDown           
-          setTimeout(()=>{ 
-           tl = 0
-           tr = 0
-           br = 60
-           bl = 60 
-           },intervalTime*2)          
-         } 
-         
-         else if(event.target === goLeft){
-          velocity = {x: -1, y: 0}
-          snakeDirection = snakeHeadLeft           
-          setTimeout(()=>{ 
-           tl = 60
-           tr = 0
-           br = 0
-           bl = 60 
-           },intervalTime*2)                                                       
-         }
-        }  
-      
     
+   function moveSnake(){
+             
+  if(event.target === goUp){
+     
+     moveHeadInRightTimeUp = true
+                                                                                                                                                                                                                                                                                                                                                                                                                                             
+     }
+
+  else if(event.target === goRight){
+     
+    moveHeadInRightTimeRight = true     
+     
+    } 
+    
+  else if(event.target === goDown){
+                
+    moveHeadInRightTimeDown = true    
+                 
+    } 
+    
+  else if(event.target === goLeft){
+                                                                   
+    moveHeadInRightTimeLeft = true  
+       
+      }                                                                                                                                                                 
+    }                           
+                
+         
+         
 // END FUNCTION  moveTheSnake  
 
+//  FUNCTION MOVE SNAKE BODY IN RIGHT TIME 
+//  UP FUNCTION
 
-  
+ function moveBodyInRightTimeUp(){
+   
+  if(moveHeadInRightTimeUp == true){
+     
+    if(snake[snake.length-1].x > snake[snake.length-2].x){
+    
+    velocity = {x: 10, y: 0} 
+    if(Number.isInteger(snake[snake.length-1].x/snakeSize) == true){
+        
+         velocity = {x: 0, y: -10}
+         snakeDirection = snakeHeadUp
+        
+         
+         setTimeout(()=>{ 
+                         tl = 60
+                         tr = 60
+                         br = 0
+                         bl = 0
+                         },intervalTime)  
+ 
+        return moveHeadInRightTimeUp = false
+   
+       }
+     }
+     
+     
+   else if(snake[snake.length-1].x < snake[snake.length-2].x){
+    
+    velocity = {x: -10, y: 0} 
+    if(Number.isInteger(snake[snake.length-1].x/snakeSize) == true){
+        
+         velocity = {x: 0, y: -10}
+         snakeDirection = snakeHeadUp
+        
+         
+         setTimeout(()=>{ 
+                         tl = 60
+                         tr = 0
+                         br = 0
+                         bl = 60
+                         },intervalTime)  
+ 
+        return moveHeadInRightTimeUp = false
+   
+       }
+     }
+   }
+ }
+ 
 
+// UP FUNCTION END
+// RIGHT FUNCTION  
+
+function moveBodyInRightTimeRight(){
+   
+  if(moveHeadInRightTimeRight == true){
+     
+    if(snake[snake.length-1].y > snake[snake.length-2].y){
+    
+    velocity = {x: 0, y: 10} 
+    if(Number.isInteger(snake[snake.length-1].y/snakeSize) == true){
+        
+         velocity = {x: 10, y: 0}
+         snakeDirection = snakeHeadRight
+                 
+         setTimeout(()=>{ 
+                         tl = 0
+                         tr = 60
+                         br = 60
+                         bl = 0
+                         },intervalTime)  
+ 
+        return moveHeadInRightTimeRight = false
+   
+       }
+     }
+     
+     
+   else if(snake[snake.length-1].y < snake[snake.length-2].y){
+    
+    velocity = {x: 0, y: -10} 
+    if(Number.isInteger(snake[snake.length-1].y/snakeSize) == true){
+        
+         velocity = {x: 10, y: 0}
+         snakeDirection = snakeHeadRight
+                 
+         setTimeout(()=>{ 
+                         tl = 0
+                         tr = 60
+                         br = 60
+                         bl = 0
+                         },intervalTime)  
+ 
+       return  moveHeadInRightTimeRight = false
+   
+       }
+     }
+   }
+ }
+
+// RIGHT FUNCTION END 
+
+
+// DOWN FUNCTION
+
+function moveBodyInRightTimeDown(){
+   
+  if(moveHeadInRightTimeDown == true){
+     
+    if(snake[snake.length-1].x > snake[snake.length-2].x){
+    
+    velocity = {x: 10, y: 0} 
+    if(Number.isInteger(snake[snake.length-1].x/snakeSize) == true){
+        
+         velocity = {x: 0, y: 10}
+         snakeDirection = snakeHeadDown
+                 
+         setTimeout(()=>{ 
+                         tl = 0
+                         tr = 0
+                         br = 60
+                         bl = 60
+                         },intervalTime)  
+ 
+        return moveHeadInRightTimeDown = false
+   
+       }
+     }
+     
+     
+   else if(snake[snake.length-1].x < snake[snake.length-2].x){
+    
+    velocity = {x: -10, y: 0} 
+    if(Number.isInteger(snake[snake.length-1].x/snakeSize) == true){
+        
+         velocity = {x: 0, y: 10}
+         snakeDirection = snakeHeadDown
+                 
+         setTimeout(()=>{ 
+                         tl = 0
+                         tr = 0
+                         br = 60
+                         bl = 60
+                         },intervalTime)  
+ 
+        return moveHeadInRightTimeDown = false
+   
+       }
+     }
+   }
+ }
+
+// DOWN FUNCTION END
+
+// LEFT FUNCTION
+
+function moveBodyInRightTimeLeft(){
+   
+  if(moveHeadInRightTimeLeft == true){
+     
+    if(snake[snake.length-1].y > snake[snake.length-2].y){
+    
+    velocity = {x: 0, y: 10} 
+    if(Number.isInteger(snake[snake.length-1].y/snakeSize) == true){
+        
+         velocity = {x: -10, y: 0}
+         snakeDirection = snakeHeadLeft
+                 
+         setTimeout(()=>{ 
+                         tl = 60
+                         tr = 0
+                         br = 0
+                         bl = 60
+                         },intervalTime)  
+ 
+        return moveHeadInRightTimeLeft = false
+   
+       }
+     }
+     
+     
+   else if(snake[snake.length-1].y < snake[snake.length-2].y){
+    
+    velocity = {x: 0, y: -10} 
+    if(Number.isInteger(snake[snake.length-1].y/snakeSize) == true){
+        
+         velocity = {x: -10, y: 0}
+         snakeDirection = snakeHeadLeft
+                 
+         setTimeout(()=>{ 
+                         tl = 60
+                         tr = 0
+                         br = 0
+                         bl = 60
+                         },intervalTime)  
+ 
+        return moveHeadInRightTimeLeft = false
+   
+       }
+     }
+   }
+ }
+
+//LEFT FUNCTION END
 
  
- 
- 
+
 //  FUNCTION TO SET SPEED OF SNAKE   
      
 function setNumberToInterval(){
-    if(speedNumberValue == 1){
-        clearInterval(playGame)
-        intervalTime = 700
-        playGame =setInterval(()=>{
-           if(!paused) {
-             requestAnimationFrame(gameLoop)
-             }
-            },intervalTime);    
-           }
-    else if(speedNumberValue == 2){
-            clearInterval(playGame)
-            intervalTime = 600
-            playGame =setInterval(()=>{
-             if(!paused) {
-             requestAnimationFrame(gameLoop)
-             }
-            },intervalTime);    
-           }
-   else if(speedNumberValue == 3){
-           clearInterval(playGame)
-           intervalTime = 400
-           playGame =setInterval(()=>{
-            if(!paused) {
-             requestAnimationFrame(gameLoop)
-             }
-            },intervalTime);    
-           }
-   else if(speedNumberValue == 4){
-           clearInterval(playGame)
-           intervalTime = 250
-           playGame =setInterval(()=>{
-            if(!paused) {
-             requestAnimationFrame(gameLoop)
-             }
-            },intervalTime);    
-           }
-   else if(speedNumberValue == 5){
-            clearInterval(playGame)
-            intervalTime = 150
-            playGame =setInterval(()=>{
-            if(!paused) {
-             requestAnimationFrame(gameLoop)
-             }
-            },intervalTime);    
-           }
-          }
+
+if(speedNumberValue == 1){
+
+clearInterval(playGame)
+
+intervalTime = 400
+
+playGame =setInterval(()=>{
+
+if(!paused) {
+
+requestAnimationFrame(gameLoop)
+
+}
+
+},intervalTime); 
+
+}
+
+else if(speedNumberValue == 2){
+
+clearInterval(playGame)
+
+intervalTime = 50
+
+playGame =setInterval(()=>{
+
+if(!paused) {
+
+requestAnimationFrame(gameLoop)
+
+}
+
+},intervalTime); 
+
+}
+
+else if(speedNumberValue == 3){
+
+clearInterval(playGame)
+
+intervalTime = 20
+
+playGame =setInterval(()=>{
+
+if(!paused) {
+
+requestAnimationFrame(gameLoop)
+
+}
+
+},intervalTime); 
+
+}
+
+else if(speedNumberValue == 4){
+
+clearInterval(playGame)
+
+intervalTime = 10
+
+playGame =setInterval(()=>{
+
+if(!paused) {
+
+requestAnimationFrame(gameLoop)
+
+}
+
+},intervalTime); 
+
+}
+
+else if(speedNumberValue == 5){
+
+clearInterval(playGame)
+
+intervalTime = 5
+
+playGame =setInterval(()=>{
+
+if(!paused) {
+
+requestAnimationFrame(gameLoop)
+
+}
+
+},intervalTime); 
+
+}
+
+}
+
+
+
 
 //END FUNCTION setNumberToInterval
+
+
+
+
 
 
 //  FUNCTION TO SET MUSIC IN GAME
@@ -1129,7 +1490,6 @@ function pauseGame(){
 //  FUNCTION START GAME 
 
 
-  
 
 
 function startGame(){
@@ -1142,41 +1502,41 @@ function startGame(){
        endGame = false
          
        if(endGame == false){  
-          endGame = true        
+                  
           menu.style.display = "none"
           canvas.style.display = "block" 
           
-   document.removeEventListener("click",funcColor)
- 
-document.addEventListener("click",moveSnake) 
+   
+document.addEventListener("click",moveSnake)
+  document.removeEventListener("click",funcColor)
      
-    init()  
-    randomFood()     
+    init()     
+    randomFood() 
+    paused = false
     setMusicInGame()  
-    setNumberToInterval()               
+    setNumberToInterval()      
+             
     gameLoop()   
     
-    return                   
+                      
     }   
          
     else if(endGame == true){        
       menu.style.display = "block"
-      canvas.style.display = "none"      
-      endGame = false             
-     document.addEventListener("click",funcColor) 
-     
+      canvas.style.display = "none" 
+      gameOver.style.display = "none"  
+ 
 document.removeEventListener("click",moveSnake)     
-     return
+ 
+ 
+       document.addEventListener("click",funcColor)       
+                    
          } 
        }
      }  
   }
-
- // END FUNCTION startGame   
+// END FUNCTION startGame   
  
-
-
-
 
 
 
@@ -1186,12 +1546,20 @@ document.removeEventListener("click",moveSnake)
   
 
  //  MAIN FUNCTION
-    
    function gameLoop(){
-        
+   
+      moveBodyInRightTimeUp() 
+      moveBodyInRightTimeRight()
+      moveBodyInRightTimeDown()
+      moveBodyInRightTimeLeft()
+      
       position.x += velocity.x
-      position.y += velocity.y  
-           
+      position.y += velocity.y
+ 
+ 
+      
+     
+         
                 
 //  GAMEBOARD     
     
@@ -1206,56 +1574,155 @@ ctx.fill()
  
  
  
-//  SNAKE BODY  
+ 
    
-    
-   for(let cell of snake){  
-         ctx.fillStyle = snakeColorInGame    
-         ctx.fillRect(cell.x * block,cell.y * block,block,block)      
-        
-       }   
- 
-// BLOCK OF SNAKE AFTER HEAD
-ctx.fillStyle = backgroundColorInGame
-ctx.fillRect(snake[snake.length-2].x*block,snake[snake.length-2].y*block,block,block)
- ctx.fillStyle = snakeColorInGame
- ctx.beginPath()    
-          ctx.roundRect(snake[snake.length-2].x*block,snake[snake.length-2].y*block,block,block,[tl,tr,br,bl])      
-         ctx.fill()  
+ // SNAKE BODY 
 
- 
- 
- 
+for(let cell of snake){ 
+
+ctx.fillStyle = snakeColorInGame 
+
+ctx.fillRect(cell.x,cell.y,snakeSize,snakeSize) 
+
+} 
+
+
+
 // SNAKE HEAD
+
+ctx.fillStyle = backgroundColorInGame
+
+ctx.fillRect(snake[snake.length-1].x,snake[snake.length-1].y,snakeSize,snakeSize)
+
+ctx.drawImage(snakeDirection,snake[snake.length-1].x,snake[snake.length-1].y,snakeSize,snakeSize)
+
+
+//  FUNCTION TO RIGHT REENDERING TAIL  
+       
+ function moveTail(){
  
- ctx.fillStyle =  backgroundColorInGame
-ctx.fillRect(snake[snake.length-1].x*block,snake[snake.length-1].y*block,block,block)
-
-ctx.drawImage(snakeDirection,snake[snake.length-1].x*block,snake[snake.length-1].y*block,block,block)
-            
+     if(snake[0].x < snake[1].x){
+       ctx.fillStyle =  backgroundColorInGame
+ctx.fillRect(snake[0].x,snake[0].y,snakeSize,snakeSize)
+ ctx.fillStyle = snakeColorInGame 
+ ctx.beginPath()    
+          ctx.roundRect(snake[0].x,snake[0].y,snakeSize,snakeSize,[60,0,0,60])      
+         ctx.fill()    
+     }
      
-//   CHERRY
-
-
-
-     ctx.drawImage(cherry,food.x * block,food.y * block,block,block)          
+    else if(snake[0].x > snake[1].x){
+       ctx.fillStyle =  backgroundColorInGame
+ctx.fillRect(snake[0].x,snake[0].y,snakeSize,snakeSize)
+ ctx.fillStyle = snakeColorInGame 
+ ctx.beginPath()    
+          ctx.roundRect(snake[0].x,snake[0].y,snakeSize,snakeSize,[0,60,60,0])      
+         ctx.fill()    
+     } 
      
+     else if(snake[0].y < snake[1].y){
+       ctx.fillStyle =  backgroundColorInGame
+ctx.fillRect(snake[0].x,snake[0].y,snakeSize,snakeSize)
+ ctx.fillStyle = snakeColorInGame 
+ ctx.beginPath()    
+          ctx.roundRect(snake[0].x,snake[0].y,snakeSize,snakeSize,[60,60,0,0])      
+         ctx.fill()    
+     }
+     
+     else if(snake[0].y > snake[1].y){
+       ctx.fillStyle =  backgroundColorInGame
+ctx.fillRect(snake[0].x,snake[0].y,snakeSize,snakeSize)
+ ctx.fillStyle = snakeColorInGame 
+ ctx.beginPath()    
+          ctx.roundRect(snake[0].x,snake[0].y,snakeSize,snakeSize,[0,0,60,60])      
+         ctx.fill()    
+     }
+     
+ }  
+   
+ //  END METHOD MOVE TAIL  
+   
+
+     moveTail()   
+
+
+ 
+ 
+
+
+//  FUNCTION TO DRAW RANDOM FRUIT IN GAME
+
+
+ function drawRandomFruit(){
+     
+     if(trueDrawFruit == true){   
+        randomFruit = Math.random()*10
+       }
+
+  if(randomFruit <= 2.5){
+    drawFruit = apple
+    trueDrawFruit = false
+     
+      
+      
+     if(food.x == position.x && food.y == position.y){
+      
+      trueDrawFruit = true   
+       
+      }                  
+  }
+
+  else if(randomFruit > 2.5 && randomFruit <= 5){
+     drawFruit = cherry
+     trueDrawFruit = false              
+      
+     if(food.x == position.x && food.y == position.y){
+          trueDrawFruit = true
+        
+      }
+  }
+  
+  else if(randomFruit > 5 && randomFruit <= 7.5){
+     drawFruit = watterMelon
+     trueDrawFruit = false              
+      
+     if(food.x == position.x && food.y == position.y){
+          trueDrawFruit = true
+        
+      }
+  }
+  
+  else if(randomFruit > 7.5 && randomFruit <= 10){
+     drawFruit = strawberry
+     trueDrawFruit = false              
+      
+     if(food.x == position.x && food.y == position.y){
+          trueDrawFruit = true
+        
+      }
+    }      
+ }
+
+drawRandomFruit()
+
+// END  FUNCTION TO DRAW RANDOM FRUIT IN GAME
 
 
 
 
-//  APPLE
-    
-    ctx.drawImage(appleFruit,food.x * block,food.y * block,block,block)          
 
 
-    
+//  DRAW FRUIT
+
+ctx.drawImage(drawFruit,food.x,food.y,snakeSize,snakeSize)  
 
 
 //  SNAKE IS OVER GAME AREA
   
+  
+  
+  
  function snakeOver(){
-     if(snake[snake.length-1].x == -1 || snake[snake.length-1].x == area || snake[snake.length-1].y == -1 || snake[snake.length-1].y == area){
+     if(snake[snake.length-1].x > canvas.width-snakeSize || snake[snake.length-1].x < 0|| snake[snake.length-1].y > canvas.height-snakeSize || snake[snake.length-1].y < 0){
          
          if(scoreNumber > localStorage.getItem("highScoreKey",scoreNumber)){
                  localStorage.setItem("highScoreKey",scoreNumber)
@@ -1281,20 +1748,40 @@ highScore.textContent = localStorage.highScoreKey
                                              
          scoreNumber = 0
          score.textContent = scoreNumber                                                                                                                                                                    
-         gameOver.style.display = "flex"
-         canvas.style.display = "block" 
-         paused = true  
-     setTimeout("menu.style.display = 'block';gameOver.style.display = 'none';canvas.style.display = 'none';paused = false ",2000)                     
-       
-         init()
+         gameOver.style.display = "flex";
          
-document.removeEventListener("click",moveSnake)     
-          
- document.addEventListener("click",funcColor)           
-    
-     endGame = true
-           
-                 
+      
+   anime.timeline({
+            loop: false
+            }) 
+         
+         .add({ 
+         targets: '.ml15 .word', 
+         scale: [14,1], 
+         opacity: [0,1], 
+         easing: "easeOutCirc", 
+         duration: 800, 
+         delay: (el, i) => 800 * i })
+         .add({ 
+         targets: '.ml15', 
+         opacity: 0, 
+         duration: 1000, 
+         easing: "easeOutExpo", 
+         delay: 1000 
+         });
+         
+        
+         
+         canvas.style.display = "block" 
+         paused = true
+         
+     setTimeout("menu.style.display = 'block';gameOver.style.display = 'none';canvas.style.display = 'none';   ",2000)
+
+document.removeEventListener("click",moveSnake)                           
+      document.addEventListener("click",funcColor) 
+       
+        endGame = true;                               
+        init();
          }
        }
 
@@ -1305,9 +1792,28 @@ document.removeEventListener("click",moveSnake)
    
     function snakeEatFood(){
      if(food.x == position.x && food.y == position.y){
-       snake.unshift(snakeTail)       
+       
+//       snake.splice(15,0,snake[1])
+                   
+       addNewBlockToSnake = true
        randomFood()  
-       scoreNumber++       
+       scoreNumber++;
+       
+
+       anime({
+       targets: '#scoreValue', 
+       scale: [2,1], 
+       opacity: [0,1],  
+       rotateZ: [-90,0],
+       easing: "easeInOutSine", 
+       duration: 500, 
+       delay: (el, i) => 100*i 
+       });
+
+   
+
+      
+    
        score.textContent = scoreNumber  
        if(soundOnOff.textContent == "Sound FX on"){
        appleSound.pause()
@@ -1356,85 +1862,53 @@ document.removeEventListener("click",moveSnake)
        
      if(scoreNumber > localStorage.getItem("highScoreKey",scoreNumber)){
         localStorage.setItem("highScoreKey",scoreNumber)
-highScore.textContent = localStorage.highScoreKey    
+highScore.textContent = localStorage.highScoreKey
+             
       }   
-         
+ 
          scoreNumber = 0
          score.textContent = scoreNumber                                                                                                                                                                    
          gameOver.style.display = "flex"
          canvas.style.display = "block" 
-         paused = true  
-     setTimeout("menu.style.display = 'block';gameOver.style.display = 'none';canvas.style.display = 'none';paused = false ",2000)    
+       
          
-                           
-         init()
+     setTimeout("menu.style.display = 'block';gameOver.style.display = 'none';canvas.style.display = 'none'; ",2000)    
          
-document.removeEventListener("click",moveSnake)     
-          
- document.addEventListener("click",funcColor)           
-    
+document.removeEventListener("click",moveSnake)                          
+      document.addEventListener("click",funcColor)           
+       
+                      
      endGame = true
-                 
-             }                                                                            
-           }                                         
-          snake.push({...position})
-          snake.shift()                    
-        }
-        return
-      }   
+     init()  
+              }                                                                            
+            }                                                                                                    
+                         
+          snake.push({...position})                              
+
+
+// if snake eat fruit,will be longer
+
+
+   if(addNewBlockToSnake == true){
+          
+      setTimeout(()=>{
+           
+      for(let i = 0; i < 10;i++){
+           
+          snake.unshift()         
+          } 
+          addNewBlockToSnake = false
+          },intervalTime*10)                      
+        } 
+       
+        else{
+          snake.shift()   
+        }                                                                                                                                                                                                                                                                    
+      }        
+    }   
                                                                 
 // END METHOD snakeInSnake     
-     
-                    
-
-       
-        
-                            
-        
-//  FUNCTION TO RIGHT REENDERING TAIL  
-       
- function moveTail(){
-     if(snake[0].x < snake[1].x){
-       ctx.fillStyle =  backgroundColorInGame
-ctx.fillRect(snake[0].x*block,snake[0].y*block,block,block)
- ctx.fillStyle = snakeColorInGame 
- ctx.beginPath()    
-          ctx.roundRect(snake[0].x*block,snake[0].y*block,block,block,[60,0,0,60])      
-         ctx.fill()    
-     }
-     
-    else if(snake[0].x > snake[1].x){
-       ctx.fillStyle =  backgroundColorInGame
-ctx.fillRect(snake[0].x*block,snake[0].y*block,block,block)
- ctx.fillStyle = snakeColorInGame 
- ctx.beginPath()    
-          ctx.roundRect(snake[0].x*block,snake[0].y*block,block,block,[0,60,60,0])      
-         ctx.fill()    
-     } 
-     
-     else if(snake[0].y < snake[1].y){
-       ctx.fillStyle =  backgroundColorInGame
-ctx.fillRect(snake[0].x*block,snake[0].y*block,block,block)
- ctx.fillStyle = snakeColorInGame 
- ctx.beginPath()    
-          ctx.roundRect(snake[0].x*block,snake[0].y*block,block,block,[60,60,0,0])      
-         ctx.fill()    
-     }
-     
-     else if(snake[0].y > snake[1].y){
-       ctx.fillStyle =  backgroundColorInGame
-ctx.fillRect(snake[0].x*block,snake[0].y*block,block,block)
- ctx.fillStyle = snakeColorInGame 
- ctx.beginPath()    
-          ctx.roundRect(snake[0].x*block,snake[0].y*block,block,block,[0,0,60,60])      
-         ctx.fill()    
-     }
- }  
-   
- //  END METHOD MOVE TAIL  
-   
-
-     moveTail()     
+                                                                              
      snakeEatFood()          
      snakeOver()
      snakeInSnake()
@@ -1443,3 +1917,5 @@ ctx.fillRect(snake[0].x*block,snake[0].y*block,block,block)
   
 
     startGame()          
+
+  
