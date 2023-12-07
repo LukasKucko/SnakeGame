@@ -26,17 +26,17 @@
  </div>  
     
     
-<audio id="soundForest" autoplay  src="/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/images/forest.mp3" type="audio/mpeg">  
+<audio id="soundForest" autoplay  src="assets/forest.mp3" type="audio/mpeg">  
 </audio>
-<audio id="soundApple" autoplay src="/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/images/eatApple_1.mp3" type="audio/mpeg">  
+<audio id="soundApple" autoplay src="assets/eatApple_1.mp3" type="audio/mpeg">  
 </audio>
-<audio id="music" autoplay src="/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/images/musicMenu.mp3" type="audio/mpeg">  
+<audio id="music" autoplay src="assets/musicMenu.mp3" type="audio/mpeg">  
 </audio>
-<audio id="chooseMenu" autoplay src="/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/images/chooseMenu.mp3" type="audio/mpeg">  
+<audio id="chooseMenu" autoplay src="assets/chooseMenu.mp3" type="audio/mpeg">  
 </audio>
-<audio id="hitWall" autoplay src="/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/images/hitWall.mp3" type="audio/mpeg">  
+<audio id="hitWall" autoplay src="assets/hitWall.mp3" type="audio/mpeg">  
 </audio>
-<audio id="hitSnake" autoplay src="/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/images/hitSnake.mp3" type="audio/mpeg">  
+<audio id="hitSnake" autoplay src="assets/hitSnake.mp3" type="audio/mpeg">  
 </audio>
     
     
@@ -121,38 +121,25 @@
      <span id="boardBorder"></span>
      <canvas id="playground" width="3000" height="3000" >     </canvas>
      
-       <span id="gameOver">
-           
+       <span id="gameOver">           
         <h1 class="ml15"> 
           <span class="word">Game</span> 
           <span class="word">Over</span> 
-        </h1> 
-   
-  
-  
-  
-           
-  <!--          
-        <p>GAME OVER</p>
-     
-   -->   
-     
-     
-     
-        </span>
-     <img id="cherry" src="/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/images/cherry.png" width="20" height="20" alt="cherry"></img>
-      <img id="apple" src="/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/images/apple.png" width="20" height="20" alt="appleFruit"></img>  
-       <img id="watterMelon" src="/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/images/watterMelon.png" width="20" height="20" alt="watterMelon"></img>     
-       <img id="strawberry" src="/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/images/strawberry.png" width="20" height="20" alt="watterMelon"></img>     
+        </h1>      
+      </span>
+     <img id="cherry" src="assets/cherry.png" width="20" height="20" alt="cherry"></img>
+      <img id="apple" src="assets/apple.png" width="20" height="20" alt="apple"></img>  
+       <img id="watterMelon" src="assets/watterMelon.png" width="20" height="20" alt="watterMelon"></img>     
+       <img id="strawberry" src="assets/strawberry.png" width="20" height="20" alt="strawberry"></img>     
      
     
      
      
      <div id="food"></div>            
-     <img id="snakeHeadRight" src="/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/images/snakeHeadRight.png" width="20" height="20" alt="snakeHeadRight"></img>
-     <img  id="snakeHeadUp" src="/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/images/snakeHeadUp.png" width="20" height="20" alt="snakeHeadUp"></img>
-     <img  id="snakeHeadLeft" src="/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/images/snakeHeadLeft.png" width="20" height="20" alt="snakeHeadLeft"></img>
-     <img  id="snakeHeadDown" src="/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/images/snakeHeadDown.png" width="20" height="20" alt="snakeHeadDown"></img>
+     <img id="snakeHeadRight" src="assets/snakeHeadRight.png" width="20" height="20" alt="snakeHeadRight"></img>
+     <img  id="snakeHeadUp" src="assets/snakeHeadUp.png" width="20" height="20" alt="snakeHeadUp"></img>
+     <img  id="snakeHeadLeft" src="assets/snakeHeadLeft.png" width="20" height="20" alt="snakeHeadLeft"></img>
+     <img  id="snakeHeadDown" src="assets/snakeHeadDown.png" width="20" height="20" alt="snakeHeadDown"></img>
   
     <!--   GAME END --> 
     <!--   CONTROLS -->  
@@ -178,13 +165,8 @@
     </div>
     
     <!--   CONTROLS END -->
-  </div> 
- 
-     
- 
-  
-  
-   <script src="/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/snake/snake.js"></script> 
+  </div>    
+   <script src="snake.js"></script> 
    <script>
       var textWrapper = document.querySelector('.ml2'); textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>"); anime.timeline({loop: false}) .add({ targets: '.ml2 .letter', scale: [4,1], opacity: [0,1], translateZ: 0, easing: "easeInExpo", duration: 750, delay: (el, i) => 100*i }).add({ targets: '.ml2', opacity: 0, duration: 500, easing: "easeInExpo", delay: 500 }); 
         </script>
