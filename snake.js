@@ -108,12 +108,8 @@ let snakeColorLine = document.querySelector("#snakeColorLine")
  
  
  //  VARIABLES
-  let snakeSize = 150
- let block = snakeSize
-
-
- 
- 
+ let snakeSize = 150
+ let block = snakeSize 
  let moveBodyRightUp 
  let moveBodyLeftUp
  let moveBodyRightDown
@@ -1028,15 +1024,10 @@ else if (backGroundPlayground.style.backgroundImage == "var(--menuLine)"){
                {x: 1630,  y: 1200}, 
                {x: 1640,  y: 1200}, 
                {x: 1650,  y: 1200}               
-               ] 
-      
-      
-      
-                 
+               ]         
+                       
      position = {x: 1650, y: 1200}   
-                                                           
-     snake[0] = snake[0]
-   
+	 
      snakeDirection = snakeHeadRight   
      tl = 0
      tr = 60
@@ -1047,7 +1038,8 @@ else if (backGroundPlayground.style.backgroundImage == "var(--menuLine)"){
 //END FUNCTION init        
  
  
-/* FUNCTION RANDOM FRUIT EVERY SNAKESIZE X AND Y POSITION
+/* 
+FUNCTION RANDOM FRUIT EVERY SNAKESIZE X AND Y POSITION
 */
  
  function randomXOneHoundredFifthy(){
@@ -1073,7 +1065,8 @@ else if (backGroundPlayground.style.backgroundImage == "var(--menuLine)"){
      }
  }
  
- /* END FUNCTION RANDOM FRUIT EVERY SNAKESIZE X AND Y POSITION
+ /* 
+ END FUNCTION RANDOM FRUIT EVERY SNAKESIZE X AND Y POSITION
 */
  
  
@@ -1341,7 +1334,7 @@ function moveBodyInRightTimeLeft(){
    }
  }
 
-//LEFT FUNCTION END
+//  LEFT FUNCTION END
 
  
 
@@ -1441,14 +1434,7 @@ requestAnimationFrame(gameLoop)
 
 }
 
-
-
-
 //END FUNCTION setNumberToInterval
-
-
-
-
 
 
 //  FUNCTION TO SET MUSIC IN GAME
@@ -1465,12 +1451,7 @@ requestAnimationFrame(gameLoop)
    }
  
 // END FUNCTION setMusicInGame
- 
- 
- 
-
-
-        
+         
         
 //  FUNCTION GAME PAUSE 
  
@@ -1485,12 +1466,7 @@ function pauseGame(){
 // END FUNCTION pauseGame
 
 
-
-
 //  FUNCTION START GAME 
-
-
-
 
 function startGame(){
   
@@ -1514,11 +1490,8 @@ document.addEventListener("click",moveSnake)
     randomFood() 
     paused = false
     setMusicInGame()  
-    setNumberToInterval()      
-             
-    gameLoop()   
-    
-                      
+    setNumberToInterval()                   
+    gameLoop()                         
     }   
          
     else if(endGame == true){        
@@ -1536,16 +1509,8 @@ document.removeEventListener("click",moveSnake)
      }  
   }
 // END FUNCTION startGame   
- 
-
-
-
-
-
-
-  
-
- //  MAIN FUNCTION
+   
+//  MAIN FUNCTION
    function gameLoop(){
    
       moveBodyInRightTimeUp() 
@@ -1555,11 +1520,7 @@ document.removeEventListener("click",moveSnake)
       
       position.x += velocity.x
       position.y += velocity.y
- 
- 
-      
-     
-         
+          
                 
 //  GAMEBOARD     
     
@@ -1567,13 +1528,7 @@ ctx.fillStyle = backgroundColorInGame
 
 ctx.fillRect(0,0,canvas.width,canvas.height)
  
-ctx.fill()
-  
- 
- 
- 
- 
- 
+ctx.fill() 
  
    
  // SNAKE BODY 
@@ -1641,13 +1596,7 @@ ctx.fillRect(snake[0].x,snake[0].y,snakeSize,snakeSize)
    
  //  END METHOD MOVE TAIL  
    
-
-     moveTail()   
-
-
- 
- 
-
+     moveTail()    
 
 //  FUNCTION TO DRAW RANDOM FRUIT IN GAME
 
@@ -1707,19 +1656,12 @@ drawRandomFruit()
 // END  FUNCTION TO DRAW RANDOM FRUIT IN GAME
 
 
-
-
-
-
 //  DRAW FRUIT
 
 ctx.drawImage(drawFruit,food.x,food.y,snakeSize,snakeSize)  
 
 
-//  SNAKE IS OVER GAME AREA
-  
-  
-  
+//  SNAKE IS OVER GAME AREA  
   
  function snakeOver(){
      if(snake[snake.length-1].x > canvas.width-snakeSize || snake[snake.length-1].x < 0|| snake[snake.length-1].y > canvas.height-snakeSize || snake[snake.length-1].y < 0){
@@ -1828,9 +1770,6 @@ document.removeEventListener("click",moveSnake)
        } 
 
 // END METHOD snakeEatFood
-
-
-
 
 //  SNAKE EAT SNAKE
  function snakeInSnake(){
