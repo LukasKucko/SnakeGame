@@ -19,16 +19,27 @@ let chooseMenu = document.querySelector("#chooseMenu")
 let hitWall = document.querySelector("#hitWall") 
 let hitSnake = document.querySelector("#hitSnake") 
 
-forestSound.pause()
-appleSound.pause()
-music.pause()
-chooseMenu.pause()
-hitWall.pause()
-hitSnake.pause()
 
-document.getElementById('exit','pExit').addEventListener('click', exitButton);
+document.addEventListener("visibilitychange", () => { 
+
+    if(document.hidden) {
+
+         paused = true
+         } 
+        
+         else{
+            paused = false  
+              } 
+         });
+
+
+//  SOUNDS END
+
+
 
  // FUNCTION TO EXIT GAME
+
+document.getElementById('exit','pExit').addEventListener('click', exitButton);
  
 function exitButton() {
     forestSound.pause()
@@ -41,7 +52,7 @@ function exitButton() {
 }
 
 //  EXIT GAME END
-//  SOUNDS END
+
 
 
  
@@ -54,10 +65,7 @@ function exitButton() {
  let apple = document.querySelector("#apple")
  let watterMelon = document.querySelector("#watterMelon")
  let strawberry= document.querySelector("#strawberry") 
- let randomFruit = null
-  
- 
- 
+ let randomFruit = null 
  let snakeHeadRight = document.querySelector("#snakeHeadRight")
  let snakeHeadUp = document.querySelector("#snakeHeadUp")
  let snakeHeadLeft = document.querySelector("#snakeHeadLeft")
@@ -70,6 +78,7 @@ function exitButton() {
  let ctx  = canvas.getContext("2d")
   let gameOver = document.querySelector("#gameOver") 
  let introduction = document.querySelector("#introduction")
+ let menuHam = document.querySelector("#menuHam")
  let highScoreValue = document.querySelector("#highScoreValue")
  let scoreValue = document.querySelector("#scoreValue")
  let menu = document.querySelector("#menu")
@@ -105,11 +114,11 @@ let snakeColorLine = document.querySelector("#snakeColorLine")
  
 // PRELOAD GAME END
 
+
  
- 
- //  VARIABLES
+//  VARIABLES
  let snakeSize = 150
- let block = snakeSize 
+ let block = snakeSize
  let moveBodyRightUp 
  let moveBodyLeftUp
  let moveBodyRightDown
@@ -140,7 +149,12 @@ let snakeColorLine = document.querySelector("#snakeColorLine")
  let moveHeadInRightTimeRight 
  let xPositionFruit,yPositionFruit
  let addNewBlockToSnake = false
- let timer 
+ let roundCornerRightUp,roundCornerLeftUp
+ let roundCornerRightDown,roundCornerLeftDown
+ let roundCornerUpRight,roundCornerUpLeft
+ let roundCornerDownRight,roundCornerDownLeft
+ 
+ 
 //  VARIABLES END
  
  
@@ -840,6 +854,20 @@ else if (backGroundPlayground.style.backgroundImage == "var(--menuLine)"){
          music.play()
          music.volume = 0.1
          soundForest.pause()
+         
+         document.addEventListener("visibilitychange", () => { 
+
+    if(document.hidden) {
+
+         music.pause()
+         } 
+        
+         else{
+            music.play() 
+              } 
+         });
+         
+         
          }
          
        
@@ -859,6 +887,21 @@ else if (backGroundPlayground.style.backgroundImage == "var(--menuLine)"){
          music.play()
          music.volume = 0.1
          forestSound.pause()
+         
+         document.addEventListener("visibilitychange", () => { 
+
+    if(document.hidden) {
+
+         music.pause()
+         } 
+        
+         else{
+            music.play() 
+              } 
+         });
+         
+         
+         
      }
      else if(musicOnOff.textContent == "Music on"){
          musicOnOff.textContent = "Music off"
@@ -971,7 +1014,7 @@ else if (backGroundPlayground.style.backgroundImage == "var(--menuLine)"){
 
  function init(){ 
     
-     
+  
      velocity = {x: 10 , y: 0}
      
      
@@ -1024,10 +1067,22 @@ else if (backGroundPlayground.style.backgroundImage == "var(--menuLine)"){
                {x: 1630,  y: 1200}, 
                {x: 1640,  y: 1200}, 
                {x: 1650,  y: 1200}               
-               ]         
-                       
+               ] 
+      
+    
+ roundCornerRightUp = []
+ roundCornerLeftUp = []
+ roundCornerRightDown = []
+ roundCornerLeftDown = []
+ roundCornerUpRight = []
+ roundCornerUpLeft = []
+ roundCornerDownRight = []
+ roundCornerDownLeft = []
+                 
      position = {x: 1650, y: 1200}   
-	 
+                                                           
+    
+   
      snakeDirection = snakeHeadRight   
      tl = 0
      tr = 60
@@ -1038,8 +1093,7 @@ else if (backGroundPlayground.style.backgroundImage == "var(--menuLine)"){
 //END FUNCTION init        
  
  
-/* 
-FUNCTION RANDOM FRUIT EVERY SNAKESIZE X AND Y POSITION
+/* FUNCTION RANDOM FRUIT EVERY SNAKESIZE X AND Y POSITION
 */
  
  function randomXOneHoundredFifthy(){
@@ -1065,8 +1119,7 @@ FUNCTION RANDOM FRUIT EVERY SNAKESIZE X AND Y POSITION
      }
  }
  
- /* 
- END FUNCTION RANDOM FRUIT EVERY SNAKESIZE X AND Y POSITION
+ /* END FUNCTION RANDOM FRUIT EVERY SNAKESIZE X AND Y POSITION
 */
  
  
@@ -1102,7 +1155,8 @@ FUNCTION RANDOM FRUIT EVERY SNAKESIZE X AND Y POSITION
   if(event.target === goUp){
      
      moveHeadInRightTimeUp = true
-                                                                                                                                                                                                                                                                                                                                                                                                                                             
+   
+                                                                                                                                                                                                                                                                                                                                                                                              
      }
 
   else if(event.target === goRight){
@@ -1128,6 +1182,11 @@ FUNCTION RANDOM FRUIT EVERY SNAKESIZE X AND Y POSITION
          
 // END FUNCTION  moveTheSnake  
 
+
+
+
+
+
 //  FUNCTION MOVE SNAKE BODY IN RIGHT TIME 
 //  UP FUNCTION
 
@@ -1139,11 +1198,17 @@ FUNCTION RANDOM FRUIT EVERY SNAKESIZE X AND Y POSITION
     
     velocity = {x: 10, y: 0} 
     if(Number.isInteger(snake[snake.length-1].x/snakeSize) == true){
-        
+     
+     roundCornerRightUp.push({x: snake[snake.length-1].x, y: snake[snake.length-1].y}) 
+     
+     
+     
+                                              
          velocity = {x: 0, y: -10}
+       
          snakeDirection = snakeHeadUp
-        
          
+  
          setTimeout(()=>{ 
                          tl = 60
                          tr = 60
@@ -1162,9 +1227,15 @@ FUNCTION RANDOM FRUIT EVERY SNAKESIZE X AND Y POSITION
     velocity = {x: -10, y: 0} 
     if(Number.isInteger(snake[snake.length-1].x/snakeSize) == true){
         
+        
+     
+    roundCornerLeftUp.push({x: snake[snake.length-1].x, y: snake[snake.length-1].y})  
+     
+     
+        
          velocity = {x: 0, y: -10}
          snakeDirection = snakeHeadUp
-        
+         
          
          setTimeout(()=>{ 
                          tl = 60
@@ -1192,6 +1263,10 @@ function moveBodyInRightTimeRight(){
     
     velocity = {x: 0, y: 10} 
     if(Number.isInteger(snake[snake.length-1].y/snakeSize) == true){
+     
+    roundCornerDownRight.push({x: snake[snake.length-1].x, y: snake[snake.length-1].y})  
+       
+     
         
          velocity = {x: 10, y: 0}
          snakeDirection = snakeHeadRight
@@ -1213,6 +1288,9 @@ function moveBodyInRightTimeRight(){
     
     velocity = {x: 0, y: -10} 
     if(Number.isInteger(snake[snake.length-1].y/snakeSize) == true){
+        
+      roundCornerUpRight.push({x: snake[snake.length-1].x, y: snake[snake.length-1].y})  
+       
         
          velocity = {x: 10, y: 0}
          snakeDirection = snakeHeadRight
@@ -1244,6 +1322,10 @@ function moveBodyInRightTimeDown(){
     
     velocity = {x: 10, y: 0} 
     if(Number.isInteger(snake[snake.length-1].x/snakeSize) == true){
+     
+     roundCornerRightDown.push({x: snake[snake.length-1].x, y: snake[snake.length-1].y})  
+      
+       
         
          velocity = {x: 0, y: 10}
          snakeDirection = snakeHeadDown
@@ -1265,6 +1347,10 @@ function moveBodyInRightTimeDown(){
     
     velocity = {x: -10, y: 0} 
     if(Number.isInteger(snake[snake.length-1].x/snakeSize) == true){
+       
+      roundCornerLeftDown.push({x: snake[snake.length-1].x, y: snake[snake.length-1].y})  
+     
+     
         
          velocity = {x: 0, y: 10}
          snakeDirection = snakeHeadDown
@@ -1295,6 +1381,9 @@ function moveBodyInRightTimeLeft(){
     
     velocity = {x: 0, y: 10} 
     if(Number.isInteger(snake[snake.length-1].y/snakeSize) == true){
+       
+      roundCornerDownLeft.push({x: snake[snake.length-1].x, y: snake[snake.length-1].y})  
+     
         
          velocity = {x: -10, y: 0}
          snakeDirection = snakeHeadLeft
@@ -1316,6 +1405,10 @@ function moveBodyInRightTimeLeft(){
     
     velocity = {x: 0, y: -10} 
     if(Number.isInteger(snake[snake.length-1].y/snakeSize) == true){
+     
+    roundCornerUpLeft.push({x: snake[snake.length-1].x, y: snake[snake.length-1].y})  
+     
+     
         
          velocity = {x: -10, y: 0}
          snakeDirection = snakeHeadLeft
@@ -1334,8 +1427,19 @@ function moveBodyInRightTimeLeft(){
    }
  }
 
-//  LEFT FUNCTION END
+//LEFT FUNCTION END
 
+ 
+    
+       
+
+   
+    
+
+
+   
+ 
+ 
  
 
 //  FUNCTION TO SET SPEED OF SNAKE   
@@ -1437,119 +1541,292 @@ requestAnimationFrame(gameLoop)
 //END FUNCTION setNumberToInterval
 
 
-//  FUNCTION TO SET MUSIC IN GAME
 
- function setMusicInGame(){
-     music.pause()
-  if(musicOnOff.textContent == "Music off"){
-      forestSound.pause()
-      }
-  else if(musicOnOff.textContent == "Music on"){
-     forestSound.play()
-     forestSound.volume = 0.2
+
+// BODY AFTER HEAD
+
+ function afterHead(){
+  
+ // RIGHT UP and LEFT UP
+
+ 
+           
+   if(snake[snake.length-15].x == snake[snake.length-1].x && snake[snake.length-2].y > snake[snake.length-1].y){
+       ctx.fillStyle =  backgroundColorInGame
+ctx.fillRect(snake[snake.length-15].x,snake[snake.length-15].y,snakeSize,snakeSize)
+ ctx.fillStyle = snakeColorInGame 
+ ctx.beginPath()    
+          ctx.roundRect(snake[snake.length-15].x,snake[snake.length-15].y,snakeSize,snakeSize,[100,100,0,0])      
+         ctx.fill()    
+         
      }
+ 
+  // RIGHT DOWN and LEFT DOWN 
+     
+  else if(snake[snake.length-15].x == snake[snake.length-1].x && snake[snake.length-2].y < snake[snake.length-1].y){
+       ctx.fillStyle =  backgroundColorInGame
+ctx.fillRect(snake[snake.length-15].x,snake[snake.length-15].y,snakeSize,snakeSize)
+ ctx.fillStyle = snakeColorInGame 
+ ctx.beginPath()    
+          ctx.roundRect(snake[snake.length-15].x,snake[snake.length-15].y,snakeSize,snakeSize,[0,0,100,100])      
+         ctx.fill()    
+         
+     }
+     
+ // UP RIGHT and DOWN RIGHT 
+     
+ else if(snake[snake.length-15].y == snake[snake.length-1].y && snake[snake.length-2].x < snake[snake.length-1].x){
+       ctx.fillStyle =  backgroundColorInGame
+ctx.fillRect(snake[snake.length-15].x,snake[snake.length-15].y,snakeSize,snakeSize)
+ ctx.fillStyle = snakeColorInGame 
+ ctx.beginPath()    
+          ctx.roundRect(snake[snake.length-15].x,snake[snake.length-15].y,snakeSize,snakeSize,[0,100,100,0])      
+         ctx.fill() 
+            
+     }
+     
+  // UP LEFT and DOWN LEFT 
+     
+ else if(snake[snake.length-15].y == snake[snake.length-1].y && snake[snake.length-2].x > snake[snake.length-1].x){
+       ctx.fillStyle =  backgroundColorInGame
+ctx.fillRect(snake[snake.length-15].x,snake[snake.length-15].y,snakeSize,snakeSize)
+ ctx.fillStyle = snakeColorInGame 
+ ctx.beginPath()    
+          ctx.roundRect(snake[snake.length-15].x,snake[snake.length-15].y,snakeSize,snakeSize,[100,0,0,100])      
+         ctx.fill() 
+           
+     }
+     
+    
+}
+
+
+// BODY AFTER HEAD END
+
+
+
+// FUNCTION ROUNDCORNER BY CHANGE DIRECTION
+
+function roundCorner(){
+   
+   for(let cell of snake){
+    
+    for(let cellPoint of roundCornerRightUp){
+    
+       
+      if(cell.x == cellPoint.x && cell.y == cellPoint.y){
+         
+       ctx.fillStyle =  backgroundColorInGame
+ctx.fillRect(cell.x,cell.y,snakeSize,snakeSize)
+ ctx.fillStyle = snakeColorInGame 
+ ctx.beginPath()    
+          ctx.roundRect(cell.x,cell.y,snakeSize,snakeSize,[0,0,100,0])      
+         ctx.fill()                                       
+      }
+      
+ else if(snake[0].x == roundCornerRightUp[0].x && snake[0].y == roundCornerRightUp[0].y){
+       roundCornerRightUp.shift()
+       }        
+      
+     }
+    } 
+     
+      
+  
+  for(let cell of snake){
+    
+    for(let cellPoint of roundCornerLeftUp){
+    
+       
+      if(cell.x == cellPoint.x && cell.y == cellPoint.y){
+         
+       ctx.fillStyle =  backgroundColorInGame
+ctx.fillRect(cell.x,cell.y,snakeSize,snakeSize)
+ ctx.fillStyle = snakeColorInGame 
+ ctx.beginPath()    
+          ctx.roundRect(cell.x,cell.y,snakeSize,snakeSize,[0,0,0,100])      
+         ctx.fill()                                       
+      }
+  
+  else if(snake[0].x == roundCornerLeftUp[0].x && snake[0].y == roundCornerLeftUp[0].y){
+       roundCornerLeftUp.shift()
+       }       
+      
+      
+     } 
+   }
+
+
+ 
+ 
+ for(let cell of snake){
+    
+    for(let cellPoint of roundCornerDownRight){
+    
+       
+      if(cell.x == cellPoint.x && cell.y == cellPoint.y){
+         
+       ctx.fillStyle =  backgroundColorInGame
+ctx.fillRect(cell.x,cell.y,snakeSize,snakeSize)
+ ctx.fillStyle = snakeColorInGame 
+ ctx.beginPath()    
+          ctx.roundRect(cell.x,cell.y,snakeSize,snakeSize,[0,0,0,100])      
+         ctx.fill()                                       
+      }
+      
+    else if(snake[0].x == roundCornerDownRight[0].x && snake[0].y == roundCornerDownRight[0].y){
+       roundCornerDownRight.shift()
+       }     
+      
+     } 
+   }
+
+
+ 
+ 
+ for(let cell of snake){
+    
+    for(let cellPoint of roundCornerUpRight){
+    
+       
+      if(cell.x == cellPoint.x && cell.y == cellPoint.y){
+         
+       ctx.fillStyle =  backgroundColorInGame
+ctx.fillRect(cell.x,cell.y,snakeSize,snakeSize)
+ ctx.fillStyle = snakeColorInGame 
+ ctx.beginPath()    
+          ctx.roundRect(cell.x,cell.y,snakeSize,snakeSize,[100,0,0,0])      
+         ctx.fill()                                       
+      }
+      
+  else if(snake[0].x == roundCornerUpRight[0].x && snake[0].y == roundCornerUpRight[0].y){
+       roundCornerUpRight.shift()
+       }       
+      
+     } 
+   }
+
+ 
+ 
+ 
+ for(let cell of snake){
+    
+    for(let cellPoint of roundCornerRightDown){
+    
+       
+      if(cell.x == cellPoint.x && cell.y == cellPoint.y){
+         
+       ctx.fillStyle =  backgroundColorInGame
+ctx.fillRect(cell.x,cell.y,snakeSize,snakeSize)
+ ctx.fillStyle = snakeColorInGame 
+ ctx.beginPath()    
+          ctx.roundRect(cell.x,cell.y,snakeSize,snakeSize,[0,100,0,0])      
+         ctx.fill()                                       
+      }
+      
+    else if(snake[0].x == roundCornerRightDown[0].x && snake[0].y == roundCornerRightDown[0].y){
+       roundCornerRightDown.shift()
+       }     
+      
+      
+     } 
    }
  
-// END FUNCTION setMusicInGame
-         
-        
-//  FUNCTION GAME PAUSE 
  
-function pauseGame(){
-   if(paused == false){
-       paused = true
-     } else if(paused == true){
-                 paused = false       
-    }
+ 
+ 
+ for(let cell of snake){
+    
+    for(let cellPoint of roundCornerLeftDown){
+    
+       
+      if(cell.x == cellPoint.x && cell.y == cellPoint.y){
+         
+       ctx.fillStyle =  backgroundColorInGame
+ctx.fillRect(cell.x,cell.y,snakeSize,snakeSize)
+ ctx.fillStyle = snakeColorInGame 
+ ctx.beginPath()    
+          ctx.roundRect(cell.x,cell.y,snakeSize,snakeSize,[100,0,0,0])      
+         ctx.fill()                                       
+      }
+      
+   else if(snake[0].x == roundCornerLeftDown[0].x && snake[0].y == roundCornerLeftDown[0].y){
+       roundCornerLeftDown.shift()
+       }      
+      
+     } 
+   }
+ 
+ 
+ 
+ for(let cell of snake){
+    
+    for(let cellPoint of roundCornerDownLeft){
+    
+       
+      if(cell.x == cellPoint.x && cell.y == cellPoint.y){
+         
+       ctx.fillStyle =  backgroundColorInGame
+ctx.fillRect(cell.x,cell.y,snakeSize,snakeSize)
+ ctx.fillStyle = snakeColorInGame 
+ ctx.beginPath()    
+          ctx.roundRect(cell.x,cell.y,snakeSize,snakeSize,[0,0,100,0])      
+         ctx.fill()                                       
+      }
+      
+   else if(snake[0].x == roundCornerDownLeft[0].x && snake[0].y == roundCornerDownLeft[0].y){
+       roundCornerDownLeft.shift()
+       }      
+      
+     } 
+   }
+ 
+ 
+ 
+ 
+ for(let cell of snake){
+    
+    for(let cellPoint of roundCornerUpLeft){
+    
+       
+      if(cell.x == cellPoint.x && cell.y == cellPoint.y){
+         
+       ctx.fillStyle =  backgroundColorInGame
+ctx.fillRect(cell.x,cell.y,snakeSize,snakeSize)
+ ctx.fillStyle = snakeColorInGame 
+ ctx.beginPath()    
+          ctx.roundRect(cell.x,cell.y,snakeSize,snakeSize,[0,100,0,0])      
+         ctx.fill()                                       
+       }
+       
+   else if(snake[0].x == roundCornerUpLeft[0].x && snake[0].y == roundCornerUpLeft[0].y){
+       roundCornerUpLeft.shift()
+       }   
+       
+       
+       
+     } 
+   }          
  }
 
-// END FUNCTION pauseGame
+/* FUNCTION ROUNDCORNER BY CHANGE DIRECTION END
+*/
 
 
-//  FUNCTION START GAME 
 
-function startGame(){
-  
-  document.addEventListener("click",startExit)
-  
-  function startExit(event){
-      if(event.target === start || event.target === pStart){
-       
-       endGame = false
-         
-       if(endGame == false){  
-                  
-          menu.style.display = "none"
-          canvas.style.display = "block" 
-          
-   
-document.addEventListener("click",moveSnake)
-  document.removeEventListener("click",funcColor)
      
-    init()     
-    randomFood() 
-    paused = false
-    setMusicInGame()  
-    setNumberToInterval()                   
-    gameLoop()                         
-    }   
-         
-    else if(endGame == true){        
-      menu.style.display = "block"
-      canvas.style.display = "none" 
-      gameOver.style.display = "none"  
- 
-document.removeEventListener("click",moveSnake)     
- 
- 
-       document.addEventListener("click",funcColor)       
-                    
-         } 
-       }
-     }  
-  }
-// END FUNCTION startGame   
-   
-//  MAIN FUNCTION
-   function gameLoop(){
-   
-      moveBodyInRightTimeUp() 
-      moveBodyInRightTimeRight()
-      moveBodyInRightTimeDown()
-      moveBodyInRightTimeLeft()
       
-      position.x += velocity.x
-      position.y += velocity.y
-          
-                
-//  GAMEBOARD     
+       
+      
     
-ctx.fillStyle = backgroundColorInGame
-
-ctx.fillRect(0,0,canvas.width,canvas.height)
- 
-ctx.fill() 
- 
-   
- // SNAKE BODY 
-
-for(let cell of snake){ 
-
-ctx.fillStyle = snakeColorInGame 
-
-ctx.fillRect(cell.x,cell.y,snakeSize,snakeSize) 
-
-} 
+  
 
 
 
-// SNAKE HEAD
 
-ctx.fillStyle = backgroundColorInGame
 
-ctx.fillRect(snake[snake.length-1].x,snake[snake.length-1].y,snakeSize,snakeSize)
 
-ctx.drawImage(snakeDirection,snake[snake.length-1].x,snake[snake.length-1].y,snakeSize,snakeSize)
+
 
 
 //  FUNCTION TO RIGHT REENDERING TAIL  
@@ -1594,9 +1871,189 @@ ctx.fillRect(snake[0].x,snake[0].y,snakeSize,snakeSize)
      
  }  
    
- //  END METHOD MOVE TAIL  
+ //  END METHOD MOVE TAIL
+
+//  SNAKE IS OVER GAME AREA
+    
+ function snakeOver(){
+     if(snake[snake.length-1].x > canvas.width-snakeSize || snake[snake.length-1].x < 0|| snake[snake.length-1].y > canvas.height-snakeSize || snake[snake.length-1].y < 0){
+         
+         if(scoreNumber > localStorage.getItem("highScoreKey",scoreNumber)){
+                 localStorage.setItem("highScoreKey",scoreNumber)
+highScore.textContent = localStorage.highScoreKey
+         }                
+         
+         if(musicOnOff.textContent == "Music off"){
+             music.pause()
+             forestSound.pause() 
+         } 
+         else if(musicOnOff.textContent == "Music on"){             
+             forestSound.pause() 
+             music.play()
+            } 
+     if(soundOnOff.textContent == "Sound FX on"){     
+       hitWall.play()
+       hitWall.volume = 0.05      
+                    
+       }
+       else if(soundOnOff.textContent == "Sound FX off"){
+           hitWall.pause()
+      }           
+                                             
+         scoreNumber = 0
+         score.textContent = scoreNumber                                                                                                                                                                    
+         gameOver.style.display = "flex";
+         
+      
+   anime.timeline({
+            loop: false
+            }) 
+         
+         .add({ 
+         targets: '.ml15 .word', 
+         scale: [14,1], 
+         opacity: [0,1], 
+         easing: "easeOutCirc", 
+         duration: 800, 
+         delay: (el, i) => 800 * i })
+         .add({ 
+         targets: '.ml15', 
+         opacity: 0, 
+         duration: 1000, 
+         easing: "easeOutExpo", 
+         delay: 1000 
+         });
+                          
+         canvas.style.display = "block" 
+         paused = true
+         
+     setTimeout("menu.style.display = 'block';gameOver.style.display = 'none';canvas.style.display = 'none';   ",2000)
+
+document.removeEventListener("click",moveSnake)                           
+      document.addEventListener("click",funcColor) 
+       
+        endGame = true;                               
+        
+         }
+       }
+
+//END METHOD snakeOver
+
+
+//  SNAKE EAT FOOD    
    
-     moveTail()    
+    function snakeEatFood(){
+     if(food.x == position.x && food.y == position.y){
+       
+//       snake.splice(15,0,snake[1])
+                   
+       addNewBlockToSnake = true
+       randomFood()  
+       scoreNumber++;
+       
+       anime({
+       targets: '#scoreValue', 
+       scale: [2,1], 
+       opacity: [0,1],  
+       rotateZ: [-90,0],
+       easing: "easeInOutSine", 
+       duration: 500, 
+       delay: (el, i) => 100*i 
+       });
+             
+       score.textContent = scoreNumber  
+       if(soundOnOff.textContent == "Sound FX on"){
+       appleSound.pause()
+       appleSound.currentTime = 0;
+       appleSound.play()
+       appleSound.volume = 0.05
+       }
+       else if(soundOnOff.textContent == "Sound FX off"){
+           appleSound.pause()
+           }      
+         }
+       } 
+
+// END METHOD snakeEatFood
+
+
+//  SNAKE EAT SNAKE
+ function snakeInSnake(){
+ 
+   if(velocity.x || velocity.y){     
+      
+     for(let cell of snake){
+     
+       if(cell.x == position.x && cell.y == position.y){           
+        
+                          
+      if(musicOnOff.textContent == "Music off"){
+          music.pause()
+          forestSound.pause() 
+         } 
+         else if(musicOnOff.textContent == "Music on"){
+          music.play()
+          forestSound.pause() 
+         }               
+      
+      if(soundOnOff.textContent == "Sound FX on"){     
+       hitSnake.play()
+       hitSnake.volume = 0.05      
+                    
+       }
+       else if(soundOnOff.textContent == "Sound FX off"){
+           hitSnake.pause()
+      }           
+       
+     if(scoreNumber > localStorage.getItem("highScoreKey",scoreNumber)){
+        localStorage.setItem("highScoreKey",scoreNumber)
+highScore.textContent = localStorage.highScoreKey
+             
+      }   
+ 
+         scoreNumber = 0
+         score.textContent = scoreNumber                                                                                                                                                                    
+         gameOver.style.display = "flex"
+         canvas.style.display = "block" 
+         paused = true;
+         
+     setTimeout("menu.style.display = 'block';gameOver.style.display = 'none';canvas.style.display = 'none'; ",2000)    
+         
+document.removeEventListener("click",moveSnake)                          
+      document.addEventListener("click",funcColor)           
+                             
+     endGame = true
+       
+              }                                                                            
+            }                                                                                                    
+                                                      
+          snake.push({...position})                              
+
+// if snake eat fruit,will be longer
+
+   if(addNewBlockToSnake == true){
+          
+      setTimeout(()=>{
+           
+      for(let i = 0; i < 10;i++){
+           
+          snake.unshift()         
+          } 
+          addNewBlockToSnake = false
+          },intervalTime*10)                      
+        } 
+       
+        else{
+          snake.shift()   
+        }                                                                                                                                                                                                                                                                    
+      }        
+    }   
+                                                                
+// END METHOD snakeInSnake
+
+
+
+
 
 //  FUNCTION TO DRAW RANDOM FRUIT IN GAME
 
@@ -1651,208 +2108,167 @@ ctx.fillRect(snake[0].x,snake[0].y,snakeSize,snakeSize)
     }      
  }
 
-drawRandomFruit()
+
 
 // END  FUNCTION TO DRAW RANDOM FRUIT IN GAME
 
 
+//  FUNCTION TO SET MUSIC IN GAME
+
+ function setMusicInGame(){
+     music.pause()
+  if(musicOnOff.textContent == "Music off"){
+      forestSound.pause()
+      }
+  else if(musicOnOff.textContent == "Music on"){
+     forestSound.play()
+     forestSound.volume = 0.2
+     
+     document.addEventListener("visibilitychange", () => { 
+
+    if(document.hidden) {
+
+         forestSound.pause()
+         } 
+        
+         else{
+            forestSound.play() 
+              } 
+         });
+     
+     }
+   }
+ 
+// END FUNCTION setMusicInGame
+ 
+ 
+ 
+
+
+        
+        
+//  FUNCTION GAME PAUSE 
+ 
+function pauseGame(){
+   if(paused == false){
+       paused = true
+     } else if(paused == true){
+                 paused = false       
+    }
+ }
+
+// END FUNCTION pauseGame
+
+
+
+
+//  FUNCTION START GAME 
+
+
+
+
+function startGame(){
+  
+  document.addEventListener("click",startExit)
+  
+  function startExit(event){
+      if(event.target === start || event.target === pStart){
+       
+       endGame = false
+         
+       if(endGame == false){  
+                  
+          menu.style.display = "none"
+          canvas.style.display = "block" 
+             
+document.addEventListener("click",moveSnake)
+  document.removeEventListener("click",funcColor)
+     
+    init()     
+    randomFood() 
+    paused = false
+    setMusicInGame()  
+    setNumberToInterval()                   
+    gameLoop()                             
+    }   
+         
+    else if(endGame == true){        
+      menu.style.display = "block"
+      canvas.style.display = "none" 
+      gameOver.style.display = "none"  
+ 
+document.removeEventListener("click",moveSnake)     
+        document.addEventListener("click",funcColor)       
+                    
+         } 
+       }
+     }  
+  }
+// END FUNCTION startGame   
+ 
+  
+
+ //  MAIN FUNCTION
+   function gameLoop(){
+   
+      moveBodyInRightTimeUp() 
+      moveBodyInRightTimeRight()
+      moveBodyInRightTimeDown()
+      moveBodyInRightTimeLeft()
+      
+      position.x += velocity.x
+      position.y += velocity.y
+ 
+          
+                
+//  GAMEBOARD     
+    
+ctx.fillStyle = backgroundColorInGame
+
+ctx.fillRect(0,0,canvas.width,canvas.height)
+ 
+ctx.fill()
+  
+// GAMEBOARD END  
+   
+// SNAKE BODY 
+
+for(let cell of snake){ 
+
+ctx.fillStyle = snakeColorInGame 
+
+ctx.fillRect(cell.x,cell.y,snakeSize,snakeSize) 
+
+} 
+
+// SNAKE BODY END
+   
+     moveTail()   
+     afterHead()
+     roundCorner()
+     drawRandomFruit()
+     
+ 
+ // SNAKE HEAD
+
+ctx.fillStyle = backgroundColorInGame
+
+ctx.fillRect(snake[snake.length-1].x,snake[snake.length-1].y,snakeSize,snakeSize)
+
+ctx.drawImage(snakeDirection,snake[snake.length-1].x,snake[snake.length-1].y,snakeSize,snakeSize)
+
+// END SNAKE HEAD
+
 //  DRAW FRUIT
 
 ctx.drawImage(drawFruit,food.x,food.y,snakeSize,snakeSize)  
-
-
-//  SNAKE IS OVER GAME AREA  
-  
- function snakeOver(){
-     if(snake[snake.length-1].x > canvas.width-snakeSize || snake[snake.length-1].x < 0|| snake[snake.length-1].y > canvas.height-snakeSize || snake[snake.length-1].y < 0){
-         
-         if(scoreNumber > localStorage.getItem("highScoreKey",scoreNumber)){
-                 localStorage.setItem("highScoreKey",scoreNumber)
-highScore.textContent = localStorage.highScoreKey
-         }                
-         
-         if(musicOnOff.textContent == "Music off"){
-             music.pause()
-             forestSound.pause() 
-         } 
-         else if(musicOnOff.textContent == "Music on"){             
-             forestSound.pause() 
-             music.play()
-            } 
-     if(soundOnOff.textContent == "Sound FX on"){     
-       hitWall.play()
-       hitWall.volume = 0.05      
-                    
-       }
-       else if(soundOnOff.textContent == "Sound FX off"){
-           hitWall.pause()
-      }           
-                                             
-         scoreNumber = 0
-         score.textContent = scoreNumber                                                                                                                                                                    
-         gameOver.style.display = "flex";
-         
-      
-   anime.timeline({
-            loop: false
-            }) 
-         
-         .add({ 
-         targets: '.ml15 .word', 
-         scale: [14,1], 
-         opacity: [0,1], 
-         easing: "easeOutCirc", 
-         duration: 800, 
-         delay: (el, i) => 800 * i })
-         .add({ 
-         targets: '.ml15', 
-         opacity: 0, 
-         duration: 1000, 
-         easing: "easeOutExpo", 
-         delay: 1000 
-         });
-         
-        
-         
-         canvas.style.display = "block" 
-         paused = true
-         
-     setTimeout("menu.style.display = 'block';gameOver.style.display = 'none';canvas.style.display = 'none';   ",2000)
-
-document.removeEventListener("click",moveSnake)                           
-      document.addEventListener("click",funcColor) 
-       
-        endGame = true;                               
-        init();
-         }
-       }
-
-//END METHOD snakeOver
-
-
-//  SNAKE EAT FOOD    
-   
-    function snakeEatFood(){
-     if(food.x == position.x && food.y == position.y){
-       
-//       snake.splice(15,0,snake[1])
-                   
-       addNewBlockToSnake = true
-       randomFood()  
-       scoreNumber++;
-       
-
-       anime({
-       targets: '#scoreValue', 
-       scale: [2,1], 
-       opacity: [0,1],  
-       rotateZ: [-90,0],
-       easing: "easeInOutSine", 
-       duration: 500, 
-       delay: (el, i) => 100*i 
-       });
-
-   
-
-      
-    
-       score.textContent = scoreNumber  
-       if(soundOnOff.textContent == "Sound FX on"){
-       appleSound.pause()
-       appleSound.currentTime = 0;
-       appleSound.play()
-       appleSound.volume = 0.05
-       }
-       else if(soundOnOff.textContent == "Sound FX off"){
-           appleSound.pause()
-           }      
-         }
-       } 
-
-// END METHOD snakeEatFood
-
-//  SNAKE EAT SNAKE
- function snakeInSnake(){
- 
-   if(velocity.x || velocity.y){     
-      
-     for(let cell of snake){
-     
-       if(cell.x == position.x && cell.y == position.y){           
-        
-                          
-      if(musicOnOff.textContent == "Music off"){
-          music.pause()
-          forestSound.pause() 
-         } 
-         else if(musicOnOff.textContent == "Music on"){
-          music.play()
-          forestSound.pause() 
-         }               
-      
-      if(soundOnOff.textContent == "Sound FX on"){     
-       hitSnake.play()
-       hitSnake.volume = 0.05      
-                    
-       }
-       else if(soundOnOff.textContent == "Sound FX off"){
-           hitSnake.pause()
-      }           
-       
-     if(scoreNumber > localStorage.getItem("highScoreKey",scoreNumber)){
-        localStorage.setItem("highScoreKey",scoreNumber)
-highScore.textContent = localStorage.highScoreKey
-             
-      }   
- 
-         scoreNumber = 0
-         score.textContent = scoreNumber                                                                                                                                                                    
-         gameOver.style.display = "flex"
-         canvas.style.display = "block" 
-       
-         
-     setTimeout("menu.style.display = 'block';gameOver.style.display = 'none';canvas.style.display = 'none'; ",2000)    
-         
-document.removeEventListener("click",moveSnake)                          
-      document.addEventListener("click",funcColor)           
-       
-                      
-     endGame = true
-     init()  
-              }                                                                            
-            }                                                                                                    
-                         
-          snake.push({...position})                              
-
-
-// if snake eat fruit,will be longer
-
-
-   if(addNewBlockToSnake == true){
-          
-      setTimeout(()=>{
-           
-      for(let i = 0; i < 10;i++){
-           
-          snake.unshift()         
-          } 
-          addNewBlockToSnake = false
-          },intervalTime*10)                      
-        } 
-       
-        else{
-          snake.shift()   
-        }                                                                                                                                                                                                                                                                    
-      }        
-    }   
-                                                                
-// END METHOD snakeInSnake     
                                                                               
+// DRAW FRUIT END
+
      snakeEatFood()          
      snakeOver()
-     snakeInSnake()
-   
-  }
+     snakeInSnake()   
+     }
   
 
     startGame()          
