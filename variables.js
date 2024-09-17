@@ -43,7 +43,7 @@ document.addEventListener("visibilitychange", () => {
  
  const cherry = new Image()
 
- cherry.src ="pics/cherry.png" 
+ cherry.src ="...pics/cherry.png" 
   
  
 
@@ -51,16 +51,16 @@ document.addEventListener("visibilitychange", () => {
  
  const apple = new Image()
 
- apple.src = "pics/apple.png"
+ apple.src = "...pics/apple.png"
  
  const watterMelon = new Image()
 
- watterMelon.src = "pics/watterMelon.png"
+ watterMelon.src = "...pics/watterMelon.png"
  
  
  const strawberry = new Image()
 
- strawberry.src = "pics/strawberry.png"
+ strawberry.src = "...pics/strawberry.png"
  
  let randomFruit = null 
  
