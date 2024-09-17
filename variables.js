@@ -43,7 +43,7 @@ document.addEventListener("visibilitychange", () => {
  
  const cherry = new Image()
 
- cherry.src = "/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/images/cherry.png" 
+ cherry.src ="pics/cherry.png" 
   
  
 
@@ -51,38 +51,38 @@ document.addEventListener("visibilitychange", () => {
  
  const apple = new Image()
 
- apple.src = "/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/images/apple.png"
+ apple.src = "pics/apple.png"
  
  const watterMelon = new Image()
 
- watterMelon.src = "/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/images/watterMelon.png"
+ watterMelon.src = "pics/watterMelon.png"
  
  
  const strawberry = new Image()
 
- strawberry.src = "/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/images/strawberry.png"
+ strawberry.src = "pics/strawberry.png"
  
  let randomFruit = null 
  
  const snakeSkin = new Image()
 
- snakeSkin.src = "/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/images/skin2.png"
+ snakeSkin.src = "pics/skin2.png"
  
  const snakeHeadRight = new Image() 
  
- snakeHeadRight.src = "/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/images/snakeHeadRight.png"
+ snakeHeadRight.src = "pics/snakeHeadRight.png"
  
  const snakeHeadUp = new Image()
  
- snakeHeadUp.src = "/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/images/snakeHeadUp.png"
+ snakeHeadUp.src = "pics/snakeHeadUp.png"
  
  const snakeHeadLeft = new Image()
   
- snakeHeadLeft.src = "/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/images/snakeHeadLeft.png" 
+ snakeHeadLeft.src = "pics/snakeHeadLeft.png" 
   
  const snakeHeadDown = new Image() 
  
- snakeHeadDown.src = "/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/images/snakeHeadDown.png"
+ snakeHeadDown.src = "pics/snakeHeadDown.png"
  
   
 let butterFly = document.querySelector("#butterFly") 
