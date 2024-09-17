@@ -1,0 +1,153 @@
+
+
+!<DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="ScreenOrientation" content="autoRotate:disabled">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
+     <link rel="preload" href="snake.css" as="style" /> 
+    
+    <link rel="stylesheet" type="text/css" href="snake.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+    
+
+
+ 
+    
+    <title>Snake</title>
+   
+</head>
+<body>
+ 
+ 
+
+ 
+   
+ <div id="preload">
+    <span class="loader"></span> 
+ </div>  
+        
+ <audio id="soundForest" autoplay  src="/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/images/forest.mp3" type="audio/mpeg">  
+ </audio>
+ 
+ <audio id="soundApple" autoplay src="/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/images/eatFruit.mp3" type="audio/mpeg">  
+ </audio>
+ 
+ <audio id="music" autoplay src="/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/images/musicMenu.mp3" type="audio/mpeg">  
+ </audio>
+ 
+ <audio id="chooseMenu" autoplay src="/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/images/chooseMenu.mp3" type="audio/mpeg">  
+ </audio>
+ 
+ <audio id="hitWall" autoplay src="/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/images/hitWall.mp3" type="audio/mpeg">  
+ </audio>
+ 
+ <audio id="hitSnake" autoplay src="/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/images/hitSnake.mp3" type="audio/mpeg">  
+ </audio>
+ 
+ 
+
+                        
+    <!--   CONTAINER -->
+    
+   <div id="container">
+      <img id="butterFly" src="/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/images/butterFly.png"> 
+    <!-- HEADER LAYOUT -->
+    
+     <div id="header-layout">
+     <span id="centerScore">
+      <span id="highScoreText">Best score:</span>      
+      <span id="highScoreValue">0</span>      
+      <span id="gamerName"></span>
+      <span id="scoreText">Your score:</span>      
+      <span id="scoreValue">0</span>   
+      </span>   
+     </div>
+    <div id="exit">
+        <p id="pExit">Exit</p>
+    </div>
+    <!--   HEADER LAYOUT END --> 
+    <!--   INTRO -->
+      <span id="woodBorder">
+       <span class="ml2" id="introduction" width="88%" height="86.7%">
+        <p>Snake &nbsp by &nbsp KUCKO</p>              
+       </span>
+       </span>
+    <!--   INTRO END -->
+    
+    <!--   GAME MENU -->
+    <span id="menu">     
+     <div id="menuTable">                                
+      <span id="speed">
+       <span id="speedWord">Speed &nbsp 
+        <span id="speedNumber">        
+        </span>
+       </span>                      
+     </span>     
+     <p id="backGroundPlayground">    
+       Background - white             
+     </p>          
+     
+     <p id="musicMenu">
+      <span id="musicOnOff">Music off</span> 
+     </p>     
+     <p id="soundFx">
+      <span id="soundOnOff">Sound FX off</span> 
+     </p>   
+      <p id="vibration">
+      
+      <span id="vibrationOnOff">Vibration on</span> 
+      </span>
+     </p>     
+     <p id="pressStartToPlay">
+         Press start to play
+     </p>     
+    </div> 
+   </span>
+    <!--   GAME MENU END -->
+    
+    <!--   GAME   -->
+     <span id="boardBorder">
+       <canvas id="playground" width="3600" height="3600"></canvas>
+     </span>     
+     <span id="gameOver">           
+        <h1 class="ml15"> 
+          <span class="word">Game</span> 
+          <span class="word">Over</span> 
+        </h1>      
+     </span>                                                    
+     <div id="food"></div>                                
+    <!--   GAME END --> 
+    <!--   CONTROLS -->  
+     <div id="controls">
+       <div  id="start">           
+         <p  id="pStart">start</p>
+       </div>
+       <div onclick="pauseGame()" id="pause">pause
+       </div>
+       <div id="control-up" >       
+       </div>
+       <div id="control-down">         
+       </div>
+       <div id="control-left">         
+       </div>
+       <div id="control-right">         
+       </div>
+    </div>    
+    <!--   CONTROLS END -->
+  </div>    
+  <script src="/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/images/variables.js"></script>
+    
+   <script src="/storage/emulated/0/Android/data/com.teejay.trebedit/files/TrebEdit user files/images/snakeMethods.js"></script>
+    
+   <script src="snake.js"></script> 
+   <script>
+      var textWrapper = document.querySelector('.ml2'); textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>"); anime.timeline({loop: false}) .add({ targets: '.ml2 .letter', scale: [4,1], opacity: [0,1], translateZ: 0, easing: "easeInExpo", duration: 750, delay: (el, i) => 100*i }).add({ targets: '.ml2', opacity: 0, duration: 500, easing: "easeInExpo", delay: 500 }); 
+        </script>
+ 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+ 
+  
+</body>
+</html>
